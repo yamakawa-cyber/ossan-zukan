@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="世界地図 ─ おっさん、人生ひと段落したので異世界で魔王を始めます ─ 世界図鑑">
+<meta property="og:description" content="世界全図・エルデシア大陸図・グラザ周辺図。">
+<meta property="og:url" content="https://yamakawa-cyber.github.io/ossan-zukan/map.html">
+<meta property="og:image" content="https://yamakawa-cyber.github.io/ossan-zukan/img/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="世界全図・エルデシア大陸図・グラザ周辺図。">
+<title>世界地図 ─ 魔王図鑑</title>
+<style>
+:root{
+  --paper:#fbfaf7; --ink:#15202c; --ink-2:#3d4a58; --muted:#71808f; --faint:#9aa6b2;
+  --gold:#9a7b32; --hair:#e3ddd0; --hair-2:#d3cab6;
+  --serif:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP","MS PMincho",serif;
+  --sans:"Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans JP","Meiryo",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;
+  -webkit-font-smoothing:antialiased}
+
+.hero{padding:52px 24px 30px;text-align:center;background:linear-gradient(180deg,#fff,var(--paper));
+  border-bottom:1px solid var(--hair)}
+.hero h1{font-family:var(--serif);font-size:clamp(26px,4.4vw,40px);letter-spacing:.24em;
+  text-indent:.24em;font-weight:600}
+.hero .rule{width:min(280px,60%);height:1px;margin:20px auto 14px;position:relative;
+  background:linear-gradient(90deg,transparent,var(--hair-2) 20%,var(--hair-2) 80%,transparent)}
+.hero .rule::after{content:"◆";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:7px;color:var(--gold);background:var(--paper);padding:0 10px}
+.hero .sub{font-family:var(--serif);font-size:12px;letter-spacing:.3em;text-indent:.3em;color:var(--gold)}
+
+.navbar{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.92);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.navbar-in{max-width:1240px;margin:0 auto;padding:11px 24px;display:flex;gap:2px;
+  align-items:center;justify-content:center;flex-wrap:wrap}
+.tab{position:relative;cursor:pointer;background:none;border:0;font-family:var(--serif);
+  font-size:14px;letter-spacing:.16em;text-indent:.16em;padding:9px 18px 11px;color:var(--faint);
+  transition:color .2s var(--ease)}
+.tab:hover,.tab.active{color:var(--ink)}
+.tab::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;background:var(--gold);
+  transform:scaleX(0);transition:transform .3s var(--ease)}
+.tab.active::after{transform:scaleX(1)}
+
+.stage{max-width:1320px;margin:0 auto;padding:30px 24px 70px}
+.panel{display:none}
+.panel.on{display:block}
+.frame{background:#fdfcf8;border:1px solid var(--hair-2);
+  box-shadow:0 2px 4px rgba(35,28,14,.05),0 12px 34px rgba(35,28,14,.08);position:relative;padding:14px}
+.frame::after{content:"";position:absolute;inset:6px;border:1px solid var(--hair);pointer-events:none}
+svg.map{display:block;width:100%;height:auto}
+
+.cap{margin-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding-top:14px;border-top:1px solid var(--hair)}
+.cap h2{font-family:var(--serif);font-size:17px;letter-spacing:.16em}
+.cap p{font-size:12.5px;color:var(--muted);max-width:660px}
+
+.legend{margin-top:26px;display:grid;gap:10px 26px;
+  grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  padding:18px 20px;background:#fff;border:1px solid var(--hair)}
+.legend .li{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-2)}
+.legend .sw{width:26px;height:14px;flex:none;border:1px solid var(--hair-2)}
+
+.todo{margin-top:22px;padding:16px 20px;background:#fffdf6;border:1px solid #e6dcbe;font-size:12.5px;color:#6d6047}
+.todo b{color:#8a6f28}
+
+footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-size:10.5px;
+  letter-spacing:.28em;text-indent:.28em;color:var(--faint);border-top:1px solid var(--hair);background:#fff}
+
+.t-world{font-family:var(--serif);font-size:26px;letter-spacing:.42em;fill:#5f5748}
+.t-region{font-family:var(--serif);font-size:21px;letter-spacing:.34em;fill:#6d6047}
+.t-region-s{font-family:var(--serif);font-size:15px;letter-spacing:.28em;fill:#7d715a}
+.t-city{font-family:var(--serif);font-size:14px;fill:#22303f}
+.t-city-b{font-family:var(--serif);font-size:17px;fill:#15202c;letter-spacing:.06em}
+.t-small{font-family:var(--serif);font-size:11.5px;fill:#57646f}
+.t-sea{font-family:var(--serif);font-size:18px;letter-spacing:.4em;fill:#8ba3b5;font-style:italic}
+.t-note{font-family:var(--serif);font-size:10.5px;fill:#8a7f6b;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>世界地図</h1>
+  <div class="rule"></div>
+  <div class="sub">おっさん、人生ひと段落したので異世界で魔王を始めます</div>
+</section>
+
+<nav class="navbar"><div class="navbar-in">
+  <button class="tab active" data-p="globe">世 界 全 図</button>
+  <button class="tab" data-p="world">エルデシア大陸図</button>
+  <button class="tab" data-p="graza">グラザ周辺図</button>
+  <a class="tab" href="index.html" style="text-decoration:none">図 鑑</a>
+  <a class="tab" href="episodes.html" style="text-decoration:none">各話まとめ</a>
+</div></nav>
+
+<div class="stage">
+
+<!-- ══════════════════ ① 世界全図 ══════════════════ -->
+<section class="panel on" id="p-globe">
+  <div class="frame">
+  <svg class="map" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#cddfeb"/><stop offset="50%" stop-color="#bed5e5"/>
+        <stop offset="100%" stop-color="#c8dbe8"/>
+      </linearGradient>
+      <pattern id="gLand" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="#a89a78" stroke-width="1" opacity=".16"/>
+      </pattern>
+      <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+        <path d="M80 0 H0 V80" fill="none" stroke="#b9cddb" stroke-width=".8" opacity=".38"/>
+      </pattern>
+      <!-- 生態帯の境目をぼかす -->
+      <filter id="biome" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="14"/>
+      </filter>
+    </defs>
+
+    <!-- 海と経緯線 -->
+    <rect width="1600" height="1200" fill="url(#ocean)"/>
+    <rect width="1600" height="1200" fill="url(#grid)"/>
+    <!-- 中央の基準線 -->
+    <g stroke="#a8c0d2" stroke-width="1.1" opacity=".7">
+      <line x1="0" y1="600" x2="1600" y2="600" stroke-dasharray="12 8"/>
+      <line x1="800" y1="0" x2="800" y2="1200" stroke-dasharray="12 8"/>
+    </g>
+
+    <!-- 大陸のシルエット定義（海岸線はここで一元管理） -->
+    <defs>
+      <!-- 北方大陸：オーストラリア型。北に大きな湾と半島、南に広い入り江 -->
+      <path id="s-north" d="M470 190
+        L482 172 L496 152 L512 142 L528 130 L546 126 L562 121
+        L580 116 L598 112 L616 110 L634 116 L650 124
+        L658 108 L668 92 L676 106 L684 120
+        L698 113 L716 110 L729 120 L742 132
+        L754 125 L768 117 L774 139 L780 158 L790 168 L802 178
+        L812 166 L822 152 L830 133 L840 115 L848 96 L855 80
+        L862 96 L868 112 L874 128 L882 142 L894 148 L908 152
+        L924 147 L942 146 L956 154 L970 166 L984 176 L998 188
+        L1012 196 L1024 208 L1034 222 L1042 238 L1048 254 L1051 270
+        L1044 284 L1036 298 L1024 308 L1010 316 L994 322 L978 326
+        L960 330 L940 332 L920 330 L900 326 L882 332 L864 336
+        L844 334 L826 330 L808 336 L790 340 L770 336 L752 330
+        L734 336 L716 338 L698 332 L680 326 L662 332 L646 336
+        L628 330 L610 326 L592 322 L574 318 L556 322 L540 326
+        L522 322 L506 316 L490 306 L478 296 L468 282 L458 266
+        L452 250 L450 236 L456 220 L462 206 Z"/>
+      <clipPath id="clip-north"><use href="#s-north"/></clipPath>
+      <!-- タスマニア相当の島 -->
+      <path id="s-north-isle" d="M896 366 L922 358 L936 378 L926 400 L900 396 L888 380 Z"/>
+
+      <!-- 北東大陸：ニュージーランド型。北東と南西に細長い二島が並ぶ -->
+      <path id="s-ne-north" d="M1352 244
+        L1382 258 L1398 288 L1392 320 L1370 344
+        L1344 336 L1330 310 L1318 282 L1326 256 Z"/>
+      <path id="s-ne-south" d="M1306 364
+        L1334 380 L1350 412 L1348 446 L1326 472
+        L1298 462 L1272 436 L1246 412 L1224 388 L1240 368 L1272 360 Z"/>
+      <path id="s-ne-isle" d="M1212 494 L1234 488 L1244 504 L1226 514 L1208 508 Z"/>
+
+      <!-- エルデシア大陸：南北に長い。東にガルドの張り出し、西にシルヴェーンの張り出し、南西に半島 -->
+      <path id="s-erdesia" d="M778 492
+        L796 490 L814 492 L832 498 L848 504 L862 512
+        L874 507 L886 516 L896 528 L906 536
+        L916 546 L924 558 L930 570 L934 582
+        L942 592 L948 604 L950 616
+        L962 626 L972 638 L978 652 L983 666
+        L986 680 L982 694 L976 706 L968 716
+        L972 728 L974 742 L970 756
+        L964 768 L968 782 L972 796
+        L968 812 L960 826 L962 840
+        L958 856 L950 870 L952 884
+        L946 900 L938 914 L940 928
+        L932 944 L922 958 L916 972
+        L908 986 L898 1000 L890 1014
+        L878 1028 L866 1042 L852 1054
+        L838 1066 L822 1076 L806 1086
+        L788 1092 L770 1096 L752 1094
+        L734 1090 L718 1082 L704 1072
+        L692 1060 L682 1046 L676 1032
+        L658 1040 L640 1050 L622 1060 L606 1070 L594 1080
+        L602 1090 L618 1086 L636 1078 L652 1068 L666 1056
+        L670 1040 L664 1024 L660 1008
+        L654 992 L650 976 L652 960
+        L646 944 L640 928 L642 912
+        L636 896 L632 880 L634 864
+        L630 848 L626 832 L630 816
+        L624 800 L618 786 L620 772
+        L610 760 L600 748 L594 734
+        L590 718 L594 702 L602 688
+        L612 676 L624 666 L634 658
+        L642 646 L644 632
+        L648 618 L654 604 L658 590
+        L664 576 L672 562 L682 548
+        L694 534 L708 522 L722 512
+        L738 504 L756 496 Z"/>
+
+      <!-- ガルディア大陸：アフリカ型。北が広く、南へ細る。西岸に大きな湾、北東に角状の岬 -->
+      <path id="s-galdia" d="M118 706
+        L134 692 L150 680 L166 672 L184 664 L204 658 L224 654
+        L246 650 L266 648 L286 648 L306 651 L326 654 L344 656
+        L362 652 L380 649 L398 650 L416 656 L430 662 L442 668
+        L454 678 L464 688 L470 696 L476 710 L481 720 L484 730
+        L491 742 L497 750 L502 758
+        L510 766 L520 776 L526 787 L530 798 L518 807 L506 816
+        L496 810 L486 802 L480 816 L474 832 L480 848 L486 866
+        L494 882 L502 900 L508 918 L514 938 L522 956 L530 976
+        L539 994 L548 1014 L558 1030 L568 1048 L572 1064 L574 1078
+        L562 1082 L548 1084 L535 1070 L522 1054 L510 1040 L498 1024
+        L484 1040 L470 1058 L454 1074 L438 1092
+        L422 1108 L404 1124 L387 1137 L368 1148 L350 1154 L332 1158
+        L315 1155 L298 1150 L288 1137 L280 1122 L274 1106 L270 1088
+        L259 1074 L248 1060 L235 1046 L222 1030 L212 1013 L204 994
+        L194 978 L184 960 L192 943 L200 928 L214 915 L228 902
+        L238 888 L248 874 L233 862 L218 852 L202 846 L186 840
+        L172 831 L158 822 L146 808 L136 794 L127 777 L118 760
+        L114 744 L112 728 Z"/>
+      <clipPath id="clip-galdia"><use href="#s-galdia"/></clipPath>
+      <!-- マダガスカル相当の島 -->
+      <path id="s-gal-isle" d="M486 1150 L512 1142 L526 1174 L520 1212
+        L498 1230 L480 1206 L474 1174 Z"/>
+
+      <!-- 東方諸島：地中海／赤道諸島型。大小の島が弧を描いて散る -->
+      <path id="s-e1" d="M1200 700 L1268 676 L1320 706 L1330 754 L1296 790 L1240 796 L1198 764 L1186 728 Z"/>
+      <path id="s-e2" d="M1392 618 L1424 606 L1444 636 L1448 682 L1430 714 L1404 700 L1394 662 Z"/>
+      <path id="s-e3" d="M1246 872 L1300 860 L1352 868 L1390 884 L1360 902 L1306 896 L1256 890 Z"/>
+      <path id="s-e4" d="M1454 780 L1484 772 L1502 796 L1496 826 L1468 838 L1446 818 Z"/>
+      <path id="s-e5" d="M1176 936 L1206 926 L1224 948 L1210 970 L1182 964 Z"/>
+
+      <clipPath id="clip-erdesia"><use href="#s-erdesia"/></clipPath>
+    </defs>
+
+    <!-- ══════ 沿岸の浅瀬（全大陸共通・陸より先に敷く） ══════ -->
+    <g fill="none" stroke-linejoin="round">
+      <g stroke="#e4f0f6" stroke-width="24" opacity=".75">
+        <use href="#s-north"/><use href="#s-north-isle"/>
+        <use href="#s-ne-north"/><use href="#s-ne-south"/><use href="#s-ne-isle"/>
+        <use href="#s-erdesia"/><use href="#s-galdia"/><use href="#s-gal-isle"/>
+        <use href="#s-e1"/><use href="#s-e2"/><use href="#s-e3"/><use href="#s-e4"/><use href="#s-e5"/>
+      </g>
+      <g stroke="#f0f7fa" stroke-width="11" opacity=".85">
+        <use href="#s-north"/><use href="#s-north-isle"/>
+        <use href="#s-ne-north"/><use href="#s-ne-south"/><use href="#s-ne-isle"/>
+        <use href="#s-erdesia"/><use href="#s-galdia"/><use href="#s-gal-isle"/>
+        <use href="#s-e1"/><use href="#s-e2"/><use href="#s-e3"/><use href="#s-e4"/><use href="#s-e5"/>
+      </g>
+    </g>
+
+    <!-- ══════ 北方大陸（オーストラリア型） ══════ -->
+    <g>
+      <use href="#s-north" fill="#f2f0e6"/>
+      <!-- 地形帯 -->
+      <g clip-path="url(#clip-north)" filter="url(#biome)" opacity=".85">
+        <path d="M700 180 L860 172 L950 210 L960 280 L880 310 L740 300 L680 250 Z" fill="#f0e4c4"/>
+        <path d="M960 180 L1060 190 L1070 320 L950 330 L930 260 Z" fill="#dfeada"/>
+        <path d="M540 130 L700 120 L740 170 L620 200 L520 190 Z" fill="#dfeada"/>
+        <path d="M470 250 L560 240 L600 300 L520 330 L450 290 Z" fill="#e9eeee"/>
+      </g>
+      <use href="#s-north" fill="url(#gLand)"/>
+      <!-- 内陸湖 -->
+      <g clip-path="url(#clip-north)">
+        <path d="M604 244 L636 236 L654 254 L640 274 L610 270 L596 258 Z"
+              fill="#dbe8f0" stroke="#9dbcd0" stroke-width="1.4"/>
+      </g>
+      <!-- 河川 -->
+      <g clip-path="url(#clip-north)" fill="none" stroke="#9dbcd0" stroke-width="1.6" stroke-linecap="round">
+        <path d="M654 254 L700 268 L742 290 L780 322"/>
+        <path d="M880 250 L920 270 L950 300 L968 328"/>
+        <path d="M792 234 L820 208 L840 176 L850 148"/>
+        <path d="M600 250 L556 260 L512 288 L488 310"/>
+      </g>
+      <use href="#s-north" fill="none" stroke="#5f6b74" stroke-width="2.2" stroke-linejoin="round"/>
+      <use href="#s-north-isle" fill="#f2f0e6" stroke="#5f6b74" stroke-width="1.8" stroke-linejoin="round"/>
+      <g stroke="#7d7568" stroke-width="1.4" fill="#eae5d8" stroke-linejoin="round" opacity=".9">
+        <path d="M576 248 l16-22 16 22 z"/><path d="M614 262 l18-24 18 24 z"/>
+        <path d="M660 244 l16-22 16 22 z"/><path d="M700 260 l18-24 18 24 z"/>
+        <path d="M746 242 l16-22 16 22 z"/><path d="M786 256 l18-24 18 24 z"/>
+        <path d="M834 244 l16-22 16 22 z"/><path d="M872 258 l18-24 18 24 z"/>
+      </g>
+      <text class="t-region" x="700" y="200" text-anchor="middle" opacity=".85">北 方 大 陸</text>
+      <text class="t-small" x="700" y="224" text-anchor="middle" opacity=".8">※ 名称未設定</text>
+    </g>
+
+    <!-- ══════ 北東大陸（ニュージーランド型・二島） ══════ -->
+    <g>
+      <use href="#s-ne-north" fill="#f2f0e6" stroke="#5f6b74" stroke-width="2.2" stroke-linejoin="round"/>
+      <use href="#s-ne-north" fill="url(#gLand)"/>
+      <use href="#s-ne-south" fill="#f2f0e6" stroke="#5f6b74" stroke-width="2.2" stroke-linejoin="round"/>
+      <use href="#s-ne-south" fill="url(#gLand)"/>
+      <use href="#s-ne-isle" fill="#f2f0e6" stroke="#5f6b74" stroke-width="1.6" stroke-linejoin="round"/>
+      <g stroke="#7d7568" stroke-width="1.3" fill="#eae5d8" stroke-linejoin="round" opacity=".9">
+        <path d="M1338 288 l13-18 13 18 z"/>
+        <path d="M1276 412 l13-18 13 18 z"/><path d="M1302 428 l15-20 15 20 z"/>
+      </g>
+      <text class="t-region-s" x="1466" y="368" text-anchor="middle" opacity=".85">北 東 大 陸</text>
+      <text class="t-small" x="1466" y="392" text-anchor="middle" opacity=".8">※ 名称未設定</text>
+    </g>
+
+    <!-- ══════ エルデシア大陸 ══════ -->
+    <g>
+      <use id="erdesia" href="#s-erdesia" fill="#f7f3e9"/>
+      <!-- 三層の淡色（クリップで帯状に） -->
+      <g clip-path="url(#clip-erdesia)">
+        <rect x="600" y="470" width="440" height="215" fill="#efeaf2"/>
+        <rect x="600" y="685" width="440" height="215" fill="#f4efe0"/>
+        <rect x="600" y="900" width="440" height="230" fill="#f6ecec"/>
+        <g stroke="#8d8471" stroke-width="1.4" stroke-dasharray="7 5" opacity=".7">
+          <line x1="600" y1="685" x2="1040" y2="685"/>
+          <line x1="600" y1="900" x2="1040" y2="900"/>
+        </g>
+      </g>
+      <use href="#s-erdesia" fill="none" stroke="#4f5b64" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- 中央の山脈 -->
+      <g stroke="#6a625a" stroke-width="1.5" fill="#efeae0" stroke-linejoin="round">
+        <path d="M660 678 l15-20 15 20 z"/><path d="M694 686 l17-23 17 23 z"/>
+        <path d="M734 674 l15-20 15 20 z"/><path d="M770 684 l19-26 19 26 z"/>
+        <path d="M816 672 l15-20 15 20 z"/><path d="M852 682 l17-23 17 23 z"/>
+        <path d="M892 670 l15-20 15 20 z"/><path d="M928 680 l17-23 17 23 z"/>
+      </g>
+      <!-- 河川 -->
+      <g clip-path="url(#clip-erdesia)" fill="none" stroke="#9dbcd0" stroke-width="1.5" stroke-linecap="round">
+        <path d="M790 690 L800 740 L806 796 L800 852 L806 908 L816 960"/>
+        <path d="M900 686 L916 720 L928 758 L936 796"/>
+        <path d="M700 700 L688 740 L680 782 L672 820"/>
+        <path d="M806 908 L760 936 L716 968 L686 1000"/>
+      </g>
+    </g>
+
+    <!-- ══ 魔王城＝世界の中心 ══ -->
+    <g transform="translate(800,600)">
+      <circle r="42" fill="none" stroke="#9a7b32" stroke-width="1" opacity=".38"/>
+      <circle r="26" fill="none" stroke="#9a7b32" stroke-width="1" opacity=".55"/>
+      <g stroke="#9a7b32" stroke-width="1.1" opacity=".7">
+        <line x1="-52" y1="0" x2="-32" y2="0"/><line x1="32" y1="0" x2="52" y2="0"/>
+        <line x1="0" y1="-52" x2="0" y2="-32"/><line x1="0" y1="32" x2="0" y2="52"/>
+      </g>
+      <path d="M-13 9 v-17 h5 v-7 h5 v7 h4 v-7 h5 v7 h5 v17 z"
+            fill="#4a4152" stroke="#2e2836" stroke-width="1.5"/>
+    </g>
+    <text class="t-city-b" x="852" y="596" font-size="16">魔王城</text>
+    <text class="t-small" x="852" y="616" fill="#8a6f28">── 世界の中心 ──</text>
+
+    <text class="t-region" x="806" y="800" text-anchor="middle" opacity=".9">エルデシア大陸</text>
+    <text class="t-small" x="806" y="826" text-anchor="middle">北：デモニア高地／中央：中央回廊／南：アルセイド王国</text>
+    <circle cx="806" cy="868" r="5" fill="#9a7b32"/>
+    <text class="t-small" x="820" y="872">グラザ</text>
+
+    <!-- ══════ ガルディア大陸（アフリカ型） ══════ -->
+    <g>
+      <use href="#s-galdia" fill="#f2f0e6"/>
+      <!-- 地形帯：北の砂漠／中央の密林／南のサバンナ -->
+      <g clip-path="url(#clip-galdia)" filter="url(#biome)" opacity=".85">
+        <path d="M90 650 L530 640 L540 790 L110 802 Z" fill="#f0e4c4"/>
+        <path d="M140 828 L478 818 L490 962 L162 974 Z" fill="#dbe9d4"/>
+        <path d="M160 982 L488 970 L510 1124 L192 1136 Z" fill="#eeecd6"/>
+      </g>
+      <use href="#s-galdia" fill="url(#gLand)"/>
+      <!-- 大湖 -->
+      <g clip-path="url(#clip-galdia)">
+        <path d="M318 872 L348 864 L364 890 L358 924 L332 936 L310 916 L306 890 Z"
+              fill="#dbe8f0" stroke="#9dbcd0" stroke-width="1.5"/>
+      </g>
+      <!-- 河川：北流する大河と、西の湾へ注ぐ大河 -->
+      <g clip-path="url(#clip-galdia)" fill="none" stroke="#9dbcd0" stroke-width="1.8" stroke-linecap="round">
+        <path d="M340 866 L376 820 L410 776 L446 730 L470 700"/>
+        <path d="M420 800 L392 780 L364 764"/>
+        <path d="M310 900 L266 912 L226 926 L196 940"/>
+        <path d="M330 936 L336 990 L344 1046 L356 1098"/>
+        <path d="M240 1040 L286 1052 L330 1050"/>
+      </g>
+      <use href="#s-galdia" fill="none" stroke="#5f6b74" stroke-width="2.4" stroke-linejoin="round"/>
+      <use href="#s-gal-isle" fill="#f2f0e6" stroke="#5f6b74" stroke-width="1.8" stroke-linejoin="round"/>
+      <use href="#s-gal-isle" fill="url(#gLand)"/>
+      <!-- 沖の小島 -->
+      <g fill="#f2f0e6" stroke="#5f6b74" stroke-width="1.5" stroke-linejoin="round">
+        <path d="M74 664 L94 656 L102 674 L82 682 Z"/>
+        <path d="M148 890 L166 884 L172 900 L154 906 Z"/>
+        <path d="M334 1188 L352 1182 L358 1198 L340 1204 Z"/>
+      </g>
+      <!-- 内陸の山地 -->
+      <g stroke="#7d7568" stroke-width="1.4" fill="#eae5d8" stroke-linejoin="round" opacity=".9">
+        <path d="M196 726 l16-22 16 22 z"/><path d="M234 742 l18-24 18 24 z"/>
+        <path d="M278 722 l16-22 16 22 z"/><path d="M318 740 l18-24 18 24 z"/>
+        <path d="M362 720 l16-22 16 22 z"/>
+        <path d="M306 950 l16-22 16 22 z"/><path d="M344 966 l18-24 18 24 z"/>
+        <path d="M330 1046 l16-22 16 22 z"/>
+      </g>
+      <text class="t-region" x="288" y="812" text-anchor="middle" opacity=".9">ガルディア大陸</text>
+      <text class="t-small" x="288" y="838" text-anchor="middle">エルデシアとほぼ同じ広さ</text>
+      <text class="t-region-s" x="286" y="890" text-anchor="middle" opacity=".85">カルドレイン帝国</text>
+      <text class="t-small" x="286" y="914" text-anchor="middle">十五年前より台頭</text>
+    </g>
+
+    <!-- ══ 海峡（ここだけが近い） ══ -->
+    <g>
+      <g stroke="#6d8ba2" stroke-width="1.5" fill="none">
+        <path d="M572 1070 L594 1078" stroke-dasharray="5 4"/>
+        <path d="M570 1086 L592 1092" stroke-dasharray="5 4"/>
+      </g>
+      <path d="M498 1146 L570 1092" stroke="#8a6f28" stroke-width="1" fill="none"/>
+      <text class="t-small" x="494" y="1154" text-anchor="end" fill="#6d879b">海峡 ─ 対岸が目視できる近さ</text>
+      <!-- 両大陸が離れていることを示す注記 -->
+      <path d="M556 800 L636 792" stroke="#8ba3b5" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+      <text class="t-small" x="596" y="784" text-anchor="middle" fill="#7f96a8">この緯度では大きく離れている</text>
+    </g>
+
+    <!-- ══════ 東方諸島（地中海／赤道諸島型） ══════ -->
+    <g>
+      <g fill="#f2f0e6" stroke="#5f6b74" stroke-width="2.1" stroke-linejoin="round">
+        <use href="#s-e1"/><use href="#s-e2"/><use href="#s-e3"/><use href="#s-e4"/><use href="#s-e5"/>
+      </g>
+      <g fill="url(#gLand)">
+        <use href="#s-e1"/><use href="#s-e2"/><use href="#s-e3"/><use href="#s-e4"/><use href="#s-e5"/>
+      </g>
+      <g stroke="#7d7568" stroke-width="1.3" fill="#eae5d8" stroke-linejoin="round" opacity=".9">
+        <path d="M1226 736 l14-19 14 19 z"/><path d="M1256 750 l16-21 16 21 z"/>
+        <path d="M1290 732 l14-19 14 19 z"/>
+        <path d="M1408 656 l13-18 13 18 z"/>
+      </g>
+      <!-- 小島群（弧を描いて散る） -->
+      <g fill="#f2f0e6" stroke="#5f6b74" stroke-width="1.5" stroke-linejoin="round">
+        <path d="M1348 616 L1370 608 L1378 628 L1356 636 Z"/>
+        <path d="M1470 700 L1492 692 L1500 712 L1478 720 Z"/>
+        <path d="M1526 748 L1546 742 L1552 760 L1532 766 Z"/>
+        <path d="M1394 780 L1414 774 L1420 792 L1400 798 Z"/>
+        <path d="M1420 880 L1442 872 L1450 892 L1428 900 Z"/>
+        <path d="M1494 902 L1514 896 L1520 914 L1500 920 Z"/>
+        <path d="M1338 940 L1358 934 L1364 952 L1344 958 Z"/>
+        <path d="M1426 976 L1448 968 L1456 988 L1434 996 Z"/>
+        <path d="M1244 1000 L1264 994 L1270 1012 L1250 1018 Z"/>
+        <path d="M1320 1030 L1338 1024 L1344 1040 L1326 1046 Z"/>
+        <path d="M1516 1004 L1534 998 L1540 1014 L1522 1020 Z"/>
+      </g>
+      <text class="t-region-s" x="1258" y="646" text-anchor="middle" opacity=".9">東 方 の 島 国</text>
+      <text class="t-small" x="1258" y="670" text-anchor="middle" opacity=".8">※ 名称未設定</text>
+      <text class="t-region-s" x="1476" y="1062" text-anchor="middle" opacity=".85">東 方 諸 島</text>
+    </g>
+
+    <!-- ══ 詳細図の範囲 ══ -->
+    <g fill="none" stroke="#9a7b32" stroke-width="1.4" stroke-dasharray="8 5" opacity=".8">
+      <rect x="608" y="480" width="416" height="644"/>
+    </g>
+    <text class="t-note" x="1032" y="496" fill="#8a6f28">▶ エルデシア大陸図（詳細）</text>
+
+    <!-- ══ 海名 ══ -->
+    <text class="t-sea" x="240" y="330" text-anchor="middle">北 西 の 海</text>
+    <text class="t-sea" x="1140" y="150" text-anchor="middle">北 東 の 海</text>
+    <text class="t-sea" x="1088" y="1110" text-anchor="middle">南 東 の 海</text>
+    <text class="t-sea" x="128" y="1178" text-anchor="middle">南 の 海</text>
+    <text class="t-sea" x="1128" y="580" text-anchor="middle">東 の 海</text>
+
+    <!-- ══ 方位 ══ -->
+    <g transform="translate(126,1064)">
+      <circle r="52" fill="#fdfcf8" fill-opacity=".92" stroke="#c9bfa8" stroke-width="1"/>
+      <circle r="41" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <path d="M0 -43 L9 0 L0 43 L-9 0 Z" fill="#9a7b32"/>
+      <path d="M-43 0 L0 -8 L43 0 L0 8 Z" fill="#cdbb96"/>
+      <path d="M0 -43 L9 0 L0 0 Z" fill="#6d5622"/>
+      <text class="t-small" x="0" y="-56" text-anchor="middle" font-size="12">北</text>
+      <text class="t-small" x="0" y="66" text-anchor="middle" font-size="12">南</text>
+      <text class="t-small" x="-64" y="4" text-anchor="middle" font-size="12">西</text>
+      <text class="t-small" x="64" y="4" text-anchor="middle" font-size="12">東</text>
+    </g>
+
+    <!-- ══ タイトル ══ -->
+    <g transform="translate(1348,132)">
+      <rect x="-158" y="-72" width="316" height="144" fill="#fdfcf8" fill-opacity=".95"
+            stroke="#c9bfa8" stroke-width="1"/>
+      <rect x="-151" y="-65" width="302" height="130" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <text class="t-world" x="0" y="-16" text-anchor="middle">世 界 全 図</text>
+      <line x1="-96" y1="2" x2="96" y2="2" stroke="#d3cab6" stroke-width="1"/>
+      <text class="t-small" x="0" y="30" text-anchor="middle">魔王城を世界の中心とする</text>
+      <text class="t-note" x="0" y="54" text-anchor="middle">王 暦 三 八 四 年 ／ MAOU ZUKAN</text>
+    </g>
+  </svg>
+  </div>
+
+  <div class="cap">
+    <h2>世界全図</h2>
+    <p>魔王城を世界の中心に据えた全図。エルデシア大陸は中心よりやや南に横たわり、
+       その南西端は細い海峡を挟んでガルディア大陸の南東端と向かい合う。対岸が目視できるほどの近さ。
+       北にもうひとつの大陸、北東に中規模の大陸、東には島国と諸島が連なる。</p>
+  </div>
+
+  <div class="legend">
+    <div class="li"><span class="sw" style="background:#f7f3e9"></span>エルデシア大陸</div>
+    <div class="li"><span class="sw" style="background:#f2f0e6"></span>その他の大陸・島嶼</div>
+    <div class="li"><span class="sw" style="background:#efeaf2"></span>デモニア高地</div>
+    <div class="li"><span class="sw" style="background:#f4efe0"></span>中央回廊</div>
+    <div class="li"><span class="sw" style="background:#f6ecec"></span>アルセイド王国</div>
+    <div class="li"><span class="sw" style="background:#dde9f1"></span>海</div>
+  </div>
+
+  <div class="todo">
+    <b>未設定：</b>北方大陸／北東大陸／東方の島国・諸島の名称、および各地の勢力。
+    海の名称も仮です。決まり次第、地図に反映します。
+  </div>
+</section>
+
+<!-- ══════════════════ ② エルデシア大陸図 ══════════════════ -->
+<section class="panel" id="p-world">
+  <div class="frame">
+  <svg class="map" viewBox="0 0 1000 1360" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="hatchN" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="7" stroke="#8b7ba0" stroke-width="1" opacity=".26"/>
+      </pattern>
+      <pattern id="hatchS" width="7" height="7" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="7" stroke="#a08a5a" stroke-width="1" opacity=".22"/>
+      </pattern>
+      <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1" fill="#7f9a7a" opacity=".38"/>
+      </pattern>
+      <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#cddfeb"/><stop offset="100%" stop-color="#c2d7e5"/>
+      </linearGradient>
+    </defs>
+
+    <rect width="1000" height="1360" fill="url(#seaG)"/>
+    <g fill="none" stroke="#bcd2df" stroke-width="1" opacity=".55">
+      <path d="M418 34 C520 24 640 62 706 128 C778 200 796 320 812 430 C826 540 800 620 818 706
+               C834 796 796 880 748 952 C700 1024 640 1088 568 1140 C512 1182 468 1226 410 1252
+               C344 1282 268 1268 218 1226 C176 1190 158 1140 152 1088 C142 1006 158 934 146 862
+               C134 782 160 706 148 628 C136 546 166 470 156 392 C148 310 182 234 226 172
+               C274 104 344 46 418 34 Z"/>
+    </g>
+
+    <!-- 沿岸の浅瀬 -->
+    <defs><path id="coast-erd-OLD" d="M430 58
+         L452 48 L470 54 L486 46 L500 58 L516 44 L532 56
+         L546 40 L552 62 L558 84 L566 106 L574 124 L582 106 L588 82 L594 58 L602 38
+         L620 48 L638 42 L652 58 L668 50 L684 66 L700 78
+         L718 70 L736 84 L752 104 L762 126 L768 152
+         L756 172 L748 192 L742 216
+         L752 246 L744 286 L760 326 L750 366 L764 402
+         L800 412 L844 428 L882 456 L912 486
+         L948 512 L938 546 L962 574 L946 606 L958 636 L928 662
+         L900 676 L866 686 L830 694
+         L792 700 L756 712 L722 726 L692 742 L664 756
+         L672 782 L700 792 L732 796 L766 792 L800 796
+         L826 806 L846 822 L856 844
+         L850 872 L836 898 L818 922 L800 946 L784 972 L768 996
+         L748 1010 L724 1006 L700 1016 L682 1034
+         L692 1056 L712 1070 L730 1088
+         L714 1108 L692 1124 L668 1136
+         L642 1150 L614 1162 L586 1172 L556 1182 L524 1192 L492 1200
+         L458 1210 L424 1224 L390 1236 L356 1244
+         L322 1242 L290 1230 L262 1212 L236 1190 L218 1164 L208 1136
+         L188 1132 L168 1124 L148 1110 L130 1092 L118 1072
+         L136 1058 L158 1066 L178 1078 L196 1090
+         L192 1060 L188 1030 L198 1004
+         L222 980 L240 954 L220 930
+         L198 904 L190 874 L180 844
+         L166 816 L142 794 L152 766
+         L136 742 L106 724 L80 700
+         L58 672 L44 640 L40 606
+         L30 574 L48 540 L76 512
+         L106 492 L138 480 L164 466
+         L196 452 L232 440 L266 430 L288 420
+         L268 398 L234 392 L200 390 L172 392
+         L166 360 L176 330 L186 300
+         L200 268 L218 232 L242 196
+         L272 162 L306 132 L344 106 L382 84 L410 68 Z"/>
+
+      <!-- ★ エルデシア大陸 海岸線（唯一の定義。塗り・線・浅瀬・クリップが全部これを参照） -->
+      <!-- 構造（湾・半島・岬）を保ったまま、フラクタル分割で多スケールの粗さを与えた海岸線 -->
+      <path id="mainland" d="M430 58 L434 58 L437 57 L441 57 L444 58 L448 58 L451 59 L455 59 L458 59 L461 57 L464 55 L466 52 L469 49 L472 47 L475 45 L478 44 L482 44 L485 44 L487 43 L489 42 L492 41 L495 41 L497 40 L500 39 L502 37 L504 38 L507 39 L509 40 L512 41 L515 41 L517 42 L520 43 L522 44 L523 43 L525 42 L527 41 L529 40 L531 39 L532 37 L534 36 L536 35 L538 36 L540 36 L542 37 L544 38 L546 39 L548 40 L550 41 L552 42 L556 41 L559 40 L563 40 L566 39 L567 35 L569 32 L572 30 L575 27 L578 28 L581 30 L584 33 L587 35 L590 36 L594 37 L597 38 L600 40 L603 42 L606 45 L607 49 L609 52 L613 53 L616 54 L619 56 L622 58 L626 58 L629 59 L632 60 L636 61 L639 60 L643 60 L647 60 L650 60 L654 60 L657 61 L660 60 L663 59 L666 60 L669 61 L673 61 L676 61 L678 63 L681 65 L684 67 L687 68 L690 69 L693 71 L695 74 L698 76 L702 82 L707 87 L710 93 L713 99 L718 104 L723 109 L730 111 L736 114 L740 119 L743 125 L747 131 L751 136 L756 141 L762 145 L766 150 L770 156 L768 160 L766 165 L765 170 L763 174 L765 178 L766 183 L767 187 L767 192 L764 196 L761 199 L757 202 L754 205 L751 209 L748 212 L746 216 L744 220 L741 232 L738 244 L733 255 L728 266 L728 279 L726 291 L728 303 L730 315 L731 328 L732 340 L737 351 L742 362 L748 373 L753 384 L759 395 L766 404 L776 409 L787 412 L797 417 L807 424 L818 425 L829 427 L841 427 L852 425 L860 432 L870 438 L878 446 L885 454 L894 461 L901 470 L907 479 L914 488 L915 496 L918 503 L921 510 L923 518 L929 522 L935 528 L939 535 L944 541 L945 549 L947 556 L945 564 L945 572 L948 579 L953 586 L957 593 L960 600 L959 604 L957 608 L954 612 L952 616 L950 620 L949 624 L947 628 L945 632 L943 636 L942 640 L941 644 L940 649 L938 653 L936 657 L933 660 L930 664 L923 662 L915 661 L908 659 L901 656 L893 656 L886 654 L879 655 L872 658 L864 659 L857 661 L850 663 L842 665 L839 672 L834 678 L829 684 L824 690 L809 694 L793 696 L778 700 L763 702 L748 706 L733 708 L718 712 L704 719 L689 723 L674 727 L659 732 L644 738 L628 738 L613 736 L598 733 L582 732 L593 738 L605 743 L618 743 L631 744 L643 747 L655 750 L667 755 L678 760 L692 760 L705 759 L718 757 L731 757 L743 763 L754 770 L765 776 L776 784 L784 785 L791 786 L798 789 L805 792 L813 793 L821 793 L828 791 L836 790 L841 796 L846 802 L853 806 L859 810 L866 813 L874 815 L882 816 L890 816 L885 820 L881 824 L876 827 L871 831 L868 836 L865 841 L863 847 L860 852 L860 859 L859 865 L861 871 L862 877 L866 881 L870 886 L874 891 L878 896 L874 900 L871 905 L868 910 L865 915 L863 920 L860 925 L858 930 L857 936 L854 940 L851 945 L847 949 L842 953 L839 958 L835 962 L833 967 L830 972 L823 975 L817 978 L812 982 L807 987 L800 988 L794 990 L787 990 L780 988 L779 994 L779 1001 L776 1007 L773 1013 L770 1019 L766 1025 L764 1031 L764 1038 L759 1042 L754 1046 L750 1052 L746 1057 L742 1062 L738 1068 L737 1074 L735 1080 L729 1081 L722 1081 L716 1082 L709 1082 L704 1086 L698 1089 L692 1091 L686 1092 L682 1083 L676 1075 L671 1067 L665 1059 L657 1052 L650 1045 L641 1041 L632 1038 L628 1029 L626 1019 L621 1010 L617 1001 L617 991 L617 981 L619 971 L622 962 L624 970 L624 979 L624 987 L626 995 L623 1003 L618 1010 L616 1019 L614 1027 L614 1035 L613 1043 L611 1051 L608 1059 L606 1067 L604 1075 L604 1084 L604 1092 L600 1096 L596 1101 L593 1106 L591 1112 L590 1118 L587 1124 L585 1130 L583 1135 L578 1137 L572 1138 L566 1139 L560 1139 L554 1139 L548 1139 L542 1141 L536 1142 L530 1144 L523 1145 L517 1147 L511 1148 L506 1152 L500 1155 L496 1160 L492 1165 L486 1166 L479 1166 L473 1168 L467 1171 L462 1175 L457 1179 L453 1184 L448 1188 L441 1190 L435 1193 L429 1193 L422 1193 L416 1195 L409 1196 L402 1196 L396 1198 L390 1201 L384 1204 L377 1206 L371 1208 L367 1214 L363 1220 L357 1223 L352 1228 L346 1226 L341 1223 L336 1219 L331 1216 L325 1217 L319 1217 L313 1218 L307 1219 L302 1216 L297 1213 L292 1211 L286 1209 L281 1208 L275 1207 L270 1204 L264 1202 L262 1196 L260 1190 L258 1184 L255 1179 L254 1173 L253 1167 L254 1161 L255 1155 L250 1151 L244 1148 L240 1143 L236 1139 L230 1138 L224 1136 L219 1133 L214 1130 L208 1126 L202 1120 L198 1114 L194 1107 L187 1104 L180 1101 L173 1098 L165 1096 L159 1091 L153 1086 L147 1081 L141 1077 L134 1074 L127 1071 L121 1067 L114 1064 L119 1062 L125 1061 L130 1062 L136 1062 L142 1062 L147 1062 L153 1063 L158 1064 L161 1069 L165 1074 L169 1078 L174 1081 L180 1081 L186 1081 L192 1083 L198 1084 L200 1078 L202 1072 L206 1068 L210 1063 L213 1057 L215 1051 L219 1047 L223 1042 L222 1035 L220 1029 L219 1023 L217 1017 L212 1013 L207 1009 L203 1004 L200 998 L203 993 L206 988 L209 983 L213 979 L219 977 L224 975 L229 971 L233 967 L231 961 L229 956 L226 952 L223 947 L223 941 L223 935 L222 930 L222 924 L225 919 L227 913 L231 909 L235 904 L234 898 L233 892 L234 886 L235 880 L241 881 L247 882 L253 882 L259 883 L264 880 L270 878 L275 874 L280 870 L276 868 L272 866 L269 863 L265 860 L260 859 L256 857 L251 857 L247 856 L243 859 L240 862 L236 865 L232 867 L227 867 L223 868 L218 870 L214 872 L210 872 L206 871 L202 870 L199 869 L195 869 L192 868 L189 866 L185 865 L184 861 L182 858 L181 855 L181 851 L180 848 L179 844 L179 840 L180 836 L180 831 L179 826 L178 821 L178 815 L177 810 L176 804 L174 799 L173 794 L172 788 L171 783 L169 778 L167 773 L163 769 L160 765 L156 762 L152 758 L151 751 L150 744 L147 738 L142 732 L140 725 L136 719 L136 711 L135 704 L129 700 L123 695 L116 694 L109 692 L102 693 L95 693 L87 693 L80 692 L80 685 L80 678 L82 672 L84 665 L82 658 L80 651 L77 645 L74 639 L69 635 L64 630 L59 625 L54 621 L50 615 L47 609 L43 604 L40 598 L42 592 L45 586 L48 580 L52 574 L52 567 L52 560 L50 553 L47 547 L51 542 L55 537 L60 532 L64 527 L68 522 L72 517 L74 511 L76 504 L83 504 L90 504 L97 505 L104 508 L111 507 L117 505 L124 504 L131 502 L137 497 L142 492 L149 489 L156 486 L156 478 L157 471 L160 464 L164 458 L172 449 L181 441 L192 437 L202 431 L213 427 L224 425 L235 423 L247 422 L259 425 L271 426 L283 426 L295 425 L303 416 L313 409 L324 404 L336 400 L325 399 L314 400 L303 399 L292 400 L281 402 L271 406 L261 411 L251 415 L242 409 L233 403 L223 400 L212 398 L201 396 L191 392 L181 387 L172 382 L169 377 L166 371 L163 365 L159 360 L158 353 L157 347 L158 341 L158 334 L163 330 L167 325 L170 319 L173 314 L176 308 L179 303 L183 298 L186 292 L190 285 L194 277 L196 269 L199 261 L196 253 L193 245 L192 237 L192 228 L199 223 L206 219 L211 213 L217 208 L223 203 L229 197 L235 192 L242 188 L248 182 L255 176 L262 171 L269 166 L270 157 L273 149 L278 142 L284 135 L293 133 L301 131 L310 129 L318 126 L325 120 L332 115 L339 109 L344 102 L349 100 L355 98 L361 95 L366 92 L371 89 L377 87 L382 83 L387 80 L391 75 L396 71 L401 68 L406 65 L412 64 L418 62 L424 60 Z"/>
+      <!-- 東沖の大島（本土から切り離された陸） -->
+      <path id="isle-east" d="M886 856 L926 848 L958 872 L968 908
+        L956 944 L928 968 L896 964 L874 936 L868 898 Z"/>
+    </defs>
+
+    <g fill="none" stroke-linejoin="round">
+      <use href="#mainland" stroke="#e4f0f6" stroke-width="26" opacity=".75"/>
+      <use href="#isle-east" stroke="#e4f0f6" stroke-width="22" opacity=".75"/>
+      <use href="#mainland" stroke="#f0f7fa" stroke-width="12" opacity=".85"/>
+      <use href="#isle-east" stroke="#f0f7fa" stroke-width="10" opacity=".85"/>
+    </g>
+    <use href="#mainland" fill="#f7f3e9"/>
+    <use href="#mainland" fill="none" stroke="#5f6b74" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- 東沖の大島 -->
+    <use href="#isle-east" fill="#f4efe0" stroke="#5f6b74" stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#6a625a" stroke-width="1.4" fill="#efeae0" stroke-linejoin="round">
+      <path d="M898 900 l16-22 16 22 z"/><path d="M924 918 l14-19 14 19 z"/>
+    </g>
+    <g fill="#6d8a68" opacity=".8">
+      <path d="M890 936 l7-12 7 12 z"/><path d="M912 950 l7-12 7 12 z"/>
+    </g>
+    <text class="t-small" x="916" y="994" text-anchor="middle">東沖の島</text>
+    <text class="t-small" x="916" y="1010" text-anchor="middle" fill="#a8503f">※ 名称未設定</text>
+
+    <path id="mainland-unused" d="M430 58
+         L452 48 L470 54 L486 46 L500 58 L516 44 L532 56
+         L546 40 L552 62 L558 84 L566 106 L574 124 L582 106 L588 82 L594 58 L602 38
+         L620 48 L638 42 L652 58 L668 50 L684 66 L700 78
+         L718 70 L736 84 L752 104 L762 126 L768 152
+         L756 172 L748 192 L742 216
+         L752 246 L744 286 L760 326 L750 366 L764 402
+         L800 412 L844 428 L882 456 L912 486
+         L948 512 L938 546 L962 574 L946 606 L958 636 L928 662
+         L900 676 L866 686 L830 694
+         L792 700 L756 712 L722 726 L692 742 L664 756
+         L672 782 L700 792 L732 796 L766 792 L800 796
+         L826 806 L846 822 L856 844
+         L850 872 L836 898 L818 922 L800 946 L784 972 L768 996
+         L748 1010 L724 1006 L700 1016 L682 1034
+         L692 1056 L712 1070 L730 1088
+         L714 1108 L692 1124 L668 1136
+         L642 1150 L614 1162 L586 1172 L556 1182 L524 1192 L492 1200
+         L458 1210 L424 1224 L390 1236 L356 1244
+         L322 1242 L290 1230 L262 1212 L236 1190 L218 1164 L208 1136
+         L188 1132 L168 1124 L148 1110 L130 1092 L118 1072
+         L136 1058 L158 1066 L178 1078 L196 1090
+         L192 1060 L188 1030 L198 1004
+         L222 980 L240 954 L220 930
+         L198 904 L190 874 L180 844
+         L166 816 L142 794 L152 766
+         L136 742 L106 724 L80 700
+         L58 672 L44 640 L40 606
+         L30 574 L48 540 L76 512
+         L106 492 L138 480 L164 466
+         L196 452 L232 440 L266 430 L288 420
+         L268 398 L234 392 L200 390 L172 392
+         L166 360 L176 330 L186 300
+         L200 268 L218 232 L242 196
+         L272 162 L306 132 L344 106 L382 84 L410 68 Z"
+      fill="none" stroke="none" display="none"/>
+
+    <!-- 沖の島々 -->
+    <g fill="#f2ede0" stroke="#5f6b74" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M806 130 L826 122 L842 136 L830 152 L810 148 Z"/>
+      <path d="M866 214 L882 208 L892 222 L878 232 Z"/>
+      <path d="M990 616 L1006 608 L1014 626 L998 636 Z"/>
+      <path d="M898 792 L920 784 L932 802 L914 814 L898 806 Z"/>
+      <path d="M812 900 L828 894 L836 908 L820 916 Z"/>
+      <path d="M596 1188 L616 1180 L626 1198 L606 1206 Z"/>
+      <path d="M262 1272 L282 1266 L290 1282 L270 1288 Z"/>
+      <path d="M24 700 L40 694 L48 710 L30 716 Z"/>
+      <path d="M60 468 L78 462 L86 476 L66 484 Z"/>
+    </g>
+
+    <defs><clipPath id="clip-land"><use href="#mainland"/></clipPath></defs>
+
+    <g clip-path="url(#clip-land)" opacity=".95">
+      <!-- 大きな三層 -->
+      <rect x="0" y="0"   width="1000" height="378" fill="#efeaf2"/>
+      <rect x="0" y="0"   width="1000" height="378" fill="url(#hatchN)"/>
+      <rect x="0" y="378" width="1000" height="414" fill="#f4efe0"/>
+      <rect x="0" y="792" width="1000" height="500" fill="#f6ecec"/>
+      <rect x="0" y="792" width="1000" height="500" fill="url(#hatchS)"/>
+
+      <!-- ── 西部・南西部の国々 ── -->
+      <!-- 部族連合（西部手前） -->
+      <path d="M228 574 L398 574 L376 700 L208 700 Z" fill="#f5ecdd"/>
+      <!-- フェルガン三邦同盟（西部中央） -->
+      <path d="M0 700 L376 700 L362 868 L0 868 Z" fill="#e9eef3"/>
+      <!-- ティルマ連王国（南西部・農業国） -->
+      <path d="M0 868 L424 868 L402 1034 L0 1034 Z" fill="#eef2e2"/>
+      <!-- セルディア公国（南西部・経済） -->
+      <path d="M0 1034 L396 1034 L358 1154 L0 1154 Z" fill="#f2eaf1"/>
+      <!-- 小国群（南西端） -->
+      <path d="M0 1154 L352 1154 L296 1280 L0 1280 Z" fill="#efeee7"/>
+
+      <!-- 国境 -->
+      <g fill="none" stroke="#a09680" stroke-width="1.3" stroke-dasharray="6 4" opacity=".8">
+        <path d="M228 574 L398 574 L376 700 L208 700"/>
+        <path d="M376 700 L362 868"/>
+        <path d="M0 868 L424 868"/>
+        <path d="M0 1034 L396 1034"/>
+        <path d="M0 1154 L352 1154"/>
+      </g>
+    </g>
+
+    <g fill="none" stroke="#8d8471" stroke-width="1.5" stroke-dasharray="7 5" opacity=".8">
+      <path d="M200 380 L756 356"/><path d="M186 790 L688 786"/>
+    </g>
+
+    <!-- ══════════ 起伏（高いほど濃い。地形を面として繋げる） ══════════ -->
+    <defs>
+      <filter id="relief" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="20"/>
+      </filter>
+      <filter id="relief2" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="11"/>
+      </filter>
+    </defs>
+
+    <!-- 広い高まり -->
+    <g clip-path="url(#clip-land)" filter="url(#relief)" opacity=".42">
+      <!-- デモニア高地：山に囲まれた高原全体が高い -->
+      <path d="M230 350 L300 150 L470 90 L640 140 L720 340 L520 400 Z" fill="#c8bfa8"/>
+      <!-- ガルド連峰：東の巨大な山塊 -->
+      <path d="M660 400 L860 430 L960 540 L930 690 L760 720 L650 560 Z" fill="#bfb59c"/>
+      <!-- フェルガン山地 -->
+      <path d="M164 756 L286 744 L330 812 L272 868 L176 852 Z" fill="#cdc4ae"/>
+      <!-- セルディアの宝石山地 -->
+      <path d="M186 1036 L300 1030 L332 1090 L262 1128 L192 1102 Z" fill="#d0c7b1"/>
+      <!-- アルセイド南部の丘陵地 -->
+      <path d="M410 1030 L610 1010 L640 1120 L470 1190 L392 1120 Z" fill="#d8d0bb"/>
+      <!-- 北の山系（リーネの集落のある谷筋） -->
+      <path d="M240 300 L360 330 L380 430 L250 430 Z" fill="#cec5af"/>
+    </g>
+
+    <!-- 稜線の強調（細い高まり） -->
+    <g clip-path="url(#clip-land)" filter="url(#relief2)" opacity=".38">
+      <path d="M198 372 L560 358 L600 372 L200 392 Z" fill="#a89e85"/>
+      <path d="M690 350 L720 200 L680 130 L640 150 L664 220 L650 360 Z" fill="#a89e85"/>
+      <path d="M300 140 L470 96 L620 146 L610 176 L470 130 L318 172 Z" fill="#a89e85"/>
+      <path d="M206 330 L246 220 L288 172 L312 190 L268 240 L232 344 Z" fill="#a89e85"/>
+      <path d="M760 470 L900 520 L920 610 L840 660 L760 580 Z" fill="#9e9480"/>
+    </g>
+
+    <!-- ══ デモニア高地を囲う環状山脈（唯一の切れ目＝東の山道） ══ -->
+    <g stroke="#6a625a" stroke-width="1.7" fill="#efeae0" stroke-linejoin="round">
+      <!-- 南辺（西→東）※東端で途切れる -->
+      <path d="M198 374 l20-26 20 26 z"/><path d="M236 378 l26-34 26 34 z"/>
+      <path d="M288 372 l22-30 22 30 z"/><path d="M332 376 l30-40 30 40 z"/>
+      <path d="M392 370 l24-32 24 32 z"/><path d="M448 372 l34-46 34 46 z"/>
+      <path d="M512 368 l22-30 22 30 z"/><path d="M556 372 l28-38 28 38 z"/>
+      <!-- 東辺（南→北） -->
+      <path d="M694 352 l22-30 22 30 z"/><path d="M684 308 l20-26 20 26 z"/>
+      <path d="M670 264 l22-30 22 30 z"/><path d="M656 220 l20-26 20 26 z"/>
+      <!-- 北辺（東→西） -->
+      <path d="M606 176 l22-30 22 30 z"/><path d="M552 152 l20-26 20 26 z"/>
+      <path d="M492 132 l22-30 22 30 z"/><path d="M430 122 l20-26 20 26 z"/>
+      <path d="M368 136 l22-30 22 30 z"/><path d="M314 166 l20-26 20 26 z"/>
+      <!-- 西辺（北→南） -->
+      <path d="M272 214 l22-30 22 30 z"/><path d="M246 262 l20-26 20 26 z"/>
+      <path d="M222 312 l22-30 22 30 z"/><path d="M204 352 l20-26 20 26 z"/>
+    </g>
+
+    <!-- 最高峰＝真祖アルマの座 -->
+    <g>
+      <path d="M448 372 l34-46 34 46 z" fill="#e2dcd0" stroke="#4f4941" stroke-width="2"/>
+      <path d="M470 348 l12-22 12 22 z" fill="#ffffff" stroke="#4f4941" stroke-width="1.2"/>
+      <circle cx="482" cy="316" r="3.4" fill="#9a7b32"/>
+      <text class="t-small" x="500" y="318">真祖アルマの座</text>
+    </g>
+
+    <!-- ══ 最西端：魔帝ルカの座 ══ -->
+    <g transform="translate(262,232)">
+      <circle r="17" fill="none" stroke="#7a5f92" stroke-width="1.1" opacity=".5"/>
+      <path d="M-13 9 v-17 h5 v-7 h4 v7 h4 v-7 h5 v7 h5 v17 z"
+            fill="#5a4b6e" stroke="#332a41" stroke-width="1.5"/>
+    </g>
+    <text class="t-city-b" x="262" y="200" text-anchor="middle" font-size="15" fill="#4e4064">魔帝ルカの座</text>
+    <text class="t-small" x="262" y="218" text-anchor="middle" fill="#6b5484">高地最西端／真魔の勢力</text>
+
+    <!-- ══ 見張り砦（各所） ══ -->
+    <g fill="#8a7a9c" stroke="#4e4064" stroke-width="1.1">
+      <g transform="translate(344,262)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(424,178)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(524,176)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(566,298)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(438,342)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(256,286)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+      <g transform="translate(618,300)"><path d="M-4 5 v-9 h2 v-3 h2 v3 h2 v-3 h2 v3 h2 v9 z"/></g>
+    </g>
+
+    <!-- ══ 魔族の四大都市 ══ -->
+    <g>
+      <!-- ① ベルガンド（北西・城壁の西側＝ルカの勢力圏） -->
+      <g transform="translate(314,192)">
+        <circle r="11" fill="none" stroke="#5a4b6e" stroke-width="1" opacity=".55"/>
+        <circle r="7" fill="#6b5a86" stroke="#3d3352" stroke-width="1.6"/>
+        <circle r="2.4" fill="#f6f1e2"/>
+      </g>
+      <text class="t-city" x="330" y="180" fill="#4e4064">ベルガンド</text>
+
+      <!-- ② 南西の町 -->
+      <g transform="translate(300,324)">
+        <circle r="11" fill="none" stroke="#5a4b6e" stroke-width="1" opacity=".55"/>
+        <circle r="7" fill="#6b5a86" stroke="#3d3352" stroke-width="1.6"/>
+        <circle r="2.4" fill="#f6f1e2"/>
+      </g>
+      <text class="t-city" x="286" y="344" text-anchor="end" fill="#4e4064">ロックウェイ</text>
+
+      <!-- ③ シュトルハイム（高地最大の都市・魔王城の南） -->
+      <g transform="translate(468,274)">
+        <circle r="16" fill="none" stroke="#5a4b6e" stroke-width="1" opacity=".4"/>
+        <circle r="11.5" fill="none" stroke="#5a4b6e" stroke-width="1.1" opacity=".65"/>
+        <circle r="8.5" fill="#6b5a86" stroke="#3d3352" stroke-width="1.8"/>
+        <circle r="3.2" fill="#f6f1e2"/>
+      </g>
+      <text class="t-city-b" x="488" y="270" font-size="16" fill="#4e4064">シュトルハイム</text>
+      <text class="t-small" x="488" y="290" fill="#6b5484">高地で最も大きな町</text>
+
+      <!-- ④ サタニア（北東） -->
+      <g transform="translate(598,236)">
+        <circle r="11" fill="none" stroke="#5a4b6e" stroke-width="1" opacity=".55"/>
+        <circle r="7" fill="#6b5a86" stroke="#3d3352" stroke-width="1.6"/>
+        <circle r="2.4" fill="#f6f1e2"/>
+      </g>
+      <text class="t-city" x="614" y="238" fill="#4e4064">サタニア</text>
+
+      <!-- 都市を結ぶ道 -->
+      <g fill="none" stroke="#8a7a9c" stroke-width="1.4" stroke-dasharray="4 4" opacity=".85">
+        <path d="M322 202 C336 250 312 292 302 314"/>
+        <path d="M328 196 C356 208 366 224 372 244"/>
+        <path d="M386 256 C412 264 442 270 458 272"/>
+        <path d="M468 264 C468 250 468 238 470 226"/>
+        <path d="M478 270 C518 258 562 244 588 238"/>
+        <path d="M606 244 C620 288 632 320 640 350"/>
+      </g>
+    </g>
+
+    <!-- ══ 東の山道＝唯一の切れ目 ══ -->
+    <g>
+      <!-- 切れ目を示す明色の谷 -->
+      <path d="M616 384 C634 372 652 360 674 356 L686 380 C666 386 648 396 634 406 Z"
+            fill="#f6f1e2" stroke="#b7a887" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <!-- 両脇の門のような岩 -->
+      <path d="M604 378 l14-19 14 19 z" fill="#dcd5c6" stroke="#4f4941" stroke-width="1.6"/>
+      <path d="M676 346 l14-19 14 19 z" fill="#dcd5c6" stroke="#4f4941" stroke-width="1.6"/>
+    </g>
+
+    <!-- ══ 魔族の関所砦（高地の東の入口を扼する） ══ -->
+    <g transform="translate(646,362)">
+      <!-- 城壁と二つの楼塔 -->
+      <rect x="-15" y="-6" width="30" height="13" fill="#5a4b6e" stroke="#332a41" stroke-width="1.5"/>
+      <rect x="-19" y="-12" width="9" height="19" fill="#6b5a86" stroke="#332a41" stroke-width="1.5"/>
+      <rect x="10" y="-12" width="9" height="19" fill="#6b5a86" stroke="#332a41" stroke-width="1.5"/>
+      <rect x="-3" y="-1" width="6" height="8" fill="#f6f1e2" stroke="#332a41" stroke-width="1"/>
+    </g>
+    <path d="M664 356 L740 336" stroke="#4e4064" stroke-width="1" fill="none"/>
+    <text class="t-city-b" x="746" y="332" font-size="16" fill="#4e4064">デモニア城塞</text>
+    <text class="t-small" x="746" y="350" fill="#6b5484">高地の東の入口を扼する関所</text>
+
+    <path d="M660 396 L742 428" stroke="#a8503f" stroke-width="1" fill="none"/>
+    <text class="t-city" x="748" y="426" fill="#8f4536">東の山道</text>
+    <text class="t-small" x="748" y="444" fill="#8f4536">デモニア高地に通じる唯一の道</text>
+
+    <!-- 東部前線（アルセイド軍駐屯） -->
+    <g transform="translate(668,470)">
+      <path d="M-7 6 v-11 h4 v-5 h3 v5 h3 v-5 h4 v5 h4 v11 z" fill="#b45a4a" stroke="#7d3629" stroke-width="1.2"/>
+    </g>
+    <text class="t-small" x="682" y="476" fill="#8f4536">東部前線</text>
+    <text class="t-small" x="682" y="492" fill="#8f4536">アルセイド軍が駐屯</text>
+
+    <!-- ══ ガルド連峰（東へ大きくせり出す山塊。北端が東の山道でデモニア高地に繋がる） ══ -->
+    <g stroke="#6a625a" stroke-width="1.7" fill="#efeae0" stroke-linejoin="round">
+      <!-- 北の腕：東の山道へ繋がる -->
+      <path d="M664 404 l22-30 22 30 z"/><path d="M706 424 l24-32 24 32 z"/>
+      <path d="M676 452 l22-30 22 30 z"/><path d="M718 470 l26-34 26 34 z"/>
+      <path d="M756 442 l24-32 24 32 z"/>
+      <!-- 本体 -->
+      <path d="M770 512 l24-32 24 32 z"/><path d="M814 496 l28-38 28 38 z"/>
+      <path d="M858 516 l24-32 24 32 z"/>
+      <path d="M784 556 l26-34 26 34 z"/><path d="M830 540 l30-40 30 40 z"/>
+      <path d="M876 560 l24-32 24 32 z"/>
+      <path d="M772 600 l24-32 24 32 z"/><path d="M818 586 l28-38 28 38 z"/>
+      <path d="M864 604 l24-32 24 32 z"/>
+      <path d="M796 644 l22-30 22 30 z"/><path d="M842 636 l26-34 26 34 z"/>
+    </g>
+
+    <!-- ドワーフの地下都市 -->
+    <g transform="translate(842,560)">
+      <circle r="13" fill="none" stroke="#6d5622" stroke-width="1" opacity=".5"/>
+      <path d="M-9 7 v-8 a9 9 0 0 1 18 0 v8 z" fill="#8a6f28" stroke="#54430f" stroke-width="1.6"/>
+      <rect x="-3" y="0" width="6" height="7" fill="#f6f1e2"/>
+    </g>
+    <text class="t-city-b" x="862" y="556" font-size="16">ドワーフの地下都市</text>
+
+    <text class="t-region" x="846" y="702" text-anchor="middle" font-size="17">ガルド連峰</text>
+    <text class="t-small" x="846" y="722" text-anchor="middle">ドワーフの領域／デモニア高地への唯一の陸路</text>
+
+    <!-- ══ シルヴェーンの森（西へ大きくせり出す森） ══ -->
+    <g>
+      <path d="M180 486 C142 492 106 508 84 538 C62 568 58 606 70 640
+               C82 676 112 702 148 714 C176 722 202 716 218 698
+               C232 682 232 660 226 640 C218 614 220 588 214 562
+               C208 534 200 504 180 486 Z"
+            fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.6"/>
+      <path d="M180 486 C142 492 106 508 84 538 C62 568 58 606 70 640
+               C82 676 112 702 148 714 C176 722 202 716 218 698
+               C232 682 232 660 226 640 C218 614 220 588 214 562
+               C208 534 200 504 180 486 Z" fill="url(#dots)"/>
+      <g fill="#6d8a68">
+        <path d="M104 546 l8-14 8 14 z"/><path d="M136 528 l9-15 9 15 z"/>
+        <path d="M172 522 l8-14 8 14 z"/><path d="M92 588 l8-14 8 14 z"/>
+        <path d="M126 572 l9-15 9 15 z"/><path d="M164 566 l8-14 8 14 z"/>
+        <path d="M196 582 l9-15 9 15 z"/><path d="M98 632 l8-14 8 14 z"/>
+        <path d="M134 618 l9-15 9 15 z"/><path d="M172 612 l8-14 8 14 z"/>
+        <path d="M118 672 l8-14 8 14 z"/><path d="M158 662 l9-15 9 15 z"/>
+        <path d="M194 638 l8-14 8 14 z"/>
+      </g>
+    </g>
+    <text class="t-city-b" x="146" y="686" text-anchor="middle" font-size="16">シルヴェーンの森</text>
+    <text class="t-small" x="146" y="704" text-anchor="middle">西方エルフの里・完全中立</text>
+
+    <g fill="#6d8a68" opacity=".8">
+      <path d="M396 592 l7-12 7 12 z"/><path d="M412 604 l7-12 7 12 z"/>
+      <path d="M382 610 l7-12 7 12 z"/><path d="M600 596 l7-12 7 12 z"/>
+      <path d="M616 608 l7-12 7 12 z"/><path d="M330 704 l7-12 7 12 z"/>
+      <path d="M346 714 l7-12 7 12 z"/>
+    </g>
+
+    <!-- ══════════ 水系（新しい海岸線に合わせて設計） ══════════ -->
+    <g fill="none" stroke="#9dbcd0" stroke-linecap="round" stroke-linejoin="round">
+
+      <!-- ① デモニア高地：外に出口を持たない内陸水系（＝塩湖化し、高地が乾く理由） -->
+      <g stroke-width="1.6">
+        <path d="M498 176 C508 220 522 264 540 300"/>
+        <path d="M318 336 C376 322 448 306 522 310"/>
+        <path d="M654 306 C620 300 592 302 568 312"/>
+        <path d="M430 196 C452 234 480 274 528 306"/>
+      </g>
+
+      <!-- ② 中央回廊の大河：環状山脈の南麓 → 回廊の湖 → 西の湾へ注ぐ -->
+      <g stroke-width="2.4">
+        <path d="M482 378 C468 432 444 486 412 540
+                 C394 570 376 600 367 616
+                 C362 646 376 674 384 698
+                 C376 742 354 776 330 806
+                 C312 830 288 856 266 866"/>
+      </g>
+      <g stroke-width="1.5">
+        <path d="M382 380 C396 432 412 486 432 528"/>
+        <path d="M560 372 C536 420 508 470 486 512"/>
+        <path d="M396 700 C356 706 316 716 286 732"/>
+        <path d="M328 806 C368 812 406 822 438 838"/>
+      </g>
+
+      <!-- ③ 東の内海に注ぐ二本 -->
+      <g stroke-width="2.2">
+        <path d="M756 470 C716 520 676 570 640 620
+                 C616 654 604 700 606 742"/>
+        <path d="M604 374 C620 438 634 500 640 556
+                 C646 600 636 678 610 738"/>
+      </g>
+      <g stroke-width="1.4">
+        <path d="M700 540 C676 566 656 594 640 620"/>
+        <path d="M672 600 C654 632 640 668 634 700"/>
+      </g>
+
+      <!-- ④ ガルド連峰の東斜面 → 東岸へ -->
+      <g stroke-width="2">
+        <path d="M844 690 C824 748 806 806 792 858
+                 C782 890 806 906 844 914 C858 917 866 917 876 916"/>
+      </g>
+      <g stroke-width="1.4">
+        <path d="M886 700 C874 748 862 794 852 836"/>
+      </g>
+
+      <!-- ⑤ 南部の湖 → 南の湾へ注ぐ -->
+      <g stroke-width="2">
+        <path d="M600 944 C612 976 626 1014 639 1048"/>
+      </g>
+      <g stroke-width="1.5">
+        <path d="M676 878 C650 898 622 912 598 920"/>
+        <path d="M540 878 C556 898 578 912 596 920"/>
+      </g>
+
+      <!-- ⑥ アルセイド南部：丘陵 → 南岸へ -->
+      <g stroke-width="2">
+        <path d="M556 1004 C534 1054 512 1104 496 1148
+                 C488 1168 482 1180 478 1188"/>
+        <path d="M628 1024 C620 1058 612 1084 606 1096"/>
+      </g>
+      <g stroke-width="1.4">
+        <path d="M496 1060 C462 1080 432 1104 410 1130"/>
+      </g>
+
+      <!-- ⑦ 西部：フェルガン山地 → 西岸とティルマの三角州へ -->
+      <g stroke-width="2.2">
+        <path d="M186 812 C210 860 232 910 244 954
+                 C250 976 232 1000 207 1018"/>
+      </g>
+      <g stroke-width="1.5">
+        <path d="M150 800 C142 812 134 824 128 836"/>
+        <path d="M244 954 C282 946 316 942 344 944"/>
+        <path d="M226 894 C258 886 288 882 314 884"/>
+      </g>
+
+      <!-- ⑧ セルディア山地 → 南西岸へ -->
+      <g stroke-width="1.8">
+        <path d="M250 1096 C266 1140 282 1182 291 1219"/>
+      </g>
+
+      <!-- ⑨ シルヴェーンの森の水系 → 西岸へ -->
+      <g stroke-width="1.8">
+        <path d="M204 540 C166 556 110 566 43 558"/>
+        <path d="M196 668 C156 682 116 692 79 696"/>
+      </g>
+
+      <!-- ⑩ 環状山脈の北麓 → 北岸へ -->
+      <g stroke-width="1.6">
+        <path d="M452 128 C444 104 436 76 432 50"/>
+        <path d="M604 152 C616 120 626 84 629 49"/>
+        <path d="M290 190 C272 166 252 144 233 124"/>
+      </g>
+    </g>
+
+    <!-- ══ 湖沼 ══ -->
+    <g fill="#dbe8f0" stroke="#9dbcd0" stroke-width="1.6">
+      <!-- 高地の湖（環状山脈の内側） -->
+      <path d="M528 300 L556 292 L572 310 L566 332 L540 340 L520 322 Z"/>
+      <!-- 中央回廊の湖 -->
+      <path d="M344 598 L378 590 L398 606 L392 632 L360 642 L336 624 Z"/>
+      <!-- 南部の湖 -->
+      <path d="M584 906 L610 898 L624 916 L616 938 L590 944 L576 924 Z"/>
+    </g>
+    <text class="t-small" x="546" y="356" text-anchor="middle" fill="#5d7f96">高地の湖</text>
+    <text class="t-small" x="412" y="612" fill="#5d7f96">回廊の湖</text>
+
+    <!-- ══ 湿地（南部の河口） ══ -->
+    <g fill="none" stroke="#9dbcd0" stroke-width="1.3" opacity=".8">
+      <path d="M380 1042 h18 M406 1050 h18 M370 1062 h18 M398 1072 h18 M362 1082 h18"/>
+      <path d="M660 998 h16 M646 1012 h16 M668 1024 h16"/>
+    </g>
+
+    <g fill="none" stroke="#a2907a" stroke-width="1.8" stroke-dasharray="6 4">
+      <!-- 魔王城 → 東へ迂回 → 東の山道 → 中央回廊へ南下 → グラザ -->
+      <path d="M486 220 C540 244 588 286 624 330 C640 352 646 368 650 380"/>
+      <path d="M650 380 C660 410 664 440 660 470"/>
+      <path d="M660 470 C640 520 600 560 570 600 C552 622 542 636 536 646"/>
+      <!-- 高地内：ルカの座 → 魔王城 -->
+      <path d="M278 236 C320 244 380 240 462 220" stroke-dasharray="5 4"/>
+      <!-- 中央回廊内 -->
+      <path d="M536 646 C548 736 546 820 540 900 C534 966 528 1010 522 1046"/>
+      <path d="M536 646 C462 640 380 646 292 644"/>
+      <path d="M496 606 C532 610 552 612 566 612
+               C596 616 620 620 640 622
+               C666 620 688 616 704 614
+               C734 612 754 610 768 608"/>
+      <path d="M522 1046 C486 1108 452 1156 424 1194"/>
+    </g>
+
+    <!-- ══════════ 地形テクスチャ ══════════ -->
+    <g clip-path="url(#clip-land)">
+
+      <!-- ── フェルガン山地（フォルディア邦の鉱・鍛冶を支える山） ── -->
+      <g stroke="#6a625a" stroke-width="1.5" fill="#efeae0" stroke-linejoin="round">
+        <path d="M188 780 l20-26 20 26 z"/><path d="M224 796 l22-30 22 30 z"/>
+        <path d="M266 776 l20-26 20 26 z"/><path d="M206 826 l18-24 18 24 z"/>
+        <path d="M246 840 l20-26 20 26 z"/><path d="M286 820 l18-24 18 24 z"/>
+      </g>
+
+      <!-- ── セルディアの宝石山地 ── -->
+      <g stroke="#6a625a" stroke-width="1.4" fill="#efeae0" stroke-linejoin="round">
+        <path d="M228 1060 l18-24 18 24 z"/><path d="M264 1074 l20-26 20 26 z"/>
+        <path d="M304 1056 l18-24 18 24 z"/><path d="M246 1104 l16-22 16 22 z"/>
+      </g>
+
+      <!-- ── アルセイド南部の丘陵 ── -->
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".8">
+        <path d="M470 1090 a14 9 0 0 1 28 0"/><path d="M504 1102 a12 8 0 0 1 24 0"/>
+        <path d="M448 1116 a14 9 0 0 1 28 0"/><path d="M492 1132 a12 8 0 0 1 24 0"/>
+        <path d="M540 1064 a14 9 0 0 1 28 0"/><path d="M576 1042 a12 8 0 0 1 24 0"/>
+        <path d="M420 1146 a13 8 0 0 1 26 0"/>
+      </g>
+
+      <!-- ── ガルド連峰の裾野の丘 ── -->
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".8">
+        <path d="M700 720 a14 9 0 0 1 28 0"/><path d="M742 736 a12 8 0 0 1 24 0"/>
+        <path d="M684 762 a14 9 0 0 1 28 0"/><path d="M726 780 a12 8 0 0 1 24 0"/>
+      </g>
+
+      <!-- ── 森林（中央回廊の東西・アルセイド北部・部族連合） ── -->
+      <g fill="#6d8a68" opacity=".85">
+        <!-- 回廊西の森 -->
+        <path d="M300 520 l7-12 7 12 z"/><path d="M318 532 l8-13 8 13 z"/>
+        <path d="M286 542 l7-12 7 12 z"/><path d="M306 556 l8-13 8 13 z"/>
+        <path d="M330 548 l7-12 7 12 z"/>
+        <!-- 回廊東の森 -->
+        <path d="M590 560 l7-12 7 12 z"/><path d="M608 572 l8-13 8 13 z"/>
+        <path d="M576 584 l7-12 7 12 z"/><path d="M598 598 l8-13 8 13 z"/>
+        <path d="M624 588 l7-12 7 12 z"/><path d="M640 604 l8-13 8 13 z"/>
+        <!-- 回廊南の森 -->
+        <path d="M400 700 l7-12 7 12 z"/><path d="M418 712 l8-13 8 13 z"/>
+        <path d="M386 722 l7-12 7 12 z"/><path d="M408 736 l8-13 8 13 z"/>
+        <!-- アルセイド北部の森 -->
+        <path d="M600 830 l7-12 7 12 z"/><path d="M618 842 l8-13 8 13 z"/>
+        <path d="M586 854 l7-12 7 12 z"/><path d="M608 868 l8-13 8 13 z"/>
+        <path d="M648 846 l7-12 7 12 z"/>
+        <!-- 部族連合の疎林 -->
+        <path d="M296 640 l7-12 7 12 z"/><path d="M336 660 l7-12 7 12 z"/>
+        <path d="M312 676 l7-12 7 12 z"/>
+      </g>
+
+      <!-- ── 草原（中央回廊中央・部族連合・ティルマ） ── -->
+      <g stroke="#9aa87e" stroke-width="1.2" opacity=".75" stroke-linecap="round">
+        <path d="M436 540 v-7 M448 548 v-7 M424 556 v-7 M460 560 v-7 M440 572 v-7"/>
+        <path d="M470 620 v-7 M484 630 v-7 M458 638 v-7 M496 644 v-7 M472 656 v-7"/>
+        <path d="M330 620 v-7 M348 630 v-7 M362 618 v-7 M340 646 v-7"/>
+        <path d="M260 900 v-7 M278 912 v-7 M296 898 v-7 M268 926 v-7 M290 938 v-7"/>
+        <path d="M320 920 v-7 M338 934 v-7 M356 918 v-7 M330 948 v-7"/>
+        <path d="M240 962 v-7 M262 974 v-7 M284 960 v-7"/>
+      </g>
+
+      <!-- ── 耕地（ティルマ＝大陸の食料庫／アルセイドの穀倉） ── -->
+      <g fill="none" stroke="#b3a983" stroke-width="1" opacity=".7">
+        <path d="M228 866 h30 M228 874 h30 M228 882 h30"/>
+        <path d="M300 876 h30 M300 884 h30 M300 892 h30"/>
+        <path d="M262 986 h30 M262 994 h30 M262 1002 h30"/>
+        <path d="M470 1000 h30 M470 1008 h30 M470 1016 h30"/>
+        <path d="M552 972 h30 M552 980 h30 M552 988 h30"/>
+      </g>
+
+      <!-- ── 荒地（デモニア高地の内側・乾いた高原） ── -->
+      <g fill="#a2937c" opacity=".45">
+        <circle cx="430" cy="252" r="1.4"/><circle cx="452" cy="268" r="1.4"/>
+        <circle cx="474" cy="248" r="1.4"/><circle cx="496" cy="264" r="1.4"/>
+        <circle cx="518" cy="246" r="1.4"/><circle cx="540" cy="262" r="1.4"/>
+        <circle cx="562" cy="250" r="1.4"/><circle cx="584" cy="266" r="1.4"/>
+        <circle cx="442" cy="290" r="1.4"/><circle cx="466" cy="304" r="1.4"/>
+        <circle cx="490" cy="288" r="1.4"/><circle cx="514" cy="302" r="1.4"/>
+        <circle cx="538" cy="288" r="1.4"/><circle cx="562" cy="304" r="1.4"/>
+        <circle cx="586" cy="290" r="1.4"/><circle cx="610" cy="272" r="1.4"/>
+        <circle cx="608" cy="306" r="1.4"/><circle cx="632" cy="288" r="1.4"/>
+      </g>
+    </g>
+
+    <!-- ══════════ 地形テクスチャ・補完（空白域を埋める） ══════════ -->
+    <g clip-path="url(#clip-land)">
+
+      <!-- 東部：ガルド連峰の東の海岸平野（森と丘） -->
+      <g fill="#6d8a68" opacity=".85">
+        <path d="M846 726 l7-12 7 12 z"/><path d="M866 740 l8-13 8 13 z"/>
+        <path d="M834 754 l7-12 7 12 z"/><path d="M856 770 l8-13 8 13 z"/>
+        <path d="M886 712 l7-12 7 12 z"/>
+      </g>
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".8">
+        <path d="M778 690 a13 8 0 0 1 26 0"/><path d="M812 700 a12 8 0 0 1 24 0"/>
+      </g>
+
+      <!-- 南東の海岸平野（ガルドとアルセイドの間） -->
+      <g fill="#6d8a68" opacity=".85">
+        <path d="M702 826 l7-12 7 12 z"/><path d="M722 840 l8-13 8 13 z"/>
+        <path d="M692 858 l7-12 7 12 z"/><path d="M714 874 l8-13 8 13 z"/>
+        <path d="M700 906 l7-12 7 12 z"/><path d="M724 918 l7-12 7 12 z"/>
+      </g>
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".8">
+        <path d="M736 884 a12 8 0 0 1 24 0"/><path d="M708 936 a12 8 0 0 1 24 0"/>
+      </g>
+
+      <!-- アルセイド中部：穀倉と疎林 -->
+      <g fill="none" stroke="#b3a983" stroke-width="1" opacity=".7">
+        <path d="M470 900 h30 M470 908 h30 M470 916 h30"/>
+        <path d="M540 880 h30 M540 888 h30 M540 896 h30"/>
+        <path d="M420 940 h30 M420 948 h30 M420 956 h30"/>
+        <path d="M600 930 h28 M600 938 h28 M600 946 h28"/>
+      </g>
+      <g stroke="#9aa87e" stroke-width="1.2" opacity=".7" stroke-linecap="round">
+        <path d="M500 852 v-7 M520 862 v-7 M540 848 v-7 M508 876 v-7"/>
+        <path d="M446 980 v-7 M468 990 v-7 M490 976 v-7 M456 1006 v-7"/>
+      </g>
+
+      <!-- 小国群（南西端）：起伏のある半島群 -->
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".85">
+        <path d="M270 1180 a13 8 0 0 1 26 0"/><path d="M304 1192 a12 8 0 0 1 24 0"/>
+        <path d="M282 1210 a12 8 0 0 1 24 0"/><path d="M320 1224 a11 7 0 0 1 22 0"/>
+        <path d="M254 1204 a11 7 0 0 1 22 0"/>
+      </g>
+      <g fill="#6d8a68" opacity=".8">
+        <path d="M340 1178 l7-12 7 12 z"/><path d="M358 1196 l7-12 7 12 z"/>
+        <path d="M330 1206 l6-11 6 11 z"/>
+      </g>
+
+      <!-- デモニア高地の北部：乾いた高原の続き -->
+      <g fill="#a2937c" opacity=".42">
+        <circle cx="392" cy="196" r="1.4"/><circle cx="418" cy="182" r="1.4"/>
+        <circle cx="444" cy="196" r="1.4"/><circle cx="470" cy="180" r="1.4"/>
+        <circle cx="496" cy="194" r="1.4"/><circle cx="522" cy="180" r="1.4"/>
+        <circle cx="548" cy="196" r="1.4"/><circle cx="574" cy="184" r="1.4"/>
+        <circle cx="404" cy="224" r="1.4"/><circle cx="430" cy="212" r="1.4"/>
+        <circle cx="508" cy="222" r="1.4"/><circle cx="534" cy="212" r="1.4"/>
+        <circle cx="560" cy="226" r="1.4"/><circle cx="586" cy="214" r="1.4"/>
+        <circle cx="612" cy="230" r="1.4"/><circle cx="352" cy="240" r="1.4"/>
+        <circle cx="330" cy="272" r="1.4"/><circle cx="356" cy="286" r="1.4"/>
+      </g>
+
+      <!-- 中央回廊 北部：山脈の裾野（丘・疎林・草原） -->
+      <g fill="none" stroke="#a8997e" stroke-width="1.4" opacity=".8">
+        <path d="M228 406 a13 8 0 0 1 26 0"/><path d="M266 418 a12 8 0 0 1 24 0"/>
+        <path d="M380 402 a13 8 0 0 1 26 0"/><path d="M424 414 a12 8 0 0 1 24 0"/>
+        <path d="M478 400 a13 8 0 0 1 26 0"/><path d="M520 412 a12 8 0 0 1 24 0"/>
+        <path d="M576 404 a13 8 0 0 1 26 0"/><path d="M620 418 a12 8 0 0 1 24 0"/>
+        <path d="M680 410 a12 8 0 0 1 24 0"/>
+        <path d="M250 448 a12 8 0 0 1 24 0"/><path d="M446 452 a12 8 0 0 1 24 0"/>
+        <path d="M614 456 a12 8 0 0 1 24 0"/>
+      </g>
+      <g fill="#6d8a68" opacity=".85">
+        <path d="M212 476 l7-12 7 12 z"/><path d="M232 490 l8-13 8 13 z"/>
+        <path d="M196 504 l7-12 7 12 z"/><path d="M220 518 l8-13 8 13 z"/>
+        <path d="M556 468 l7-12 7 12 z"/><path d="M576 482 l8-13 8 13 z"/>
+        <path d="M542 496 l7-12 7 12 z"/><path d="M566 510 l8-13 8 13 z"/>
+        <path d="M634 486 l7-12 7 12 z"/><path d="M654 500 l8-13 8 13 z"/>
+        <path d="M280 512 l7-12 7 12 z"/><path d="M304 524 l7-12 7 12 z"/>
+      </g>
+      <g stroke="#9aa87e" stroke-width="1.2" opacity=".72" stroke-linecap="round">
+        <path d="M370 470 v-7 M392 480 v-7 M414 466 v-7 M436 478 v-7 M458 466 v-7"/>
+        <path d="M380 502 v-7 M402 512 v-7 M424 500 v-7 M446 510 v-7 M468 498 v-7"/>
+        <path d="M490 490 v-7 M512 500 v-7 M498 522 v-7 M520 532 v-7"/>
+        <path d="M330 446 v-7 M352 456 v-7 M310 468 v-7"/>
+        <path d="M672 452 v-7 M694 462 v-7 M660 480 v-7"/>
+      </g>
+
+      <!-- 中央回廊：南部の疎林と草地 -->
+      <g fill="#6d8a68" opacity=".8">
+        <path d="M498 700 l7-12 7 12 z"/><path d="M516 714 l7-12 7 12 z"/>
+        <path d="M300 750 l7-12 7 12 z"/><path d="M320 764 l7-12 7 12 z"/>
+      </g>
+      <g stroke="#9aa87e" stroke-width="1.2" opacity=".7" stroke-linecap="round">
+        <path d="M600 690 v-7 M620 700 v-7 M640 686 v-7"/>
+        <path d="M380 660 v-7 M398 672 v-7 M416 658 v-7"/>
+      </g>
+    </g>
+
+    <!-- ── 海岸線の細部：砂浜と断崖 ── -->
+    <g fill="none" opacity=".7">
+      <!-- 砂浜（点線） -->
+      <g stroke="#c9b98f" stroke-width="1.8" stroke-dasharray="3 4">
+        <path d="M470 52 L560 62"/>
+        <path d="M782 802 L776 848"/>
+        <path d="M456 1206 L390 1244"/>
+        <path d="M176 828 L166 866"/>
+      </g>
+      <!-- 断崖（櫛歯） -->
+      <g stroke="#7d7568" stroke-width="1.2">
+        <path d="M742 290 l7 5 M746 306 l7 5 M750 322 l7 5 M752 340 l7 5"/>
+        <path d="M946 552 l-7 5 M952 570 l-7 5 M958 588 l-7 5"/>
+        <path d="M46 596 l7 4 M42 616 l7 4 M40 636 l7 4"/>
+      </g>
+    </g>
+
+    <!-- ── 三角州（ティルマの大河の河口＝食料庫の理由） ── -->
+    <g clip-path="url(#clip-land)" fill="none" stroke="#9dbcd0" stroke-width="1.3">
+      <path d="M207 1018 L186 1038 M207 1018 L196 1050 M207 1018 L212 1052 M207 1018 L228 1042"/>
+    </g>
+    <text class="t-small" x="240" y="1042" fill="#5d7f96">三角州</text>
+
+    <text class="t-region" x="516" y="118" text-anchor="middle" opacity=".85">デ モ ニ ア 高 地</text>
+    <text class="t-small" x="516" y="142" text-anchor="middle">魔族の領域／全方位を山脈に囲まれる</text>
+    <text class="t-region" x="392" y="466" text-anchor="middle" opacity=".85">中 央 回 廊</text>
+    <text class="t-small" x="392" y="490" text-anchor="middle">どの国にも属さない中立地帯</text>
+    <text class="t-region" x="654" y="944" text-anchor="middle" opacity=".85">ア ル セ イ ド 王 国</text>
+    <text class="t-small" x="654" y="968" text-anchor="middle">光属性信仰の大国</text>
+
+    <!-- ══ 西部・南西部の国々 ══ -->
+    <g>
+      <!-- 部族連合 -->
+      <text class="t-region-s" x="318" y="584" text-anchor="middle" opacity=".85">部 族 連 合</text>
+      <text class="t-small" x="318" y="604" text-anchor="middle">獣人・少数民族・遊牧民／西部族</text>
+
+      <!-- フェルガン三邦同盟 -->
+      <text class="t-region-s" x="258" y="728" text-anchor="middle" opacity=".85">フェルガン三邦同盟</text>
+      <g fill="#5f7285" stroke="#3f5266" stroke-width="1.3">
+        <circle cx="200" cy="806" r="4.5"/><circle cx="252" cy="838" r="4.5"/><circle cx="316" cy="758" r="4.5"/>
+      </g>
+      <text class="t-small" x="212" y="810">フォルディア邦（鉱・鍛冶）</text>
+      <text class="t-small" x="264" y="842">レヴァン邦（農・林）</text>
+      <text class="t-small" x="330" y="774">ゲルシア邦（交易・宿場）</text>
+
+      <!-- ティルマ連王国 -->
+      <text class="t-region-s" x="272" y="932" text-anchor="middle" opacity=".85">ティルマ連王国</text>
+      <text class="t-small" x="272" y="952" text-anchor="middle">大陸の食料庫／アルセイドと友好</text>
+
+      <!-- セルディア公国 -->
+      <text class="t-region-s" x="238" y="1076" text-anchor="middle" opacity=".85">セルディア公国</text>
+      <text class="t-small" x="238" y="1096" text-anchor="middle">宝石・薬草・精密工芸／経済力は大陸屈指</text>
+      <!-- アゼルハン商業連盟 -->
+      <g transform="translate(288,1122)">
+        <rect x="-6" y="-6" width="12" height="12" fill="#b08a5a" stroke="#7a5c34" stroke-width="1.4"
+              transform="rotate(45)"/>
+      </g>
+      <text class="t-small" x="302" y="1126" fill="#7a5c34">アゼルハン商業連盟（最大自治区）</text>
+
+      <!-- 小国群 -->
+      <text class="t-region-s" x="322" y="1170" text-anchor="middle" opacity=".85">小 国 群</text>
+      <text class="t-small" x="322" y="1190" text-anchor="middle">独立小国・自治領／アルセイドの影響下</text>
+    </g>
+
+    <g>
+      <g transform="translate(470,214)">
+        <path d="M-11 8 v-16 h5 v-7 h5 v7 h4 v-7 h5 v7 h5 v16 z" fill="#4a4152" stroke="#2e2836" stroke-width="1.4"/>
+      </g>
+      <text class="t-city-b" x="486" y="220">魔王城</text>
+
+      <rect x="614" y="286" width="13" height="13" fill="#4a4152" stroke="#2e2836" stroke-width="1.4"/>
+      <text class="t-city" x="634" y="298">深淵の要塞都市</text>
+
+      <g transform="translate(332,414)">
+        <circle r="5.5" fill="none" stroke="#b45a4a" stroke-width="1.8"/>
+        <path d="M-4 -4 L4 4 M4 -4 L-4 4" stroke="#b45a4a" stroke-width="1.8"/>
+      </g>
+      <text class="t-small" x="344" y="410" fill="#a8503f">リーネの集落（焼失）</text>
+
+      <g transform="translate(486,600)">
+        <circle r="14" fill="none" stroke="#9a7b32" stroke-width="1.2" opacity=".55"/>
+        <circle r="8.5" fill="#9a7b32" stroke="#6d5622" stroke-width="1.6"/>
+        <circle r="3" fill="#fdfcf8"/>
+      </g>
+      <text class="t-city-b" x="508" y="596" font-size="19">グ ラ ザ</text>
+      <text class="t-small" x="508" y="616">南北交易の要所・人口約3000</text>
+
+      <circle cx="278" cy="642" r="6.5" fill="#7d715a" stroke="#4f4941" stroke-width="1.5"/>
+      <text class="t-city" x="290" y="638">カルマ</text>
+      <text class="t-small" x="290" y="656">魔族保護網の拠点</text>
+
+      <circle cx="376" cy="716" r="5" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.6"/>
+      <text class="t-city" x="390" y="712">レドヴィア</text>
+      <text class="t-small" x="390" y="728">セルジュの故郷・猟村</text>
+
+      <g transform="translate(516,896)">
+        <circle r="13" fill="none" stroke="#a8503f" stroke-width="1.2" opacity=".5"/>
+        <circle r="8" fill="#b45a4a" stroke="#7d3629" stroke-width="1.6"/>
+        <circle r="2.8" fill="#fdfcf8"/>
+      </g>
+      <text class="t-city-b" x="536" y="892">王 都</text>
+      <text class="t-small" x="536" y="910">アルセイド王国</text>
+
+      <rect x="487" y="1025" width="10" height="10" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.5"/>
+      <text class="t-small" x="504" y="1034">フォビアンの研究施設（王都の南・馬で五日）</text>
+
+      <circle cx="420" cy="972" r="5.5" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.6"/>
+      <text class="t-city" x="408" y="976" text-anchor="end">セレーネ公爵領</text>
+      <text class="t-small" x="408" y="992" text-anchor="end">アリシアの生家</text>
+
+      <circle cx="556" cy="812" r="5" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.6"/>
+      <text class="t-city" x="570" y="808">クレスト村</text>
+      <text class="t-small" x="570" y="824">ライゼルの故郷・王都の北北東</text>
+
+      <!-- 東の街道の宿場町（断章第五話「オルガの東旅商人道」） -->
+      <g fill="#fdfcf8" stroke="#4f4941" stroke-width="1.4">
+        <circle cx="566" cy="612" r="4"/>
+        <circle cx="640" cy="622" r="4"/>
+        <circle cx="704" cy="614" r="4.6"/>
+      </g>
+      <text class="t-small" x="560" y="646" text-anchor="middle">レイドン</text>
+      <text class="t-small" x="642" y="654" text-anchor="middle">ヴェルレン</text>
+      <text class="t-city" x="716" y="606">エルセン</text>
+      <text class="t-small" x="716" y="622">グラザとガルドの中間の宿場町</text>
+    </g>
+
+    <path d="M0 1006 C24 1000 48 1014 62 1040 C78 1068 76 1104 66 1136
+             C56 1170 58 1208 48 1240 C38 1276 20 1300 0 1312 Z"
+          fill="#f0ece2" stroke="#5f6b74" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M0 1006 C24 1000 48 1014 62 1040 C78 1068 76 1104 66 1136
+             C56 1170 58 1208 48 1240 C38 1276 20 1300 0 1312 Z" fill="url(#hatchS)" opacity=".6"/>
+    <text class="t-region-s" x="52" y="1148" text-anchor="middle" opacity=".85">ガルディア</text>
+    <text class="t-region-s" x="52" y="1174" text-anchor="middle" opacity=".85">大　陸</text>
+    <text class="t-small" x="52" y="1200" text-anchor="middle">カルドレイン帝国</text>
+
+    <g fill="none" stroke="#7f9bb0" stroke-width="1.3">
+      <path d="M124 1088 L144 1090" stroke-dasharray="4 3"/>
+      <path d="M120 1108 L152 1106" stroke-dasharray="4 3"/>
+    </g>
+    <text class="t-small" x="134" y="1064" text-anchor="middle" fill="#6d879b">細い海峡</text>
+
+    <text class="t-sea" x="880" y="200" text-anchor="middle">東</text>
+    <text class="t-sea" x="880" y="232" text-anchor="middle">の</text>
+    <text class="t-sea" x="880" y="264" text-anchor="middle">海</text>
+    <text class="t-sea" x="720" y="1180" text-anchor="middle">南 の 海</text>
+    <text class="t-sea" x="120" y="560" text-anchor="middle">西</text>
+    <text class="t-sea" x="120" y="592" text-anchor="middle">の</text>
+    <text class="t-sea" x="120" y="624" text-anchor="middle">海</text>
+
+    <g transform="translate(884,1108)">
+      <circle r="46" fill="#fdfcf8" fill-opacity=".9" stroke="#c9bfa8" stroke-width="1"/>
+      <circle r="36" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <path d="M0 -38 L8 0 L0 38 L-8 0 Z" fill="#9a7b32"/>
+      <path d="M-38 0 L0 -7 L38 0 L0 7 Z" fill="#cdbb96"/>
+      <path d="M0 -38 L8 0 L0 0 Z" fill="#6d5622"/>
+      <text class="t-small" x="0" y="-50" text-anchor="middle" font-size="12">北</text>
+      <text class="t-small" x="0" y="60" text-anchor="middle" font-size="12">南</text>
+      <text class="t-small" x="-56" y="4" text-anchor="middle" font-size="12">西</text>
+      <text class="t-small" x="56" y="4" text-anchor="middle" font-size="12">東</text>
+    </g>
+
+    <g transform="translate(806,84)">
+      <rect x="-118" y="-42" width="236" height="96" fill="#fdfcf8" fill-opacity=".94"
+            stroke="#c9bfa8" stroke-width="1"/>
+      <rect x="-112" y="-36" width="224" height="84" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <text class="t-region-s" x="0" y="-6" text-anchor="middle" font-size="19" fill="#3d4a58">エルデシア大陸</text>
+      <text class="t-small" x="0" y="20" text-anchor="middle">王 暦 三 八 四 年</text>
+      <text class="t-note" x="0" y="40" text-anchor="middle">MAOU ZUKAN</text>
+    </g>
+
+    <g transform="translate(660,1300)">
+      <line x1="0" y1="0" x2="180" y2="0" stroke="#5f6b74" stroke-width="1.6"/>
+      <g stroke="#5f6b74" stroke-width="1.6">
+        <line x1="0" y1="-5" x2="0" y2="5"/><line x1="60" y1="-4" x2="60" y2="4"/>
+        <line x1="120" y1="-4" x2="120" y2="4"/><line x1="180" y1="-5" x2="180" y2="5"/>
+      </g>
+      <rect x="0" y="-4" width="60" height="8" fill="#5f6b74"/>
+      <rect x="120" y="-4" width="60" height="8" fill="#5f6b74"/>
+      <text class="t-small" x="90" y="22" text-anchor="middle">おおよその縮尺</text>
+    </g>
+  </svg>
+  </div>
+
+  <div class="cap">
+    <h2>エルデシア大陸図</h2>
+    <p>北のデモニア高地、中央の中立地帯・中央回廊、南のアルセイド王国という三層構造。
+       南西の半島の先には細い海峡を挟んでガルディア大陸が迫る。</p>
+  </div>
+
+  <div class="legend">
+    <div class="li"><span class="sw" style="background:#efeaf2"></span>デモニア高地（魔族圏）</div>
+    <div class="li"><span class="sw" style="background:#f4efe0"></span>中央回廊（中立地帯）</div>
+    <div class="li"><span class="sw" style="background:#f6ecec"></span>アルセイド王国</div>
+    <div class="li"><span class="sw" style="background:#e6eee2"></span>森林</div>
+    <div class="li"><span class="sw" style="background:#efeae0"></span>山脈・連峰</div>
+    <div class="li"><span class="sw" style="background:#dde8ef"></span>海</div>
+    <div class="li"><span class="sw" style="background:#6b5a86;border-color:#3d3352"></span>魔族の町（四大都市）</div>
+    <div class="li"><span class="sw" style="background:#5a4b6e;border-color:#332a41"></span>魔族の関所砦・城壁</div>
+    <div class="li"><span class="sw" style="background:#8a7a9c;border-color:#4e4064"></span>見張り砦</div>
+    <div class="li"><span class="sw" style="background:#b45a4a;border-color:#7d3629"></span>アルセイド王国の拠点</div>
+  </div>
+</section>
+
+<!-- ══════════════════ ③ グラザ周辺図 ══════════════════ -->
+<section class="panel" id="p-graza">
+  <div class="frame">
+  <svg class="map" viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dots2" width="9" height="9" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1" fill="#7f9a7a" opacity=".4"/>
+      </pattern>
+      <pattern id="miasma" width="8" height="8" patternTransform="rotate(30)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="#7a5f92" stroke-width="1.4" opacity=".3"/>
+      </pattern>
+    </defs>
+
+    <rect width="1000" height="760" fill="#f7f3e9"/>
+    <g opacity=".5">
+      <path d="M0 120 C160 96 320 132 470 110 C620 88 780 118 1000 96 L1000 0 L0 0 Z" fill="#eee9dc"/>
+      <path d="M0 660 C180 640 340 672 520 654 C700 636 860 664 1000 648 L1000 760 L0 760 Z" fill="#f1eadb"/>
+    </g>
+
+    <g stroke="#6a625a" stroke-width="1.6" fill="#efeae0" stroke-linejoin="round">
+      <path d="M120 118 l22-30 22 30 z"/><path d="M162 106 l26-34 26 34 z"/>
+      <path d="M212 120 l20-26 20 26 z"/><path d="M556 112 l24-32 24 32 z"/>
+      <path d="M600 100 l28-38 28 38 z"/><path d="M652 118 l22-30 22 30 z"/>
+      <path d="M700 104 l26-34 26 34 z"/>
+    </g>
+    <text class="t-region-s" x="150" y="70" text-anchor="middle" opacity=".8">北 の 山 地</text>
+
+    <g>
+      <ellipse cx="300" cy="176" rx="72" ry="46" fill="#efe6f2" stroke="#7a5f92" stroke-width="1.6"/>
+      <ellipse cx="300" cy="176" rx="72" ry="46" fill="url(#miasma)"/>
+      <path d="M286 190 a16 14 0 1 1 30 0 z" fill="#3b3346" stroke="#241f2c" stroke-width="1.4"/>
+    </g>
+    <text class="t-city" x="300" y="240" text-anchor="middle" fill="#6b5484">魔の吹き溜まり</text>
+    <text class="t-small" x="300" y="258" text-anchor="middle" fill="#7a6a8c">洞窟・浄化作戦の舞台</text>
+
+    <g>
+      <ellipse cx="560" cy="212" rx="100" ry="62" fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.5"/>
+      <ellipse cx="560" cy="212" rx="100" ry="62" fill="url(#dots2)"/>
+      <g fill="#6d8a68">
+        <path d="M512 186 l8-14 8 14 z"/><path d="M540 200 l9-15 9 15 z"/>
+        <path d="M576 184 l8-14 8 14 z"/><path d="M604 204 l9-15 9 15 z"/>
+        <path d="M524 224 l8-14 8 14 z"/><path d="M562 236 l9-15 9 15 z"/>
+        <path d="M598 232 l8-14 8 14 z"/>
+      </g>
+    </g>
+    <text class="t-city" x="560" y="294" text-anchor="middle">魔 狼 の 森</text>
+
+    <g>
+      <ellipse cx="188" cy="470" rx="76" ry="52" fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.5"/>
+      <ellipse cx="188" cy="470" rx="76" ry="52" fill="url(#dots2)"/>
+      <g fill="#6d8a68">
+        <path d="M152 452 l8-14 8 14 z"/><path d="M182 464 l9-15 9 15 z"/>
+        <path d="M214 450 l8-14 8 14 z"/><path d="M168 490 l8-14 8 14 z"/>
+        <path d="M204 494 l9-15 9 15 z"/>
+      </g>
+    </g>
+    <text class="t-city" x="188" y="544" text-anchor="middle">決 意 の 森</text>
+
+    <g fill="none" stroke="#9dbcd0" stroke-width="2.6" stroke-linecap="round">
+      <path d="M330 130 C346 210 380 262 396 330 C410 390 396 452 410 512 C420 560 448 610 462 664"/>
+      <path d="M690 140 C676 214 700 268 690 330"/>
+    </g>
+    <g transform="translate(396,330)">
+      <path d="M-13 0 h26" stroke="#7fa6bd" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-9 4 v7 M0 4 v9 M9 4 v7" stroke="#9dbcd0" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <text class="t-small" x="360" y="336" text-anchor="end">滝壺（フィルとの邂逅）</text>
+
+    <g fill="none" stroke="#a2907a" stroke-width="2.4" stroke-dasharray="8 5" stroke-linecap="round">
+      <path d="M520 400 C560 336 600 302 640 270"/>
+      <path d="M520 400 C440 356 380 300 330 236"/>
+      <path d="M520 400 C420 430 320 452 246 470"/>
+      <path d="M520 400 C560 480 580 560 604 636"/>
+      <path d="M520 400 C462 466 400 520 330 566"/>
+      <path d="M520 400 C620 396 720 410 812 440"/>
+    </g>
+
+    <circle cx="648" cy="264" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
+    <text class="t-city" x="662" y="262">ベルク村</text>
+    <text class="t-small" x="662" y="280">北東・徒歩二刻／ゴブリン駆除の依頼</text>
+
+    <circle cx="322" cy="572" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
+    <text class="t-city" x="310" y="592" text-anchor="end">タネル村</text>
+    <text class="t-small" x="310" y="610" text-anchor="end">オルガと同行した道中の村</text>
+
+    <g transform="translate(520,400)">
+      <path d="M-96 -62 L-34 -96 L44 -96 L100 -58 L104 26 L52 84 L-40 88 L-98 34 Z"
+            fill="#faf6ec" stroke="#8a7f6b" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M-88 -56 L-32 -87 L40 -87 L92 -53 L96 22 L48 75 L-36 79 L-90 30 Z"
+            fill="none" stroke="#c1b49a" stroke-width="1.4"/>
+      <path d="M4 -96 L2 88" stroke="#cbbfa6" stroke-width="7"/>
+      <path d="M2 -14 L104 -6" stroke="#cbbfa6" stroke-width="5"/>
+      <path d="M2 6 L-97 16" stroke="#cbbfa6" stroke-width="4.5"/>
+      <rect x="18" y="-52" width="34" height="26" fill="#efe6d2" stroke="#a2907a" stroke-width="1.2"/>
+      <text class="t-note" x="35" y="-34" text-anchor="middle" font-size="8">市場</text>
+      <path d="M-40 88 L52 84 L36 46 L-26 48 Z" fill="#e9e2e5" stroke="#8f7e88" stroke-width="1.2"/>
+      <text class="t-note" x="6" y="72" text-anchor="middle" font-size="8" fill="#6f5f68">南区画</text>
+      <g fill="#8a7f6b">
+        <rect x="-4" y="-101" width="15" height="8"/><rect x="-6" y="85" width="15" height="8"/>
+      </g>
+      <text class="t-note" x="26" y="-104" text-anchor="middle" font-size="8">北門</text>
+      <text class="t-note" x="30" y="102" text-anchor="middle" font-size="8">南門</text>
+      <g fill="#b9ab90">
+        <rect x="20" y="-16" width="7" height="6"/><rect x="34" y="-20" width="7" height="6"/>
+        <rect x="50" y="-14" width="7" height="6"/><rect x="66" y="-18" width="7" height="6"/>
+        <rect x="-30" y="10" width="7" height="6"/><rect x="-48" y="6" width="7" height="6"/>
+        <rect x="-66" y="14" width="7" height="6"/>
+        <rect x="-38" y="-46" width="7" height="6"/><rect x="-54" y="-38" width="7" height="6"/>
+      </g>
+    </g>
+    <text class="t-city-b" x="520" y="516" text-anchor="middle" font-size="22" letter-spacing="6">グ ラ ザ</text>
+    <text class="t-small" x="520" y="538" text-anchor="middle">中央回廊の中立地帯／人口約3000／創設130年前</text>
+
+    <g stroke="#a2907a" stroke-width="1" fill="none"><path d="M628 392 L700 372"/></g>
+    <text class="t-small" x="706" y="368">東通り ─ アクロス邸・トマス邸・グロムの鍛冶屋・エリザのパン屋</text>
+    <g stroke="#a2907a" stroke-width="1" fill="none"><path d="M548 296 L610 332"/></g>
+    <text class="t-small" x="616" y="336">北門 ─ オルガ商会の倉庫・赤角亭</text>
+    <g stroke="#8f7e88" stroke-width="1" fill="none"><path d="M528 492 L466 470"/></g>
+    <text class="t-small" x="460" y="466" text-anchor="end" fill="#6f5f68">南区画 ─ ガドラ商会・闇市場</text>
+
+    <text class="t-region-s" x="812" y="470" opacity=".8">→ 東の山道</text>
+    <text class="t-region-s" x="604" y="668" text-anchor="middle" opacity=".8">↓ アルセイド王国へ</text>
+    <text class="t-region-s" x="150" y="700" opacity=".8">← カルマ・シルヴェーンの森へ</text>
+
+    <g transform="translate(898,656)">
+      <circle r="40" fill="#fdfcf8" fill-opacity=".92" stroke="#c9bfa8" stroke-width="1"/>
+      <circle r="31" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <path d="M0 -33 L7 0 L0 33 L-7 0 Z" fill="#9a7b32"/>
+      <path d="M-33 0 L0 -6 L33 0 L0 6 Z" fill="#cdbb96"/>
+      <path d="M0 -33 L7 0 L0 0 Z" fill="#6d5622"/>
+      <text class="t-small" x="0" y="-44" text-anchor="middle" font-size="11">北</text>
+    </g>
+
+    <g transform="translate(140,660)">
+      <rect x="-118" y="-34" width="236" height="76" fill="#fdfcf8" fill-opacity=".94"
+            stroke="#c9bfa8" stroke-width="1"/>
+      <rect x="-112" y="-28" width="224" height="64" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <text class="t-region-s" x="0" y="-2" text-anchor="middle" font-size="18" fill="#3d4a58">グラザ周辺図</text>
+      <text class="t-note" x="0" y="22" text-anchor="middle">MAOU ZUKAN</text>
+    </g>
+
+    <g transform="translate(700,714)">
+      <line x1="0" y1="0" x2="150" y2="0" stroke="#5f6b74" stroke-width="1.6"/>
+      <g stroke="#5f6b74" stroke-width="1.6">
+        <line x1="0" y1="-5" x2="0" y2="5"/><line x1="50" y1="-4" x2="50" y2="4"/>
+        <line x1="100" y1="-4" x2="100" y2="4"/><line x1="150" y1="-5" x2="150" y2="5"/>
+      </g>
+      <rect x="0" y="-4" width="50" height="8" fill="#5f6b74"/>
+      <rect x="100" y="-4" width="50" height="8" fill="#5f6b74"/>
+      <text class="t-small" x="75" y="22" text-anchor="middle">徒歩およそ二刻</text>
+    </g>
+  </svg>
+  </div>
+
+  <div class="cap">
+    <h2>グラザ周辺図</h2>
+    <p>中央回廊の中立地帯グラザと、その周辺。北に魔の吹き溜まりの洞窟、北東に徒歩二刻のベルク村、
+       街道の南西にタネル村。市街は南北の大通りを軸に、東通りの住宅街と南区画の闇の顔を持つ。</p>
+  </div>
+
+  <div class="legend">
+    <div class="li"><span class="sw" style="background:#faf6ec;border-color:#8a7f6b"></span>市街・城壁</div>
+    <div class="li"><span class="sw" style="background:#e6eee2"></span>森林</div>
+    <div class="li"><span class="sw" style="background:#efe6f2"></span>魔の吹き溜まり</div>
+    <div class="li"><span class="sw" style="background:#e9e2e5"></span>南区画</div>
+    <div class="li"><span class="sw" style="background:#efeae0"></span>山地</div>
+    <div class="li"><span class="sw" style="background:repeating-linear-gradient(90deg,#a2907a 0 6px,transparent 6px 11px)"></span>街道</div>
+  </div>
+</section>
+
+</div>
+
+<footer>MAOU ZUKAN &nbsp;&nbsp;／&nbsp;&nbsp; 地理は本文を正とする</footer>
+
+<script>
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x === b));
+  document.querySelectorAll(".panel").forEach(p =>
+    p.classList.toggle("on", p.id === "p-" + b.dataset.p));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+</script>
+</body>
+</html>

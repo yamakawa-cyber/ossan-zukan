@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="各話まとめ ─ おっさん、人生ひと段落したので異世界で魔王を始めます ─ 世界図鑑">
+<meta property="og:description" content="全話のあらすじと転換点。題名クリックでカクヨム本文へ。">
+<meta property="og:url" content="https://yamakawa-cyber.github.io/ossan-zukan/episodes.html">
+<meta property="og:image" content="https://yamakawa-cyber.github.io/ossan-zukan/img/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="全話のあらすじと転換点。題名クリックでカクヨム本文へ。">
+<title>各話まとめ ─ 魔王図鑑</title>
+<style>
+:root{
+  --paper:#fbfaf7; --ink:#15202c; --ink-2:#3d4a58; --muted:#71808f; --faint:#9aa6b2;
+  --gold:#9a7b32; --hair:#e3ddd0; --hair-2:#d3cab6;
+  --serif:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP","MS PMincho",serif;
+  --sans:"Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans JP","Meiryo",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --shadow-s:0 1px 2px rgba(35,28,14,.05);
+  --shadow-m:0 2px 4px rgba(35,28,14,.05),0 10px 26px rgba(35,28,14,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(154,123,50,.18)}
+
+.hero{padding:clamp(44px,6vw,74px) 24px 30px;text-align:center;
+  background:linear-gradient(180deg,#fff,var(--paper));border-bottom:1px solid var(--hair)}
+.hero h1{font-family:var(--serif);font-size:clamp(26px,4.4vw,40px);letter-spacing:.24em;
+  text-indent:.24em;font-weight:600}
+.hero .rule{width:min(280px,60%);height:1px;margin:20px auto 14px;position:relative;
+  background:linear-gradient(90deg,transparent,var(--hair-2) 20%,var(--hair-2) 80%,transparent)}
+.hero .rule::after{content:"◆";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:7px;color:var(--gold);background:var(--paper);padding:0 10px}
+.hero .sub{font-family:var(--serif);font-size:12px;letter-spacing:.3em;text-indent:.3em;color:var(--gold)}
+.hero .lead{margin:18px auto 0;max-width:620px;font-size:13px;color:var(--muted);line-height:2}
+.hero .lead b{color:var(--gold);font-weight:400}
+
+/* ══════════ 第50話からの折りたたみ ══════════ */
+.fold{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;
+  margin:20px 0;padding:15px 20px;
+  background:linear-gradient(180deg,#fff,#fffdf6);border:1px solid #e6dcbe;
+}
+.fold-msg{
+  font-family:var(--serif);font-size:13px;letter-spacing:.1em;color:#6d6047;
+}
+.fold-btn{
+  cursor:pointer;background:var(--ink);color:#f4efe2;
+  border:1px solid var(--ink);border-radius:2px;white-space:nowrap;
+  font-family:var(--serif);font-size:12.5px;letter-spacing:.14em;text-indent:.14em;
+  padding:8px 22px;transition:.2s var(--ease);
+}
+.fold-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+.fold-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.fold-list{margin-top:12px}
+
+.navbar{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.93);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.navbar-in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;gap:16px;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tabs{display:flex;gap:2px;flex-wrap:wrap}
+.tab{position:relative;cursor:pointer;background:none;border:0;font-family:var(--serif);
+  font-size:13.5px;letter-spacing:.14em;padding:8px 15px 10px;color:var(--faint);
+  transition:color .2s var(--ease);text-decoration:none;display:inline-block}
+.tab:hover,.tab.active{color:var(--ink)}
+.tab::after{content:"";position:absolute;left:10px;right:10px;bottom:3px;height:2px;background:var(--gold);
+  transform:scaleX(0);transition:transform .3s var(--ease)}
+.tab.active::after{transform:scaleX(1)}
+.tab .n{font-size:10px;color:var(--gold);margin-left:4px;vertical-align:2px;opacity:.8}
+.search{position:relative}
+.search input{width:min(240px,50vw);padding:8px 13px 8px 33px;background:#fff;
+  border:1px solid var(--hair-2);border-radius:2px;color:var(--ink);font-size:13px;
+  outline:none;box-shadow:var(--shadow-s);transition:.2s var(--ease)}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(154,123,50,.1)}
+.search .ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.6;line-height:0}
+
+.stage{max-width:1180px;margin:0 auto;padding:26px 24px 80px}
+.arc{margin-bottom:14px}
+.arc-head{display:flex;align-items:baseline;gap:14px;padding:24px 0 12px;
+  border-bottom:1px solid var(--hair);margin-bottom:20px}
+.arc-head h2{font-family:var(--serif);font-size:19px;letter-spacing:.2em;color:var(--ink)}
+.arc-head .desc{font-size:12px;color:var(--muted);flex:1}
+.arc-head .cnt{font-size:11px;color:var(--faint);letter-spacing:.1em}
+
+.list{display:grid;gap:12px}
+.ep{
+  --acc:var(--gold);
+  position:relative;background:#fff;border:1px solid var(--hair-2);
+  box-shadow:var(--shadow-s);padding:16px 20px 16px 22px;
+  display:grid;grid-template-columns:78px 1fr;gap:18px;align-items:start;
+  transition:box-shadow .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease);
+}
+@media(max-width:640px){.ep{grid-template-columns:1fr;gap:6px}}
+.ep::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;
+  background:var(--acc);opacity:.55;transition:opacity .25s var(--ease)}
+.ep:hover{box-shadow:var(--shadow-m);border-color:color-mix(in srgb,var(--acc) 45%,var(--hair-2));transform:translateX(2px)}
+.ep:hover::before{opacity:1}
+.ep[data-kind="danshou"]{--acc:#5f7285}
+.ep[data-kind="eiyu"]{--acc:#a3562f}
+.ep[data-kind="shinma"]{--acc:#6b5a86}
+
+/* 話数の左に「どの筋の話か」を必ず出す。
+   本編・断章・英雄譚・真魔の章に上下は無いので、全部に同じ形の札をつける */
+.ep .no{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding-top:2px}
+.ep .kindtag{
+  font-family:var(--serif);font-size:10px;letter-spacing:.08em;
+  padding:2px 8px;border-radius:2px;white-space:nowrap;
+  color:#fff;background:var(--acc);
+}
+.ep .num{font-family:var(--serif);font-size:12.5px;letter-spacing:.1em;
+  color:var(--acc);white-space:nowrap}
+@media(max-width:640px){
+  .ep .no{flex-direction:row;align-items:center;gap:8px}
+}
+
+/* 5話ごとの区切り見出し */
+.unit-head{display:flex;align-items:center;gap:14px;margin:26px 0 12px}
+.unit-head::after{content:"";flex:1;height:1px;background:var(--hair)}
+.unit-rng{font-family:var(--serif);font-size:12px;letter-spacing:.16em;color:var(--muted);
+  white-space:nowrap}
+.unit-head:first-child{margin-top:4px}
+.ep .ttl{font-family:var(--serif);font-size:17px;letter-spacing:.05em;line-height:1.5;color:var(--ink)}
+.ttl-link{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:.18s var(--ease)}
+.ttl-link:hover{color:var(--acc);border-bottom-color:color-mix(in srgb,var(--acc) 45%,transparent)}
+.ttl-link .ext{font-family:var(--sans);font-size:10px;margin-left:6px;color:var(--acc);opacity:.6;vertical-align:2px}
+.ttl-link:hover .ext{opacity:1}
+.ep .sum{font-size:13px;color:var(--ink-2);line-height:1.95;margin-top:7px}
+.ep .keys{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ep .key{font-size:10px;letter-spacing:.05em;padding:2px 9px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);
+  color:color-mix(in srgb,var(--acc) 88%,transparent);
+  background:color-mix(in srgb,var(--acc) 5%,transparent)}
+.ep .flag{display:inline-block;font-size:10px;letter-spacing:.06em;padding:2px 9px;
+  border-radius:999px;background:#f4ece2;border:1px solid #dbc9b4;color:#8a6f28;margin-left:8px}
+
+.note{max-width:1180px;margin:0 auto;padding:0 24px 40px}
+.note .box{padding:16px 20px;background:#fffdf6;border:1px solid #e6dcbe;
+  font-size:12.5px;color:#6d6047;line-height:1.9}
+.note .box b{color:#8a6f28}
+
+.empty{text-align:center;padding:70px 0;font-family:var(--serif);letter-spacing:.2em;color:var(--faint)}
+footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-size:10.5px;
+  letter-spacing:.28em;text-indent:.28em;color:var(--faint);border-top:1px solid var(--hair);background:#fff}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>各話まとめ</h1>
+  <div class="rule"></div>
+  <div class="sub">おっさん、人生ひと段落したので異世界で魔王を始めます</div>
+  <p class="lead">本編・断章・英雄譚・真魔の章を、掲載どおりの読み順で並べたもの。<br>
+     本編がアクロスとリーネの日常から物語を進め、世界の真実は断章と英雄譚で明かされる。
+     この四つに上下はない。<br>
+     <b>各話の題名をクリックすると、カクヨムでその話の本文が読めます。</b></p>
+</section>
+
+<nav class="navbar"><div class="navbar-in">
+  <div class="tabs" id="tabs"></div>
+  <div class="search">
+    <span class="ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9a7b32" stroke-width="2.2">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg></span>
+    <input type="text" id="q" placeholder="話数・題名・内容で検索…" autocomplete="off">
+  </div>
+</div></nav>
+
+<div class="stage" id="stage"></div>
+
+<div class="note"><div class="box">
+  <b>この一覧について：</b>
+  題名と話数はファイルどおり。各話の要約は本文の冒頭と結びに基づいている。
+  設定の事実確認は本文を正とし、設定データベースの記述は採用していない。
+</div></div>
+
+<footer>MAOU ZUKAN &nbsp;&nbsp;／&nbsp;&nbsp; 各話まとめ</footer>
+
+<!-- データは episodes_data.js と同じ内容をここに埋め込んでいる
+     （file:// では外部JSの文字コード解釈が環境依存で崩れるため） -->
+<script>
+/* === DATA:BEGIN === */
+/* =========================================================
+   各話まとめ ─ データ
+   kind: main / danshou / eiyu / shinma
+   turn: true で「転換点」の印
+   url : カクヨムの各話URL（入れると題名がリンクになる）
+   ※ 題名と話数はファイルどおり。要約は本文に基づく。
+   ========================================================= */
+
+const EPISODES = [
+
+/* ═════════ 本編 ═════════ */
+{kind:"main",no:"第1話", seq:1, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595461726136",title:"さよなら、普通の人生",turn:true,
+ sum:"四月の昼下がり。四十三歳の佐伯航は、電線の上でスズメが毛づくろいをするような、なんでもない日常の中で命を落とす。「その声を最後に。佐伯航は消えた」── そしてアクロスの物語が始まる。",
+ keys:["佐伯航","転生","始まり"]},
+{kind:"main",no:"第2話", seq:2, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595598513028",title:"こんにちは、新しい世界",turn:true,
+ sum:"目を開けると青い空。水面に映った自分は、青みがかった肌に一本角、右が琥珀・左が紅のオッドアイの魔族だった。黒地に暗紫の裏地のロングコートに身を包み、異世界最初の夜を穏やかな闇の中で眠る。",
+ keys:["アクロスの姿","一本角","オッドアイ","コート姿"]},
+{kind:"main",no:"第3話", seq:3, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595604372518",title:"魔の創造",turn:true,
+ sum:"異世界二日目。魔法を手探りで試していく中で「魔の創造」が発動し、黒い狼クロが生まれる。念話の回路で繋がった相棒との、最初の一日。",
+ keys:["クロ誕生","魔の創造","念話"]},
+{kind:"main",no:"第4話", seq:4, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051600854291980",title:"狩りと秘密基地",
+ sum:"生まれたばかりのクロと狩りに出る。念話（リンク）と名づけた魔法で意思を通わせながら、滝裏に秘密基地を見つけた。異世界で初めて屋根の下で眠れる夜。",
+ keys:["秘密基地","滝","念話","狩り"]},
+{kind:"main",no:"第5話", seq:5, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595612259208",title:"水場の縁",turn:true,
+ sum:"滝壺にエルフの森境守フィルが現れる。変身を一目で見抜かれながらも見逃され、代わりに大陸の情勢が語られる ── アルセイド王国の剣聖ヴァイス、そして十年前から急に活発化した人間側の魔族への動き。「水場を共にする縁だ」",
+ keys:["フィル","水場の縁","ヴァイスの名","十年前の伏線"]},
+{kind:"main",no:"第6話", seq:7, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595660540348",title:"交錯する運命",turn:true,
+ sum:"異世界五日目。賞金稼ぎに追われる魔族の娘と出会う。差し出された手に、彼女は躊躇いながら小さく頷いて手を重ねた ── その手は、思っていたよりずっと冷たかった。",
+ keys:["リーネとの出会い","ドルク初登場"]},
+{kind:"main",no:"第7話", seq:8, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595674093477",title:"優しさか、わがままか",
+ sum:"賞金稼ぎとの戦いに勝ち、魔族の娘リーネを救出する。「あなた、ちょっと親切すぎない？」と警戒されながらも、行くあてのない彼女と北へ向かうことになる。",
+ keys:["リーネ救出","北の街道"]},
+{kind:"main",no:"第8話", seq:9, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595678889855",title:"魔力の温度",
+ sum:"肩を貸して歩きながら、★とは生命体としての純粋な強さの指標だと教わる。リーネの故郷の集落には温泉があったという話も。二つの月の下で、明日も北へ歩こうと目を閉じる。",
+ keys:["★ランク","リーネの集落","温泉"]},
+{kind:"main",no:"第9話", seq:10, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595732779478",title:"馬鹿みたいな話",
+ sum:"朝霧の森を北へ。リーネの魔力が戻り始める。父が薬師だったこと、集落での暮らしが少しずつ語られていく。",
+ keys:["リーネの父","薬師"]},
+{kind:"main",no:"第10話", seq:11, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595741726988",title:"二人と一匹の生活",
+ sum:"石造りの建物を掃除し、寝床を整え、炎茸などの食材を探る。拠点としての生活が形になっていく。「……悪くない生活だな」",
+ keys:["拠点","炎茸"]},
+{kind:"main",no:"第11話", seq:13, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595746211533",title:"殺す覚悟",turn:true,
+ sum:"「魔王になるってことは──戦争をする。『話せばわかる』は絶対に通じない」。自分の言葉で人が死ぬという重さを引き受け、殺す覚悟の五箇条を定める。そして「その時には、逃げない。それだけだ」とリーネが並び立つ。",
+ keys:["殺す覚悟","五箇条","リーネの誓い"]},
+{kind:"main",no:"第12話", seq:14, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747480915",title:"二人と二匹",turn:true,
+ sum:"絆の魔法によりフレスが誕生。「人間も、魔族も。一人で正しくいるのは難しい」── 見届け役を託し、託される関係が結ばれる。石造りの小さな家が、ひとつの小さな家族になった。",
+ keys:["フレス誕生","絆の魔法","見届け役"]},
+{kind:"main",no:"第13話", seq:15, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747547095",title:"鼓動と拳",
+ sum:"「成長限界の解除」を絆で繋がった相手にも及ぼす試み。真面目な儀式のはずが、いつもの調子で茶化して頬を張られる。",
+ keys:["成長限界","絆"]},
+{kind:"main",no:"第14話", seq:16, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747621671",title:"理屈とイメージ",
+ sum:"頬を腫らしたまま魔法訓練へ。「甘くするつもりはないわ。覚悟は決めて」と師についたリーネの厳しさ。そして「……やれば、できるじゃない」の一言。",
+ keys:["魔法訓練","リーネ師匠"]},
+{kind:"main",no:"第15話", seq:17, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747672293",title:"理屈で殴る",
+ sum:"「イメージが攻撃に偏りすぎている」という指摘を受けて。人間の科学と魔族の魔法体系が交わる場所に、誰も見たことのない魔法が生まれるかもしれない。",
+ keys:["科学×魔法"]},
+{kind:"main",no:"第16話", seq:19, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747713879",title:"二人の魔法研究会",
+ sum:"複合属性魔法の議論から、風の回転で中心に低圧を作るという発想が生まれる。氷の核を組み、雷を絡めた新魔法「凍雷陣（とうらいじん）」が完成する。",
+ keys:["凍雷陣","複合属性","科学×魔法"]},
+{kind:"main",no:"第17話", seq:20, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747780938",title:"もう迷わない",turn:true,
+ sum:"リミットレスの儀式。互いの限界を開き合う夜を越えて、リーネが声を出して笑った ── その笑顔が、二人の絆の証明だった。",
+ keys:["リミットレス","絆"]},
+{kind:"main",no:"第18話", seq:21, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595747818027",title:"二人の秘密基地",
+ sum:"儀式を終えて外へ。「魔王やりたいって言った」と改めて口にし、目指す先を共有する。四つの影が伸びる夕暮れ、二人と二匹は森の奥へ歩き出す。",
+ keys:["魔王宣言"]},
+{kind:"main",no:"第19話", seq:22, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595887202265",title:"普通の一日",
+ sum:"焚き火を起こし、料理をし、それぞれができることをする。「ここで生活を始めてから一番いい匂い」── より良い明日のために、二人の行動は自然とそうなっていた。",
+ keys:["日常","料理"]},
+{kind:"main",no:"第20話", seq:23, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595887516717",title:"大発明と贈り物",turn:true,
+ sum:"「隠したい」というイメージから魔の創造が応え、影の領域（シャドウ・レルム）が生まれる。変身魔法も二層構造へ組み直された。そしてリーネから財布・荷袋・薬草入れの革細工三点が贈られる。",
+ keys:["影の領域","変身二層","革細工"]},
+{kind:"main",no:"第21話", seq:25, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051595948232809",title:"魔剣・アクロスソード",
+ sum:"魔力を固体化した黒紫の直剣が実体化する。「アクロスソード」という命名にリーネが呆れ、フレスが「ぴぃ」と鳴いた ── 異議なし、とでも言いたげな声だった。",
+ keys:["アクロスソード","影の領域"]},
+{kind:"main",no:"第22話", seq:26, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596010054426",title:"月と太陽",turn:true,
+ sum:"リーネがこの世界の暦を教える。一週八日の八元素、三十二日の大月、四百十六日の一年、四つの季、二つの太陽と三つの月、そして王暦百四十年。アクロスはようやく、自分がこの世界の時間の中に立っているのだと感じた。",
+ keys:["暦","八元素","三つの月","王暦140年"]},
+{kind:"main",no:"第23話", seq:27, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596083674506",title:"行商人オルガとの出会い",turn:true,
+ sum:"街道でスポークが二本折れた荷馬車に出くわす。行商人オルガと護衛のカイ・ミラを助け、リーネの木工技術が驚かれる。グラザで素材を換金する算段も立つ。「さぁ、世界を見に行こうか」",
+ keys:["オルガ","カイ","ミラ","荷馬車修理"]},
+{kind:"main",no:"第24話", seq:28, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596100392078",title:"タネル村でのひととき",
+ sum:"タネル村へ同行し、オルガに夕食をご馳走になる。「北の山脈手前の集落から」という設定で身元を語り、村の宿で一夜を過ごす。",
+ keys:["タネル村","オルガ"]},
+{kind:"main",no:"第25話", seq:29, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596166053343",title:"ようやく、グラザへ",turn:true,
+ sum:"ようやくグラザへ。入町税は一人銅貨二枚。レンガ造りの塀を持つ町の門をくぐる。この町の空の下を笑顔で歩く二人が、これからこの世界に大きな影響を与えていく。",
+ keys:["グラザ到着","入町税"]},
+{kind:"main",no:"第26話", seq:31, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596168815951",title:"二人の町散歩",
+ sum:"素材を換金し、服屋で確定の服装を揃える。リーネが相場を言い当てて店主を驚かせる。湯屋で全身を洗う幸福。串焼きは明日でいいか、と思った。",
+ keys:["確定服装","換金","湯屋"]},
+{kind:"main",no:"第27話", seq:32, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596240076415",title:"グラザでの初めての朝",
+ sum:"宿での朝。変身を一度解く習慣や、人前での振る舞いを二人で確認していく。今日こそ串焼きを食べられるのか ── アクロスの運命は、リーネの機嫌次第である。",
+ keys:["宿","変身の運用"]},
+{kind:"main",no:"第28話", seq:33, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596240114497",title:"土の日のグラザ",turn:true,
+ sum:"市が開かれる土の日。文字が読めるかという話から、塩と水は料理の命という話まで。市場の外れの薬店で薬師ハンナと出会い、乾燥の丁寧さを見抜かれて同業者として認められる。",
+ keys:["ハンナ","土の日","市場","薬草"]},
+{kind:"main",no:"第29話", seq:34, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596301562862",title:"二人の馬鹿みたいな話",
+ sum:"買い込んだ品を影の領域に収めながら、このまま町に住むかを話し合う。宿ではクロとフレスを離さねばならない ── 家を持つ理由が見えてくる。",
+ keys:["家を持つ","影の領域"]},
+{kind:"main",no:"第30話", seq:35, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596497885201",title:"ギルド登録試験",turn:true,
+ sum:"冒険者ギルドで★3を自己申告。受付エミラ、試験官ゲルツ、弓使いレナと立ち合い、二人とも合格。マルコが握手で乱入してくる。ギルドランクは仮の木札から銅・鉄・銀・金・白金の五段階。",
+ keys:["エミラ","ゲルツ","レナ","マルコ","★3","ギルドランク"]},
+{kind:"main",no:"第31話", seq:37, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596509354978",title:"トマスのじいさん",turn:true,
+ sum:"ハンナの店を訪ねた後、大家となるトマス・ベルグとの出会い。三つの質問を経て、隣家を貸す決断がなされる。閉じた目から一筋の光が、頬を伝っていた。",
+ keys:["トマス","家","三つの質問"]},
+{kind:"main",no:"第32話", seq:38, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596590957697",title:"言葉に気持ちを込めて",turn:true,
+ sum:"引っ越しの日。トマスに昼食へ招かれ、グラザの歴史と南北の魔族観の違いを聞く。「俺にも魔族の知り合いはいた」という告白も。リーネが「トマスおじいちゃん」と呼び、「誰がおじいちゃんだ」と返される。",
+ keys:["引っ越し","グロム","グラザの歴史","メルティの影"]},
+{kind:"main",no:"第33話", seq:39, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596590978758",title:"赤角亭の夜",
+ sum:"北門近くの赤角亭でオルガと夕食。ドルクの素性が語られ、「背中は預けていいが、心は決して預けるな」という言葉が残る。隣のリビングからは、大きないびきが聞こえていた。",
+ keys:["赤角亭","オルガの名言"]},
+{kind:"main",no:"第34話", seq:40, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596705942993",title:"ちゃんと送るということ",turn:true,
+ sum:"ベルク村のゴブリン駆除。リーネが「ごめんね、遅くなったわね」と一番小さな個体に謝り、魔族の「ちゃんと送る」儀式を初めて実装する。人間の「土に戻す」と同じ場所で重なる。",
+ keys:["ベルク村","ゴブリン","ちゃんと送る"]},
+{kind:"main",no:"第35話", seq:41, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596707649796",title:"出発前夜",
+ sum:"ギルドで報酬を受け取り、討伐の準備を整える夜。ドルクへの複雑な思いを打ち明けたアクロスに、リーネが「逃げないって、決めたの」「これは私が自分で決めていることなのよ」と返す。悪い夢は、見なさそうだ。",
+ keys:["リーネの成長","出発前夜"]},
+{kind:"main",no:"第36話", seq:43, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596778693110",title:"初めての集団行動",
+ sum:"白晨の少し前に起床し、討伐隊として初めての集団行動。緊張を隠さずに認め、野営の夜を過ごす。クロとフレスの働きが冒険者たちを驚かせる。",
+ keys:["討伐隊","野営","クロとフレス"]},
+{kind:"main",no:"第37話", seq:44, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596787143447",title:"ドルクという男",turn:true,
+ sum:"焚き火の反対側でレナとリーネが語らう一方、「俺は寝ない」と言うドルクの輪郭が浮かび上がる。森の入り口が、朝の光の中で黒く口を開けていた。",
+ keys:["ドルク","野営"]},
+{kind:"main",no:"第38話", seq:45, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596884730633",title:"魔狼の森",turn:true,
+ sum:"二十頭を超える魔狼の群れとの戦い。額に赤黒い紋を持ち金色の目をした★4の統率個体（デモンウルフ）が現れ、マルコが脇腹を抉られる。アクロスがアクロスソードと雷撃で撃破。ドルクがリーネを命がけで守る。",
+ keys:["魔狼","統率個体","マルコ負傷"]},
+{kind:"main",no:"第39話", seq:46, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596912736696",title:"魔の吹き溜まり",turn:true,
+ sum:"戦いの後始末。毛皮の剥ぎ方、牙の取り方を教わりながら素材を回収していく。そしてこの森の奥に魔の吹き溜まりがあることが語られる。",
+ keys:["吹き溜まり","素材回収"]},
+{kind:"main",no:"第40話", seq:47, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596945733375",title:"帰路と帰還",
+ sum:"白晨の光の中を帰路につく。道中の軽口と笑い。ちゃんと帰ってこれた ── この喜びを大事にしたい。",
+ keys:["帰還","街道"]},
+{kind:"main",no:"第41話", seq:49, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051596980732915",title:"泣いて笑って",turn:true,
+ sum:"リーネの一人称で語られる回。泥だらけで汗臭いアクロスの隣を歩きながら「そんな私も、馬鹿みたい。でも──それでいいと、今の私は思える」。魔族の涙は光になる。",
+ keys:["リーネ視点","初めて泣く","エリー"]},
+{kind:"main",no:"第42話", seq:50, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597048573216",title:"嘘のない生き方を",turn:true,
+ sum:"トマスへ魔族であることを打ち明ける。震えながらも顔は上げたまま。そしてギルド長ギースの名が出る ── 双槍のギース。沈黙が、部屋を満たした。",
+ keys:["告白","トマス","ギースの名"]},
+{kind:"main",no:"第43話", seq:51, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597064452871",title:"筋を通すということ",turn:true,
+ sum:"ギルド長ギースへも正体を明かす。「……魔族、か」という呟きの後、吹き溜まりを放置した先の危険が語られ、受け入れられる。四つの影が、グラザの通りに伸びていた。",
+ keys:["ギース","告白","吹き溜まり"]},
+{kind:"main",no:"第44話", seq:52, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597182031336",title:"一歩、そしてまた一歩",
+ sum:"屋台で鶏串と黒パンを買い、グロムの店でショートソードと短杖ナイフを購う。「一本角に左右違う色の目、おまけに腕には魔紋」と己を省みる場面も。夕暮れが、静かに夜に変わろうとしていた。",
+ keys:["ショートソード","短杖ナイフ","グロム"]},
+{kind:"main",no:"第45話", seq:53, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597222199571",title:"年甲斐もなく",
+ sum:"二人が帰った後、居間に一人で座るトマス。「最初から気付いてたがな」── 魔力回路を見る稽古の計画を立てる。逃げていた頃には考えもしなかったこと。明日が、楽しみだ。",
+ keys:["トマス視点","稽古の計画"]},
+{kind:"main",no:"第46話", seq:55, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597361799105",title:"一挙手一投足",turn:true,
+ sum:"トマスによる剣術指導が始まる。「力を抜けと言っているんじゃない」── すり足、呼吸、握り方、間合い。「今のお前が、この町で最も長く過ごす相手だ」という言葉も。",
+ keys:["剣術指導","トマス"]},
+{kind:"main",no:"第47話", seq:56, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597398413853",title:"桜花のような時間",turn:true,
+ sum:"アクロスがリーネに花刺繍のエプロンを贈る。そして桜の花びらの栞 ── 「桜は、大きな木で」と故郷の樹を語る。「生きてるって気がする毎日ね」。窓辺のアリッサムが月の光に浮かぶ穏やかな夜。",
+ keys:["エプロン","桜の栞","共存のシンボル"]},
+{kind:"main",no:"第48話", seq:57, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597405609797",title:"生き残るための目",
+ sum:"ギースも稽古に加わる。「俺の顔だけを見るな。足だけを見るな」── 目付の教え、そして集団戦の鉄則。昼には吹き溜まりの処理が三日後と通達される。",
+ keys:["ギース","目付","集団戦","出発通達"]},
+{kind:"main",no:"第49話", seq:58, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597405655760",title:"五十三回の死",turn:true,
+ sum:"稽古の中で五十三回「死ぬ」。「一人しか見ていない。お前の相手は今、何人だ」── 通すものを自在に選ぶ感覚も掴み始める。あと一日、明後日出発。",
+ keys:["五十三回の死","稽古"]},
+{kind:"main",no:"第50話", seq:59, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597479877621",title:"世界の広さを知る",turn:true,
+ sum:"トマスがフォールンについて語る。痛みを感じず、腕を切っても心臓を突いても止まらない存在。「★を信じるな、自分の目と体で感じたものだけを信じろ」。防具一式とポーションを揃える。",
+ keys:["フォールン","闘気術","装備"]},
+{kind:"main",no:"第51話", seq:61, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051598090946512",title:"絶世のウェイン",turn:true,
+ sum:"町長グリフィスの用心棒ウェインが合流。絶世の美女と見紛う武人。リーネが「取られる予定はもとからないですから」と言い返す。この出発から、アクロスたちは世界の何かに触れ始める ── そのことに、今はまだ誰も気づいていない。",
+ keys:["ウェイン","出発"]},
+{kind:"main",no:"第52話", seq:62, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051601949895095",title:"決意の森へ向かう道",
+ sum:"北門を出て決意の森へ。道中で「今のメンバーに、お前たちが魔族であることを」という話が持ち上がる。壁を一つ、今日それを越えた。",
+ keys:["決意の森","正体開示の相談"]},
+{kind:"main",no:"第53話", seq:63, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602031235048",title:"伸ばした手の行方",
+ sum:"街道の土が乾き、靴の裏に砂がつく道中。「だから、大丈夫だ。俺はお前たちを怖がらない」── 森の夜に、火の音とマルコの泣き声が響く。",
+ keys:["マルコ","信頼"]},
+{kind:"main",no:"第54話", seq:64, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602172528630",title:"焚き火の内緒話",
+ sum:"焚き火のそばで、ウェインが長い黒髪を肩の前に流しながら語る。エリーとの間にも言葉が交わされる。今夜は、嘘のない夜にしよう。",
+ keys:["ウェイン","エリー","焚き火"]},
+{kind:"main",no:"第55話", seq:65, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602173327065",title:"嘘のない夜を",turn:true,
+ sum:"ウェインとエリーに魔族であることを明かす夜。「いや。こいつらは違う」と受け止められ、「皆、よろしく頼むぞ」と輪が結ばれる。逃げる時は全力で逃げろ ── そんな約束も。",
+ keys:["告白","ウェイン","エリー","仲間"]},
+{kind:"main",no:"第56話", seq:67, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602173460071",title:"新しい朝を迎えて",
+ sum:"夜明けはまだ遠い。東の空の端が藍から薄い灰へ変わる頃、顔を洗い飯を食い、一同は森の奥にある魔狼の巣へ向かって進む。",
+ keys:["出発","魔狼の巣"]},
+{kind:"main",no:"第57話", seq:68, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602246879744",title:"誰も知らない戦場",turn:true,
+ sum:"戦場で旧魔王軍と遭遇。女将官マグナティア、偵察のラーナ、盾のギリアムが、大蟲・岩喰い・黒蜜蟻の群れと戦っていた。鱗鎧に黒の裾絞りの袴という和洋折衷の軍装。誰も、この先を予想できない。",
+ keys:["マグナティア","ラーナ","ギリアム","大蟲","岩喰い","魔王軍"]},
+{kind:"main",no:"第58話", seq:69, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602432691798",title:"探り合う刃、認め合う刃",turn:true,
+ sum:"黒紫の霧が渦を巻く窪地での共闘。「数を減らすぞ！ 味方を巻き込むな！」「礼は後でいい。立て。まだ来るぞ」── 刃を交えながら互いを測り合う。ここからだ、次は言葉を交わそう。",
+ keys:["共闘","マグナティア"]},
+{kind:"main",no:"第59話", seq:70, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602455704733",title:"停戦と会談",turn:true,
+ sum:"魔蟲の波が収まり、負傷者の治療が優先される。「お前、何でそっち側にいる」という混乱を経て、停戦と会談が成る。紫の瞳が、アクロスの額の一本角をまっすぐに見つめる。",
+ keys:["停戦","会談","一本角"]},
+{kind:"main",no:"第60話", seq:71, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602770461431",title:"魔族の未来のために",turn:true,
+ sum:"「君はどこから来た魔族だ？　そして君の目的は何だ？」── 魔法の法則そのものに触れる力、使徒と七柱神の話が交わされる。マグナティアもまた、魔族の未来を背負った者だった。",
+ keys:["マグナティア","使徒","七柱神"]},
+{kind:"main",no:"第61話", seq:73, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602770494037",title:"打ち合わせと休息",
+ sum:"天幕での打ち合わせ。魔結界を安定させ、これからの手順を詰めていく。「私たちが話すべきことは、まだ山ほどある」。束の間の休息と、リーネの膝の温かさ。",
+ keys:["打ち合わせ","魔結界"]},
+{kind:"main",no:"第62話", seq:74, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602924051144",title:"瘴気とオーブ",
+ sum:"洞窟へ。魔導灯で照らしながら瘴気の膜を扱う技を試す。「アクロス、膜を閉じてくれ」── 銀紫の光が、闇の底へ続く道を淡く照らす。まだ先は長い。",
+ keys:["オーブ","洞窟","瘴気の膜"]},
+{kind:"main",no:"第63話", seq:75, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603339264172",title:"濃すぎる瘴気",turn:true,
+ sum:"マグナティアのオーブが黒く濁っていく。最奥にいる「ミストレイス」の存在が語られる ── 瘴気が形を持ったもので、生き物かどうかすらはっきりしない。ギルドではこれを「霧呼び」と呼ぶ。確認された土地では数日のうちにフォールンが生まれる。",
+ keys:["ミストレイス","霧呼び","フォールン"]},
+{kind:"main",no:"第64話", seq:76, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603405447457",title:"問答無用の光",turn:true,
+ sum:"白い太陽の光を凝縮した一撃で瘴気を消し飛ばす。そして吹き溜まりの前で、ミストレイスの姿が明かされる ── 直径二メートルの黒い水たまり、そこから伸びる粘つく黒い木、幹の中央に埋まった巨大な目玉、回転する瘴気の帯。ギースとウェインが討伐。",
+ keys:["ミストレイス討伐","アクロスフラッシュ","裂け目"]},
+{kind:"main",no:"第65話", seq:77, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603487045687",title:"ラブ・パニック",
+ sum:"裂け目に魔素を押し込む作業。その最中の思わぬ接触に、四十三歳の心臓が跳ねる。そして世界の傷口は、無事塞がった。",
+ keys:["吹き溜まり浄化","裂け目"]},
+{kind:"main",no:"第66話", seq:78, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603623099418",title:"金昏の来客",turn:true,
+ sum:"魔王軍六柱の一人「命の柱」フルクスが現れる。金の髪に青い瞳、小さな二本の角、半ズボンとサスペンダーに赤い蝶ネクタイという、坊ちゃんのような姿。だが瞳の奥だけは深い湖の底のようだった。「僕は今日、君を讃えに来た。そして贈り物を」",
+ keys:["フルクス","六柱","闇神ノクス"]},
+{kind:"main",no:"第67話", seq:79, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603760868311",title:"心を込めて",turn:true,
+ sum:"リーネの氷の花。銀白の髪の面影が後ろから手を重ね、散りかけた花びらが編み直される。アクロスが魔王軍の兵装を「和洋折衷でかっこいい」と力説する場面も。運命が奇跡を生み、新しい未来が見えた。",
+ keys:["氷の花","母の面影","和洋折衷"]},
+{kind:"main",no:"第68話", seq:80, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051604178455507",title:"明日に繋がる一日",
+ sum:"川砂で器を洗う音があちこちで鳴る、静かな一日。荷を片づけ、明日の段取りを決める。「この先の二人の生活がもっと楽に」── そして夜、「それじゃ、話そうか。俺が、どこから来て、どこへ向かおうとしているのか」",
+ keys:["日常","前夜"]},
+{kind:"main",no:"第69話", seq:81, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051604453914152",title:"世界を愛する魔王",turn:true,
+ sum:"アクロスが自らの出自と目的を語る。剣と魔法の世界に憧れた前世、女神ファルティシアとの邂逅、原初の奔流・魔の創造・無限器の三つのスキル、そして一本角の意味。「これが、俺の嘘偽りの無い、本当の目的だ」",
+ keys:["ファルティシア","三つのスキル","一本角","目的の開示"]},
+{kind:"main",no:"第70話", seq:82, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051604542645008",title:"王の器",turn:true,
+ sum:"「そういう、ことでしたか。フルクス様」── マグナティアが得心する。信頼の証としての取り決めが交わされ、手紙の運搬役まで話が及ぶ。三人とも立ち上がると、朝の光がまっすぐに迎えた。",
+ keys:["王の器","フルクス","同盟の芽"]},
+{kind:"main",no:"第71話", seq:83, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051604588548929",title:"ジェラシックパニック",
+ sum:"グラザへの帰り道。蔦の伸び方で目印を読む知恵、「例の言葉の意味を、私はまだ教えてもらってない」という追及。リーネがくすりと笑い、そして一行はグラザの町に帰ってきた。",
+ keys:["帰還","グラザ"]},
+
+/* ═════════ 断章 ═════════ */
+{kind:"danshou",no:"断章 一話", seq:12, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597943408891",title:"鉄色の景色",
+ sum:"ドルクの視点。土の匂いの中で目を覚ますが、森での記憶が欠落している。雇い主ガドラへの報告、右腕ヴォス、そして自らの来歴 ── 傭兵団の壊滅と「古い鉄」という名の由来。腰の曲刀が歩くたびにかすかに鳴る、いつもと変わらない冷たい鉄の音。",
+ keys:["ドルク","ガドラ","ヴォス","記憶消去"]},
+{kind:"danshou",no:"断章 第二話", seq:24, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051598512726173",title:"シルヴェーンの森",
+ sum:"エルフの森境守フィルの帰還と報告。千年の中立を守ってきた里に、託宣が下る。「灯りが示すその先にしか、道はない」",
+ keys:["フィル","シルヴェーン","託宣"]},
+{kind:"danshou",no:"断章 第三話", seq:36, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051598579661345",title:"ひとつの灯り",turn:true,
+ sum:"セレーネ公爵領の屋敷を、聖騎士アリシアが出る朝。鎧を置き、聖剣を置き、名を置いて「アリア」として街道に立つ。それは、運命と巡り合うための旅。彼女の歌は、朝の街道を優しく美しく包み込んだ。",
+ keys:["アリシア→アリア","改名","ひとつの灯り"]},
+{kind:"danshou",no:"断章 第四話", seq:48, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051599852404512",title:"明けない夜",
+ sum:"安宿の四階突き当たりの部屋。ドルクの頭の靄は晴れた。だが、朝はまだ来ない。",
+ keys:["ドルク","記憶の回復"]},
+{kind:"danshou",no:"断章 第五話", seq:60, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051600013276613",title:"東旅商人道",
+ sum:"白晨の淡い光の中、オルガがグラザ北門を発つ。東の街道沿いをレイドン、ヴェルレン、そしてグラザとガルドの中間地点エルセンへ。鳴き竜亭の灯りの下で、四つのジョッキがこつんと重なった。",
+ keys:["オルガ","レイドン","ヴェルレン","エルセン","鳴き竜亭"]},
+
+/* ═════════ 英雄譚 ═════════ */
+{kind:"eiyu",no:"第一章", seq:6, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051597869109836",title:"聖騎士アリシア・フォン・セレーネ",turn:true,
+ sum:"魔王討伐半年後の「浄化」任務。消えかけた煙の中に立つ聖騎士。集落中央の銀の大樹を嘘をついて焼かせず、銀髪の娘の追跡班を呼び戻すという小さな反逆を犯す。焼け跡で片耳の焼けた木の兎を拾う。「運命は確かに交錯した。そして全てが今、始まろうとしていた」",
+ keys:["アリシア","浄化","銀の大樹","木の兎"]},
+{kind:"eiyu",no:"第二章", seq:18, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051598020073513",title:"狩人セルジュ",turn:true,
+ sum:"「人は、嘘をつく」── 美しい飾りをまとった心ない言葉から始まる章。魔王城地下の子供二人を「片づけた」ことになっている狩人が、実は逃がしていた。今は魔族の生き残りを西部族カルマへ送り届けている。実りの季節の日々が、静かに、確実に終わっていく。",
+ keys:["セルジュ","魔族保護網","カルマ"]},
+{kind:"eiyu",no:"第三章", seq:30, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051598641299299",title:"神官エレーナ・ルクレツィア",
+ sum:"聖ヴェスタ神殿の古い銅の鐘は、夜明けより早く鳴る。祈りと癒しを灯す神官の章。分からないままでも、朝は来る。",
+ keys:["エレーナ","聖ヴェスタ神殿"]},
+{kind:"eiyu",no:"第四章", seq:42, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051599535969967",title:"魔導士フォビアン・ドラクロワ",turn:true,
+ sum:"「僕は今までに何度、自分の運命を呪っただろう」── 朝、目を開けるたびに。夜、目を閉じるたびに。それでも全ての業を背負い、進み続ける。そして世界を、必ず救ってみせる。",
+ keys:["フォビアン","運命","業"]},
+{kind:"eiyu",no:"最終章（序）", seq:54, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603761665233",title:"勇者ライゼル・クレストリア",turn:true,
+ sum:"アルセイド王国北部のクレスト村。盛りの季の畑が地平まで金色に膨らむ中で、麦の穂より少し淡い金色の髪の青年の右手の甲に、光の聖痕が浮かぶ。ユーリの言葉に救われ、この手に宿った光も少しだけ好きになれそうだと思う。",
+ keys:["ライゼル","聖痕","クレスト村","ユーリ"]},
+{kind:"eiyu",no:"最終章（承）", seq:66, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603821219018",title:"勇者ライゼル・クレストリア",
+ sum:"剣聖ヴァイス・グランドールがクレスト村を訪れ、ライゼルの訓練が始まる。この手が覚えたことはきっと忘れない。頭が忘れても、心が変わっても ── きっと帰れる。人間でいられる。",
+ keys:["ヴァイス","訓練"]},
+
+/* ═════════ 真魔の章 ═════════ */
+{kind:"shinma",no:"第一話", seq:72, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051603963193552",title:"ルカから見た世界",turn:true,
+ sum:"デモニア高地。西の空に青白い大月が沈もうとしている。金と銀が溶け合った錦糸のような長髪、四本の角、右が深紅・左が黒紫のオッドアイ、青磁器の肌。地脈を視る目を持つ男が、二つの太陽の昇る東を見つめる。「我は、今この時より夜の底のような世を──」魔を統べる者、ルカ・レクトール・デモニア。",
+ keys:["ルカ","デモニア高地","地脈","真魔"]}
+
+];
+
+window.EPISODES = EPISODES;
+/* === DATA:END === */</script>
+<script>
+/* 本編・断章・英雄譚・真魔の章は上下の関係ではない。
+   本編がアクロスとリーネの日常から物語を進め、
+   世界の重要な真実は断章と英雄譚のほうで明かされる。
+   なので既定は分類ごとの棚ではなく、掲載順に一本で並べた「読み順」。 */
+const ARCS = [
+  { id:"main",    label:"本 編",    short:"本 編",
+    desc:"アクロスとリーネの視点。日常と選択を、一日も飛ばさずに追う" },
+  { id:"danshou", label:"断 章",    short:"断 章",
+    desc:"本編の裏側で動いている人々の視点。世界の輪郭がここで見えてくる" },
+  { id:"eiyu",    label:"英 雄 譚", short:"英雄譚",
+    desc:"勇者パーティーの側の物語。重く、静かなトーンで描かれる" },
+  { id:"shinma",  label:"真魔の章", short:"真魔",
+    desc:"魔族側の物語。魔王の座をめぐる、もうひとつの筋" }
+];
+const ARC = Object.fromEntries(ARCS.map(a => [a.id, a]));
+/* カクヨムの作品トップ。各話に url が無い場合はここへ飛ぶ。
+   空文字のままなら、リンクは表示されない */
+const KAKUYOMU_WORK = "https://kakuyomu.jp/works/2912051595460293642";
+let curArc = "all", curQ = "";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g,
+  c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+function renderTabs(){
+  const EPISODES = window.EPISODES || [];
+  const all = [{ id:"all", label:"読 み 順" }, ...ARCS.filter(a => EPISODES.some(e => e.kind === a.id))];
+  $("#tabs").innerHTML = all.map(a => {
+    const n = a.id === "all" ? EPISODES.length : EPISODES.filter(e => e.kind === a.id).length;
+    return `<button class="tab${a.id===curArc?" active":""}" data-arc="${a.id}">${a.label}<span class="n">${n}</span></button>`;
+  }).join("") + `<a class="tab" href="index.html">図 鑑</a><a class="tab" href="map.html">世 界 地 図</a>`;
+  document.querySelectorAll(".tab[data-arc]").forEach(b =>
+    b.onclick = () => { curArc = b.dataset.arc; render(); });
+}
+
+function match(e){
+  if (curArc !== "all" && e.kind !== curArc) return false;
+  const q = curQ.trim().toLowerCase();
+  if (!q) return true;
+  return [e.no, e.title, e.sum, ...(e.keys||[])].join(" ").toLowerCase().includes(q);
+}
+
+/* 題名を読みに行けるリンクにする。
+   各話の url があればそこへ、無ければ作品トップへ。どちらも無ければただの見出し */
+function linkTitle(e){
+  const href = e.url || KAKUYOMU_WORK;
+  if (!href) return esc(e.title);
+  return `<a class="ttl-link" href="${esc(href)}" target="_blank" rel="noopener">`
+       + `${esc(e.title)}<span class="ext">↗</span></a>`;
+}
+/* ══════════ 第50話からの折りたたみ ══════════
+   第50話から物語が大きく動くので、そこから先は畳んでおく。
+   判定は話数ではなく読み順の通し番号（seq）で行う。
+   本編のあいだに断章と英雄譚が挟まっているため、
+   「第50話以降」は本編だけの話ではないので。 */
+const FOLD_FROM = 50;
+let opened = false;
+let foldSeq = Infinity;
+
+function setFoldPoint(list){
+  const pivot = list.find(e => e.kind === "main" && e.no === "第" + FOLD_FROM + "話");
+  foldSeq = pivot ? pivot.seq : Infinity;
+}
+const isFolded = e => (e.seq ?? Infinity) >= foldSeq;
+
+function foldBarHTML(tail){
+  return `<div class="fold">
+    <span class="fold-msg">第${FOLD_FROM}話から先、物語が大きく動きます</span>
+    <button class="fold-btn" aria-expanded="${opened}">${
+      opened ? "畳む" : `続きを表示（${tail.length}話）`}</button>
+  </div>`;
+}
+
+/* ══════════ 5話ごとの区切り ══════════
+   本編5話ぶんと、そのうしろに置かれた断章／英雄譚／真魔の章1話で
+   ひと区切りになっている。読み順の並びでは、その単位で見出しを立てる。 */
+function toUnits(list){
+  const units = [];
+  let cur = [], mains = 0;
+  for (const e of list){
+    if (e.kind === "main" && mains >= 5 && cur.length){ units.push(cur); cur = []; mains = 0; }
+    cur.push(e);
+    if (e.kind === "main") mains++;
+    else { units.push(cur); cur = []; mains = 0; }   // 外伝が来たらそこで一区切り
+  }
+  if (cur.length) units.push(cur);
+  return units;
+}
+/* 断章の no は「断章 第二話」のように分類名込みなので、
+   札と並べたときに「断 章 断章 第二話」と重ならないよう前を落とす */
+const numShort = e => e.no.replace(/^(断章|英雄譚|真魔の章)\s*/, "");
+
+function unitLabel(unit){
+  const mains = unit.filter(e => e.kind === "main");
+  const side  = unit.filter(e => e.kind !== "main");
+  const range = mains.length
+    ? (mains.length === 1 ? mains[0].no : mains[0].no + " – " + mains[mains.length-1].no)
+    : "";
+  const tail = side.map(e => (ARC[e.kind]?.short || "") + " " + numShort(e)).join(" ／ ");
+  return [range, tail].filter(Boolean).join("　＋　");
+}
+
+function epHTML(e){
+  const a = ARC[e.kind];
+  return `<article class="ep" data-kind="${esc(e.kind)}">
+    <div class="no">
+      <span class="kindtag">${esc(a ? a.short : "")}</span>
+      <span class="num">${esc(numShort(e))}</span>
+    </div>
+    <div>
+      <h3 class="ttl">${linkTitle(e)}${e.turn?`<span class="flag">転換点</span>`:""}</h3>
+      ${e.sum ? `<p class="sum">${esc(e.sum)}</p>` : ""}
+      ${(e.keys&&e.keys.length) ? `<div class="keys">${e.keys.map(k=>`<span class="key">${esc(k)}</span>`).join("")}</div>` : ""}
+    </div>
+  </article>`;
+}
+
+function render(){
+  const EPISODES = window.EPISODES || [];
+  renderTabs();
+  setFoldPoint(EPISODES);
+
+  const bySeq = (a, b) => (a.seq ?? 1e9) - (b.seq ?? 1e9);
+  const list = EPISODES.filter(match).sort(bySeq);
+  const searching = !!curQ.trim();      // 検索中は畳まない。探した話が隠れては意味がない
+  const head = searching ? list : list.filter(e => !isFolded(e));
+  const tail = searching ? []   : list.filter(isFolded);
+
+  /* 読み順のときだけ5話ごとの区切りを立てる。
+     分類タブを選んでいるときは、その筋だけを素直に並べる。 */
+  const grouped = curArc === "all" && !searching;
+  const units = grouped ? toUnits(list) : [list];
+  const rows = xs => `<div class="list">${xs.map(epHTML).join("")}</div>`;
+
+  let body = "", barPlaced = false;
+  for (const u of units){
+    const vis = searching ? u : u.filter(e => !isFolded(e));
+    const hid = searching ? [] : u.filter(isFolded);
+    /* 折りたたみの境目が区切りの途中に来ることがある。
+       その場合も見出しは区切り全体の名前を出したまま、
+       途中に帯を差し込む。見出しが嘘にならないように。 */
+    const bar = hid.length && !barPlaced;
+    const shows = vis.length || (opened && hid.length);
+    if (!shows && !bar) continue;
+
+    if (grouped && shows) body += `<div class="unit-head"><span class="unit-rng">${esc(unitLabel(u))}</span></div>`;
+    if (vis.length) body += rows(vis);
+    if (bar){ body += foldBarHTML(tail); barPlaced = true; }
+    if (opened && hid.length) body += rows(hid);
+  }
+
+  const a = curArc === "all" ? null : ARC[curArc];
+  const html = `<section class="arc">
+      <div class="arc-head">
+        <h2>${a ? a.label : "読 み 順"}</h2>
+        <span class="desc">${esc(a ? a.desc
+          : "本編・断章・英雄譚・真魔の章を、カクヨムの目次どおりに並べた読み順。本編5話ごとに、外伝が1話挟まる。")}</span>
+        <span class="cnt">${list.length} 話</span>
+      </div>
+      ${body}
+    </section>`;
+
+  $("#stage").innerHTML = list.length ? html : `<div class="empty">該当する話がありません</div>`;
+  document.querySelectorAll(".fold-btn").forEach(b =>
+    b.onclick = () => { opened = !opened; render(); });
+}
+$("#q").oninput = e => { curQ = e.target.value; render(); };
+
+if (typeof window.EPISODES === "undefined" && typeof EPISODES !== "undefined") window.EPISODES = EPISODES;
+render();
+</script>
+</body>
+</html>
