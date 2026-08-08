@@ -67,6 +67,19 @@ svg.map{display:block;width:100%;height:auto}
 .todo{margin-top:22px;padding:16px 20px;background:#fffdf6;border:1px solid #e6dcbe;font-size:12.5px;color:#6d6047}
 .todo b{color:#8a6f28}
 
+.gaz{margin-top:26px;display:grid;gap:8px 30px;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  padding:20px 24px;background:#fff;border:1px solid var(--hair)}
+.gaz .gh{grid-column:1/-1;font-family:var(--serif);font-size:13px;letter-spacing:.22em;
+  color:#8a6f28;border-bottom:1px solid var(--hair);padding-bottom:5px;margin-top:8px}
+.gaz .gh:first-child{margin-top:0}
+.gaz .gi{display:flex;gap:10px;font-size:12.5px;color:var(--ink-2);line-height:1.7;align-items:flex-start}
+.gaz .no{flex:none;width:21px;height:21px;border-radius:50%;border:1.4px solid var(--gold);
+  color:#6d5622;font-family:var(--serif);font-size:11px;display:flex;align-items:center;
+  justify-content:center;background:#fdfcf8;margin-top:2px}
+.gaz b{color:var(--ink);font-weight:600}
+.gaz .est{color:#a8503f;font-size:11px}
+
 footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-size:10.5px;
   letter-spacing:.28em;text-indent:.28em;color:var(--faint);border-top:1px solid var(--hair);background:#fff}
 
@@ -78,6 +91,7 @@ footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-si
 .t-small{font-family:var(--serif);font-size:11.5px;fill:#57646f}
 .t-sea{font-family:var(--serif);font-size:18px;letter-spacing:.4em;fill:#8ba3b5;font-style:italic}
 .t-note{font-family:var(--serif);font-size:10.5px;fill:#8a7f6b;letter-spacing:.1em}
+.bnum{font-family:var(--serif);font-size:11.5px;fill:#6d5622}
 </style>
 </head>
 <body>
@@ -92,6 +106,7 @@ footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-si
   <button class="tab active" data-p="globe">世 界 全 図</button>
   <button class="tab" data-p="world">エルデシア大陸図</button>
   <button class="tab" data-p="graza">グラザ周辺図</button>
+  <button class="tab" data-p="city">グラザ市街図</button>
   <a class="tab" href="index.html" style="text-decoration:none">図 鑑</a>
   <a class="tab" href="episodes.html" style="text-decoration:none">各話まとめ</a>
 </div></nav>
@@ -1416,7 +1431,7 @@ footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-si
 <!-- ══════════════════ ③ グラザ周辺図 ══════════════════ -->
 <section class="panel" id="p-graza">
   <div class="frame">
-  <svg class="map" viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg">
+  <svg class="map" viewBox="0 0 1000 780" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="dots2" width="9" height="9" patternUnits="userSpaceOnUse">
         <circle cx="2" cy="2" r="1" fill="#7f9a7a" opacity=".4"/>
@@ -1424,120 +1439,187 @@ footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-si
       <pattern id="miasma" width="8" height="8" patternTransform="rotate(30)" patternUnits="userSpaceOnUse">
         <line x1="0" y1="0" x2="0" y2="8" stroke="#7a5f92" stroke-width="1.4" opacity=".3"/>
       </pattern>
+      <pattern id="grass" width="26" height="18" patternUnits="userSpaceOnUse">
+        <path d="M4 14 q2 -5 0 -8 M8 14 q-2 -5 0 -8" stroke="#b9c4a4" stroke-width=".9" fill="none" opacity=".5"/>
+      </pattern>
+      <pattern id="fields" width="8" height="8" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="2" x2="8" y2="2" stroke="#c3b384" stroke-width="1.1" opacity=".55"/>
+      </pattern>
     </defs>
 
-    <rect width="1000" height="760" fill="#f7f3e9"/>
-    <g opacity=".5">
-      <path d="M0 120 C160 96 320 132 470 110 C620 88 780 118 1000 96 L1000 0 L0 0 Z" fill="#eee9dc"/>
-      <path d="M0 660 C180 640 340 672 520 654 C700 636 860 664 1000 648 L1000 760 L0 760 Z" fill="#f1eadb"/>
-    </g>
+    <rect width="1000" height="780" fill="#f7f3e9"/>
+    <rect width="1000" height="780" fill="url(#grass)" opacity=".5"/>
 
+    <!-- ══ 北の山脈（デモニア高地方面・遠景） ══ -->
+    <g opacity=".55">
+      <path d="M0 108 C120 84 260 116 400 92 C540 70 660 100 780 84 L780 0 L0 0 Z" fill="#eee9dc"/>
+    </g>
     <g stroke="#6a625a" stroke-width="1.6" fill="#efeae0" stroke-linejoin="round">
-      <path d="M120 118 l22-30 22 30 z"/><path d="M162 106 l26-34 26 34 z"/>
-      <path d="M212 120 l20-26 20 26 z"/><path d="M556 112 l24-32 24 32 z"/>
-      <path d="M600 100 l28-38 28 38 z"/><path d="M652 118 l22-30 22 30 z"/>
-      <path d="M700 104 l26-34 26 34 z"/>
+      <path d="M60 100 l22-30 22 30 z"/><path d="M104 88 l26-34 26 34 z"/>
+      <path d="M156 102 l20-26 20 26 z"/><path d="M204 90 l24-32 24 32 z"/>
+      <path d="M256 104 l20-26 20 26 z"/><path d="M306 92 l26-34 26 34 z"/>
+      <path d="M360 104 l20-26 20 26 z"/><path d="M410 90 l24-32 24 32 z"/>
+      <path d="M462 102 l20-26 20 26 z"/><path d="M512 92 l24-32 24 32 z"/>
+      <path d="M564 104 l20-26 20 26 z"/><path d="M614 92 l24-32 24 32 z"/>
     </g>
-    <text class="t-region-s" x="150" y="70" text-anchor="middle" opacity=".8">北 の 山 地</text>
+    <text class="t-region-s" x="300" y="42" text-anchor="middle" opacity=".85">北 の 山 脈（デモニア高地 ─ 魔族領へ）</text>
+    <text class="t-small" x="300" y="62" text-anchor="middle" opacity=".8">徒歩十日の遠方（縮尺外）</text>
 
-    <g>
-      <ellipse cx="300" cy="176" rx="72" ry="46" fill="#efe6f2" stroke="#7a5f92" stroke-width="1.6"/>
-      <ellipse cx="300" cy="176" rx="72" ry="46" fill="url(#miasma)"/>
-      <path d="M286 190 a16 14 0 1 1 30 0 z" fill="#3b3346" stroke="#241f2c" stroke-width="1.4"/>
+    <!-- ══ ガルド連峰（東・遠景） ══ -->
+    <g stroke="#4f4941" stroke-width="1.6" fill="#ddd6c8" stroke-linejoin="round">
+      <path d="M920 210 l22-34 22 34 z"/><path d="M934 280 l24-38 24 38 z"/>
+      <path d="M918 352 l22-34 22 34 z"/><path d="M936 424 l24-38 24 38 z"/>
+      <path d="M920 496 l22-34 22 34 z"/><path d="M938 566 l22-34 22 34 z"/>
     </g>
-    <text class="t-city" x="300" y="240" text-anchor="middle" fill="#6b5484">魔の吹き溜まり</text>
-    <text class="t-small" x="300" y="258" text-anchor="middle" fill="#7a6a8c">洞窟・浄化作戦の舞台</text>
+    <text class="t-region-s" x="936" y="620" text-anchor="middle" opacity=".85" font-size="13">ガルド連峰</text>
+    <text class="t-small" x="936" y="640" text-anchor="middle" opacity=".8">ドワーフの鉱山（遠方）</text>
 
+    <!-- 東の山道 -->
+    <g fill="none" stroke="#a2907a" stroke-width="1.8" stroke-dasharray="5 4" stroke-linecap="round" opacity=".8">
+      <path d="M900 240 C870 200 850 170 842 140"/>
+    </g>
+    <text class="t-small" x="836" y="126" text-anchor="middle">東の山道 ↗</text>
+    <text class="t-small" x="836" y="142" text-anchor="middle" opacity=".8">デモニア高地への唯一の経路</text>
+
+    <!-- ══ 北の森 ══ -->
     <g>
-      <ellipse cx="560" cy="212" rx="100" ry="62" fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.5"/>
-      <ellipse cx="560" cy="212" rx="100" ry="62" fill="url(#dots2)"/>
+      <path d="M505 152 C540 132 590 124 640 130 C700 136 760 142 806 172
+               C838 194 848 250 844 310 C840 360 812 404 776 432
+               C736 462 676 476 622 470 C570 464 528 440 508 396
+               C492 360 486 300 490 246 C492 208 494 172 505 152 Z"
+            fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.6"/>
+      <path d="M505 152 C540 132 590 124 640 130 C700 136 760 142 806 172
+               C838 194 848 250 844 310 C840 360 812 404 776 432
+               C736 462 676 476 622 470 C570 464 528 440 508 396
+               C492 360 486 300 490 246 C492 208 494 172 505 152 Z"
+            fill="url(#dots2)"/>
       <g fill="#6d8a68">
-        <path d="M512 186 l8-14 8 14 z"/><path d="M540 200 l9-15 9 15 z"/>
-        <path d="M576 184 l8-14 8 14 z"/><path d="M604 204 l9-15 9 15 z"/>
-        <path d="M524 224 l8-14 8 14 z"/><path d="M562 236 l9-15 9 15 z"/>
-        <path d="M598 232 l8-14 8 14 z"/>
+        <path d="M540 200 l8-14 8 14 z"/><path d="M580 176 l9-15 9 15 z"/>
+        <path d="M636 158 l8-14 8 14 z"/><path d="M700 168 l9-15 9 15 z"/>
+        <path d="M756 196 l8-14 8 14 z"/><path d="M790 250 l9-15 9 15 z"/>
+        <path d="M800 330 l8-14 8 14 z"/><path d="M770 390 l9-15 9 15 z"/>
+        <path d="M700 424 l8-14 8 14 z"/><path d="M630 440 l9-15 9 15 z"/>
+        <path d="M556 414 l8-14 8 14 z"/><path d="M520 340 l9-15 9 15 z"/>
+        <path d="M520 250 l8-14 8 14 z"/><path d="M690 300 l9-15 9 15 z"/>
+        <path d="M640 356 l8-14 8 14 z"/><path d="M730 350 l9-15 9 15 z"/>
       </g>
     </g>
-    <text class="t-city" x="560" y="294" text-anchor="middle">魔 狼 の 森</text>
+    <text class="t-region-s" x="762" y="302" text-anchor="middle" opacity=".9">北 の 森</text>
 
+    <!-- ④ 魔狼の巣の窪地 -->
     <g>
-      <ellipse cx="188" cy="470" rx="76" ry="52" fill="#e6eee2" stroke="#7f9a7a" stroke-width="1.5"/>
-      <ellipse cx="188" cy="470" rx="76" ry="52" fill="url(#dots2)"/>
-      <g fill="#6d8a68">
-        <path d="M152 452 l8-14 8 14 z"/><path d="M182 464 l9-15 9 15 z"/>
-        <path d="M214 450 l8-14 8 14 z"/><path d="M168 490 l8-14 8 14 z"/>
-        <path d="M204 494 l9-15 9 15 z"/>
-      </g>
+      <ellipse cx="664" cy="196" rx="52" ry="32" fill="#efe6f2" stroke="#7a5f92" stroke-width="1.6"/>
+      <ellipse cx="664" cy="196" rx="52" ry="32" fill="url(#miasma)"/>
+      <path d="M650 208 a15 13 0 1 1 28 0 z" fill="#3b3346" stroke="#241f2c" stroke-width="1.4"/>
     </g>
-    <text class="t-city" x="188" y="544" text-anchor="middle">決 意 の 森</text>
+    <circle cx="664" cy="242" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="664" y="246" text-anchor="middle">4</text>
+    <text class="t-city" x="664" y="268" text-anchor="middle" fill="#6b5484">魔狼の巣の窪地</text>
 
-    <g fill="none" stroke="#9dbcd0" stroke-width="2.6" stroke-linecap="round">
-      <path d="M330 130 C346 210 380 262 396 330 C410 390 396 452 410 512 C420 560 448 610 462 664"/>
-      <path d="M690 140 C676 214 700 268 690 330"/>
+    <!-- 小川と ① 滝壺 -->
+    <g fill="none" stroke="#9dbcd0" stroke-width="2.2" stroke-linecap="round">
+      <path d="M600 148 C592 200 596 250 590 300 C586 340 566 366 556 398 C550 424 546 448 538 466"/>
     </g>
-    <g transform="translate(396,330)">
-      <path d="M-13 0 h26" stroke="#7fa6bd" stroke-width="3" stroke-linecap="round"/>
-      <path d="M-9 4 v7 M0 4 v9 M9 4 v7" stroke="#9dbcd0" stroke-width="2" stroke-linecap="round"/>
+    <g transform="translate(556,398)">
+      <path d="M-11 0 h22" stroke="#7fa6bd" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-7 4 v6 M0 4 v8 M7 4 v6" stroke="#9dbcd0" stroke-width="2" stroke-linecap="round"/>
     </g>
-    <text class="t-small" x="360" y="336" text-anchor="end">滝壺（フィルとの邂逅）</text>
+    <circle cx="533" cy="392" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="533" y="396" text-anchor="middle">1</text>
+    <text class="t-city" x="518" y="396" text-anchor="end">滝壺</text>
 
+    <!-- ② 二人の拠点 -->
+    <g transform="translate(592,348)">
+      <rect x="-7" y="-6" width="14" height="12" fill="#faf6ec" stroke="#4f4941" stroke-width="1.6"/>
+      <path d="M-9 -6 L0 -14 L9 -6" fill="none" stroke="#4f4941" stroke-width="1.6"/>
+    </g>
+    <circle cx="613" cy="342" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="613" y="346" text-anchor="middle">2</text>
+    <text class="t-city" x="628" y="346">二人の拠点</text>
+
+    <!-- ③ 廃墟の魔族集落 -->
+    <g transform="translate(520,312)">
+      <rect x="-8" y="-5" width="16" height="10" fill="none" stroke="#8a7f6b" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <path d="M12 5 v-16 M6 -6 q6 -8 12 0 q6 8 -12 0" stroke="#9aa6b2" stroke-width="1.6" fill="none"/>
+    </g>
+    <circle cx="497" cy="306" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="497" y="310" text-anchor="middle">3</text>
+    <text class="t-city" x="482" y="310" text-anchor="end">廃墟の集落</text>
+
+    <!-- ══ 街道 ══ -->
+    <g fill="none" stroke="#a2907a" stroke-width="2.6" stroke-dasharray="8 5" stroke-linecap="round">
+      <path d="M470 560 C498 522 510 492 506 452 C502 414 484 384 474 344 C466 308 466 268 476 230 C482 204 488 176 490 148"/>
+    </g>
+    <text class="t-small" x="452" y="148" text-anchor="end" opacity=".85">↑ 北の街道 ─ 山脈方面へ</text>
+
+    <!-- ⑤ タネル村 -->
+    <circle cx="471" cy="330" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
+    <circle cx="448" cy="326" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="448" y="330" text-anchor="middle">5</text>
+    <text class="t-city" x="433" y="330" text-anchor="end">タネル村</text>
+
+    <!-- ⑦ 北の森の入口 -->
+    <path d="M474 236 l7-11 7 11 z" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.3"/>
+    <circle cx="455" cy="230" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="455" y="234" text-anchor="middle">7</text>
+    <text class="t-city" x="440" y="234" text-anchor="end">森の入口</text>
+
+    <!-- ⑥ ベルク村 -->
+    <g fill="none" stroke="#a2907a" stroke-width="1.7" stroke-dasharray="4 4" stroke-linecap="round">
+      <path d="M504 458 C560 448 620 434 668 414"/>
+    </g>
+    <circle cx="688" cy="406" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
+    <circle cx="711" cy="402" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="711" y="406" text-anchor="middle">6</text>
+    <text class="t-city" x="726" y="406">ベルク村</text>
+
+    <!-- 東の街道 -->
     <g fill="none" stroke="#a2907a" stroke-width="2.4" stroke-dasharray="8 5" stroke-linecap="round">
-      <path d="M520 400 C560 336 600 302 640 270"/>
-      <path d="M520 400 C440 356 380 300 330 236"/>
-      <path d="M520 400 C420 430 320 452 246 470"/>
-      <path d="M520 400 C560 480 580 560 604 636"/>
-      <path d="M520 400 C462 466 400 520 330 566"/>
-      <path d="M520 400 C620 396 720 410 812 440"/>
+      <path d="M492 552 C610 542 760 528 950 512"/>
+    </g>
+    <text class="t-small" x="944" y="542" text-anchor="end">東の街道 → エルセン・ガルド連峰へ</text>
+
+    <!-- 南の街道 -->
+    <g fill="none" stroke="#a2907a" stroke-width="2.6" stroke-dasharray="8 5" stroke-linecap="round">
+      <path d="M470 622 C470 660 470 700 470 736"/>
+    </g>
+    <text class="t-region-s" x="470" y="762" text-anchor="middle" opacity=".8">↓ アルセイド王国へ</text>
+
+    <!-- 西方 -->
+    <g fill="none" stroke="#a2907a" stroke-width="1.7" stroke-dasharray="4 5" stroke-linecap="round" opacity=".7">
+      <path d="M438 592 C340 596 220 598 90 598"/>
+    </g>
+    <text class="t-small" x="84" y="586">← カルマ・シルヴェーンの森へ</text>
+
+    <!-- 町周辺の畑 -->
+    <g stroke="#b3a375" stroke-width=".9">
+      <rect x="330" y="536" width="60" height="26" rx="3" fill="url(#fields)" transform="rotate(-6 360 549)"/>
+      <rect x="524" y="598" width="62" height="24" rx="3" fill="url(#fields)" transform="rotate(4 555 610)"/>
+      <rect x="330" y="632" width="56" height="22" rx="3" fill="url(#fields)" transform="rotate(-3 358 643)"/>
+      <rect x="560" y="640" width="50" height="22" rx="3" fill="url(#fields)" transform="rotate(6 585 651)"/>
+      <rect x="380" y="500" width="48" height="20" rx="3" fill="url(#fields)" transform="rotate(5 404 510)"/>
+    </g>
+    <g fill="#d9cdb2" stroke="#8a7f6b" stroke-width="1">
+      <rect x="398" y="540" width="9" height="8"/>
+      <rect x="536" y="632" width="9" height="8"/>
     </g>
 
-    <circle cx="648" cy="264" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
-    <text class="t-city" x="662" y="262">ベルク村</text>
-    <text class="t-small" x="662" y="280">北東・徒歩二刻／ゴブリン駆除の依頼</text>
-
-    <circle cx="322" cy="572" r="6" fill="#fdfcf8" stroke="#4f4941" stroke-width="1.7"/>
-    <text class="t-city" x="310" y="592" text-anchor="end">タネル村</text>
-    <text class="t-small" x="310" y="610" text-anchor="end">オルガと同行した道中の村</text>
-
-    <g transform="translate(520,400)">
-      <path d="M-96 -62 L-34 -96 L44 -96 L100 -58 L104 26 L52 84 L-40 88 L-98 34 Z"
-            fill="#faf6ec" stroke="#8a7f6b" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M-88 -56 L-32 -87 L40 -87 L92 -53 L96 22 L48 75 L-36 79 L-90 30 Z"
-            fill="none" stroke="#c1b49a" stroke-width="1.4"/>
-      <path d="M4 -96 L2 88" stroke="#cbbfa6" stroke-width="7"/>
-      <path d="M2 -14 L104 -6" stroke="#cbbfa6" stroke-width="5"/>
-      <path d="M2 6 L-97 16" stroke="#cbbfa6" stroke-width="4.5"/>
-      <rect x="18" y="-52" width="34" height="26" fill="#efe6d2" stroke="#a2907a" stroke-width="1.2"/>
-      <text class="t-note" x="35" y="-34" text-anchor="middle" font-size="8">市場</text>
-      <path d="M-40 88 L52 84 L36 46 L-26 48 Z" fill="#e9e2e5" stroke="#8f7e88" stroke-width="1.2"/>
-      <text class="t-note" x="6" y="72" text-anchor="middle" font-size="8" fill="#6f5f68">南区画</text>
+    <!-- ══ グラザ ══ -->
+    <g transform="translate(470,590)">
+      <path d="M-30 -18 L-12 -30 L14 -30 L30 -16 L32 10 L16 26 L-14 27 L-31 12 Z"
+            fill="#faf6ec" stroke="#8a7f6b" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-1 -30 L-1 27" stroke="#cbbfa6" stroke-width="3.4"/>
       <g fill="#8a7f6b">
-        <rect x="-4" y="-101" width="15" height="8"/><rect x="-6" y="85" width="15" height="8"/>
+        <rect x="-6" y="-33" width="11" height="6"/><rect x="-6" y="24" width="11" height="6"/>
       </g>
-      <text class="t-note" x="26" y="-104" text-anchor="middle" font-size="8">北門</text>
-      <text class="t-note" x="30" y="102" text-anchor="middle" font-size="8">南門</text>
-      <g fill="#b9ab90">
-        <rect x="20" y="-16" width="7" height="6"/><rect x="34" y="-20" width="7" height="6"/>
-        <rect x="50" y="-14" width="7" height="6"/><rect x="66" y="-18" width="7" height="6"/>
-        <rect x="-30" y="10" width="7" height="6"/><rect x="-48" y="6" width="7" height="6"/>
-        <rect x="-66" y="14" width="7" height="6"/>
-        <rect x="-38" y="-46" width="7" height="6"/><rect x="-54" y="-38" width="7" height="6"/>
-      </g>
+      <text class="t-note" x="16" y="-36" text-anchor="middle" font-size="8">北門</text>
+      <text class="t-note" x="16" y="40" text-anchor="middle" font-size="8">南門</text>
     </g>
-    <text class="t-city-b" x="520" y="516" text-anchor="middle" font-size="22" letter-spacing="6">グ ラ ザ</text>
-    <text class="t-small" x="520" y="538" text-anchor="middle">中央回廊の中立地帯／人口約3000／創設130年前</text>
+    <text class="t-city-b" x="470" y="660" text-anchor="middle" font-size="21" letter-spacing="5">グ ラ ザ</text>
+    <text class="t-small" x="470" y="681" text-anchor="middle">中央回廊の中立地帯（市街図タブへ）</text>
 
-    <g stroke="#a2907a" stroke-width="1" fill="none"><path d="M628 392 L700 372"/></g>
-    <text class="t-small" x="706" y="368">東通り ─ アクロス邸・トマス邸・グロムの鍛冶屋・エリザのパン屋</text>
-    <g stroke="#a2907a" stroke-width="1" fill="none"><path d="M548 296 L610 332"/></g>
-    <text class="t-small" x="616" y="336">北門 ─ オルガ商会の倉庫・赤角亭</text>
-    <g stroke="#8f7e88" stroke-width="1" fill="none"><path d="M528 492 L466 470"/></g>
-    <text class="t-small" x="460" y="466" text-anchor="end" fill="#6f5f68">南区画 ─ ガドラ商会・闇市場</text>
-
-    <text class="t-region-s" x="812" y="470" opacity=".8">→ 東の山道</text>
-    <text class="t-region-s" x="604" y="668" text-anchor="middle" opacity=".8">↓ アルセイド王国へ</text>
-    <text class="t-region-s" x="150" y="700" opacity=".8">← カルマ・シルヴェーンの森へ</text>
-
-    <g transform="translate(898,656)">
+    <!-- 方位 -->
+    <g transform="translate(898,712)">
       <circle r="40" fill="#fdfcf8" fill-opacity=".92" stroke="#c9bfa8" stroke-width="1"/>
       <circle r="31" fill="none" stroke="#e0d8c6" stroke-width="1"/>
       <path d="M0 -33 L7 0 L0 33 L-7 0 Z" fill="#9a7b32"/>
@@ -1546,40 +1628,587 @@ footer{text-align:center;padding:34px 20px 54px;font-family:var(--serif);font-si
       <text class="t-small" x="0" y="-44" text-anchor="middle" font-size="11">北</text>
     </g>
 
-    <g transform="translate(140,660)">
-      <rect x="-118" y="-34" width="236" height="76" fill="#fdfcf8" fill-opacity=".94"
+    <!-- タイトル -->
+    <g transform="translate(872,66)">
+      <rect x="-108" y="-32" width="216" height="70" fill="#fdfcf8" fill-opacity=".94"
             stroke="#c9bfa8" stroke-width="1"/>
-      <rect x="-112" y="-28" width="224" height="64" fill="none" stroke="#e0d8c6" stroke-width="1"/>
-      <text class="t-region-s" x="0" y="-2" text-anchor="middle" font-size="18" fill="#3d4a58">グラザ周辺図</text>
-      <text class="t-note" x="0" y="22" text-anchor="middle">MAOU ZUKAN</text>
+      <rect x="-102" y="-26" width="204" height="58" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <text class="t-region-s" x="0" y="0" text-anchor="middle" font-size="17" fill="#3d4a58">グラザ周辺図</text>
+      <text class="t-note" x="0" y="24" text-anchor="middle">MAOU ZUKAN</text>
     </g>
 
-    <g transform="translate(700,714)">
-      <line x1="0" y1="0" x2="150" y2="0" stroke="#5f6b74" stroke-width="1.6"/>
+    <!-- 縮尺 -->
+    <g transform="translate(60,712)">
+      <line x1="0" y1="0" x2="190" y2="0" stroke="#5f6b74" stroke-width="1.6"/>
       <g stroke="#5f6b74" stroke-width="1.6">
-        <line x1="0" y1="-5" x2="0" y2="5"/><line x1="50" y1="-4" x2="50" y2="4"/>
-        <line x1="100" y1="-4" x2="100" y2="4"/><line x1="150" y1="-5" x2="150" y2="5"/>
+        <line x1="0" y1="-5" x2="0" y2="5"/><line x1="95" y1="-4" x2="95" y2="4"/>
+        <line x1="190" y1="-5" x2="190" y2="5"/>
       </g>
-      <rect x="0" y="-4" width="50" height="8" fill="#5f6b74"/>
-      <rect x="100" y="-4" width="50" height="8" fill="#5f6b74"/>
-      <text class="t-small" x="75" y="22" text-anchor="middle">徒歩およそ二刻</text>
+      <rect x="0" y="-4" width="95" height="8" fill="#5f6b74"/>
+      <text class="t-small" x="95" y="22" text-anchor="middle">徒歩およそ半日</text>
     </g>
   </svg>
   </div>
 
   <div class="cap">
     <h2>グラザ周辺図</h2>
-    <p>中央回廊の中立地帯グラザと、その周辺。北に魔の吹き溜まりの洞窟、北東に徒歩二刻のベルク村、
-       街道の南西にタネル村。市街は南北の大通りを軸に、東通りの住宅街と南区画の闇の顔を持つ。</p>
+    <p>中央回廊のほぼ中心に位置する中立の交易町グラザ。北門から北の街道が延び、街道の東に北の森が広がる。
+       森の名は本文未登場（「魔狼の森」「決意の森」は章題での呼び名）。小川・滝の固有名も未登場。</p>
   </div>
 
-  <div class="legend">
-    <div class="li"><span class="sw" style="background:#faf6ec;border-color:#8a7f6b"></span>市街・城壁</div>
-    <div class="li"><span class="sw" style="background:#e6eee2"></span>森林</div>
-    <div class="li"><span class="sw" style="background:#efe6f2"></span>魔の吹き溜まり</div>
-    <div class="li"><span class="sw" style="background:#e9e2e5"></span>南区画</div>
-    <div class="li"><span class="sw" style="background:#efeae0"></span>山地</div>
-    <div class="li"><span class="sw" style="background:repeating-linear-gradient(90deg,#a2907a 0 6px,transparent 6px 11px)"></span>街道</div>
+  <div class="gaz">
+    <div class="gi"><span class="no">1</span><span><b>滝壺と秘密基地</b> ─ 高さ三メートルの滝。裏の洞窟が最初の秘密基地。フィルと出会った水場。グラザから徒歩半日（第4・5話）</span></div>
+    <div class="gi"><span class="no">2</span><span><b>二人の拠点（森の家）</b> ─ 石積みの平屋。蔦の壁に囲まれ、知らなければ見つからない。滝から北へ一時間強（第9・10・18話）</span></div>
+    <div class="gi"><span class="no">3</span><span><b>廃墟の魔族集落</b> ─ 人間に焼かれた集落跡。銀の大樹（魂送りの木）が立つ（第9・33話）</span></div>
+    <div class="gi"><span class="no">4</span><span><b>魔狼の巣の窪地</b> ─ すり鉢状で崖と岩場に囲まれる。巣穴の最奥に魔の吹き溜まり＝地脈の裂け目（第38・39話）</span></div>
+    <div class="gi"><span class="no">5</span><span><b>タネル村</b> ─ 街道沿いの小村。オルガの行商路の中継地（第24話）</span></div>
+    <div class="gi"><span class="no">6</span><span><b>ベルク村</b> ─ 街道を外れた小道の先。低い丘に囲まれた盆地に十数軒。日帰り圏（第34話）</span></div>
+    <div class="gi"><span class="no">7</span><span><b>北の森の入口</b> ─ 魔狼討伐行の野営地。東に森、西に草原。グラザから半日〜一日（第36・40話）</span></div>
+  </div>
+
+  <div class="todo">
+    <b>本文の距離：</b>グラザ⇄滝壺 徒歩半日／北の森の入口まで半日〜一日／ベルク村は朝発ち双昼前着／
+    東はエルセン経由ガルド連峰まで行商で往復十日。西方（カルマ・シルヴェーン）への距離は本文に記述なし。
+  </div>
+</section>
+
+<!-- ══════════════════ ④ グラザ市街図 ══════════════════ -->
+<section class="panel" id="p-city">
+  <div class="frame">
+  <svg class="map" viewBox="0 0 900 1250" xmlns="http://www.w3.org/2000/svg">
+    <rect width="900" height="1250" fill="#f7f3e9"/>
+
+    <!-- 外周塀 -->
+    <rect x="170" y="150" width="560" height="980" rx="26" fill="#faf6ec" stroke="#8a7f6b" stroke-width="4"/>
+    <rect x="180" y="160" width="540" height="960" rx="20" fill="none" stroke="#c1b49a" stroke-width="1.4"/>
+    <text class="t-small" x="740" y="176" opacity=".8">茶色いレンガの外周塀</text>
+
+    <!-- 区画 -->
+    <g>
+      <rect x="174" y="154" width="552" height="286" rx="22" fill="#f8f2e2" opacity=".8"/>
+      <rect x="174" y="440" width="552" height="420" fill="#f4eeda" opacity=".8"/>
+      <path d="M174 860 h552 v244 a26 26 0 0 1 -26 26 h-500 a26 26 0 0 1 -26 -26 Z" fill="#eae2e4" opacity=".9"/>
+      <g stroke="#a09680" stroke-width="1.2" stroke-dasharray="6 4" opacity=".7">
+        <line x1="174" y1="440" x2="726" y2="440"/>
+        <line x1="174" y1="860" x2="726" y2="860"/>
+      </g>
+    </g>
+    <text class="t-small" x="742" y="300" fill="#7d715a">北区画</text>
+    <text class="t-small" x="742" y="318" opacity=".8">商人・旅人・住宅</text>
+    <text class="t-small" x="742" y="640" fill="#7d715a">中央区画</text>
+    <text class="t-small" x="742" y="658" opacity=".8">ギルド・商業・役所</text>
+    <text class="t-small" x="742" y="990" fill="#6f5f68">南区画</text>
+    <text class="t-small" x="742" y="1008" fill="#6f5f68" opacity=".9">「影の地区」</text>
+
+    <!-- 町の生地（一般家屋・小路） -->
+    <g id="fabric">
+      <g stroke="#ddd2b8" stroke-width="7" stroke-linecap="round" opacity=".85">
+        <line x1="186" y1="308" x2="437" y2="308"/>
+        <line x1="465" y1="308" x2="714" y2="308"/>
+        <line x1="350" y1="166" x2="350" y2="436"/>
+        <line x1="580" y1="166" x2="580" y2="436"/>
+        <line x1="186" y1="560" x2="286" y2="560"/>
+        <line x1="309" y1="560" x2="437" y2="560"/>
+        <line x1="186" y1="756" x2="286" y2="756"/>
+        <line x1="380" y1="483" x2="380" y2="700"/>
+        <line x1="646" y1="562" x2="646" y2="690"/>
+        <line x1="628" y1="756" x2="714" y2="756"/>
+      </g>
+      <g opacity=".62">
+        <rect x="245.2" y="190.4" width="11.5" height="11.9" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="268.1" y="198.3" width="16.3" height="9.8" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="545.4" y="198.5" width="15.6" height="10.9" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="594.5" y="191.8" width="11.0" height="8.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="641.2" y="193.5" width="14.8" height="9.3" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="238.5" y="218.7" width="12.9" height="9.1" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="267.4" y="222.4" width="11.0" height="11.2" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="296.9" y="218.0" width="15.4" height="9.0" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="318.1" y="220.4" width="15.6" height="11.1" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="416.0" y="223.4" width="11.1" height="13.4" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="538.8" y="225.0" width="13.3" height="12.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="594.6" y="218.0" width="12.1" height="9.7" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="671.2" y="215.6" width="11.8" height="13.3" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="687.7" y="216.2" width="16.1" height="12.6" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="293.9" y="241.9" width="14.9" height="9.6" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="514.5" y="249.8" width="16.3" height="13.4" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="620.3" y="241.9" width="12.6" height="11.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="644.5" y="242.4" width="11.2" height="12.5" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="667.7" y="245.5" width="16.4" height="9.4" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="265.1" y="269.6" width="13.8" height="13.3" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="293.6" y="272.0" width="10.3" height="11.2" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="318.1" y="266.9" width="13.4" height="13.4" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="416.1" y="269.0" width="16.2" height="12.5" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="467.9" y="266.3" width="10.5" height="9.9" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="518.4" y="272.2" width="14.4" height="10.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="544.9" y="270.6" width="15.5" height="10.0" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="620.4" y="268.4" width="15.9" height="9.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="638.4" y="271.0" width="13.4" height="8.3" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="665.2" y="269.3" width="12.9" height="8.6" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="412.9" y="292.4" width="15.0" height="8.2" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="519.8" y="293.2" width="10.5" height="8.6" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="591.9" y="291.1" width="12.9" height="11.8" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="240.6" y="321.5" width="12.2" height="12.7" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="272.0" y="322.0" width="13.1" height="8.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="287.1" y="322.9" width="13.8" height="11.1" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="413.5" y="324.2" width="16.5" height="10.5" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="465.0" y="321.9" width="16.0" height="9.5" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="490.8" y="320.1" width="14.1" height="9.8" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="512.1" y="318.0" width="15.5" height="10.3" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="589.7" y="324.7" width="16.6" height="9.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="621.5" y="316.4" width="14.3" height="13.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="689.5" y="320.7" width="13.7" height="10.7" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="237.9" y="349.4" width="10.4" height="8.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="292.8" y="347.8" width="11.3" height="11.4" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="314.8" y="349.0" width="11.5" height="8.7" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="487.1" y="342.8" width="11.7" height="11.4" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="544.7" y="345.3" width="10.6" height="8.6" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="594.4" y="347.3" width="17.0" height="13.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="616.9" y="346.2" width="10.5" height="12.9" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="665.4" y="346.4" width="13.4" height="11.9" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="693.4" y="349.7" width="13.9" height="11.8" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="219.0" y="367.1" width="13.5" height="12.1" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="268.8" y="372.5" width="16.2" height="9.1" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="318.1" y="373.7" width="13.6" height="8.7" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="392.7" y="374.2" width="14.3" height="10.1" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="418.2" y="369.2" width="10.5" height="8.9" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="492.1" y="367.1" width="12.1" height="8.8" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="516.3" y="367.1" width="16.3" height="8.3" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="619.5" y="367.3" width="12.5" height="12.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="644.9" y="368.8" width="10.8" height="8.7" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="692.2" y="370.8" width="16.9" height="11.3" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="221.3" y="390.5" width="11.6" height="10.4" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="295.6" y="393.4" width="13.5" height="9.8" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="418.0" y="390.4" width="16.0" height="13.2" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="471.5" y="390.7" width="12.9" height="11.8" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="496.8" y="391.6" width="13.6" height="12.7" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="541.0" y="394.3" width="12.2" height="8.0" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="613.1" y="399.6" width="13.1" height="12.8" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="646.1" y="391.4" width="15.9" height="9.3" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="666.2" y="398.4" width="12.4" height="12.2" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="219.7" y="415.2" width="11.6" height="8.8" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="263.2" y="424.1" width="11.5" height="12.6" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="317.9" y="420.0" width="11.5" height="11.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="363.0" y="421.0" width="15.0" height="9.6" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="388.5" y="421.4" width="16.7" height="12.5" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="419.1" y="419.6" width="14.8" height="13.2" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="467.5" y="420.7" width="16.3" height="8.5" fill="#eadfc6" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="542.1" y="423.6" width="13.5" height="11.0" fill="#efe5cc" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="687.6" y="420.1" width="12.1" height="12.7" fill="#e6dbc2" stroke="#c9bda1" stroke-width=".7"/>
+        <rect x="193.2" y="448.4" width="15.9" height="8.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="340.8" y="446.9" width="12.8" height="12.9" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="367.9" y="445.8" width="11.5" height="11.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="420.0" y="448.7" width="11.8" height="14.0" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="466.6" y="445.8" width="16.7" height="10.1" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="243.9" y="470.4" width="15.5" height="13.4" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="337.1" y="478.0" width="15.5" height="13.0" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="418.1" y="468.8" width="11.5" height="11.4" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="217.5" y="495.9" width="12.2" height="12.2" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="320.8" y="500.4" width="14.3" height="11.8" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="337.4" y="501.4" width="16.8" height="10.2" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="393.0" y="500.9" width="11.6" height="11.9" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="416.1" y="496.5" width="14.0" height="14.3" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="495.0" y="499.0" width="16.3" height="14.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="540.4" y="493.9" width="15.6" height="10.4" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="196.0" y="519.2" width="15.5" height="9.1" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="219.8" y="525.8" width="17.8" height="10.1" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="321.8" y="526.6" width="13.1" height="12.2" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="345.6" y="520.2" width="12.7" height="12.0" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="413.6" y="522.3" width="13.1" height="8.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="516.8" y="524.2" width="14.9" height="11.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="587.3" y="525.4" width="16.5" height="13.8" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="617.0" y="520.5" width="12.8" height="11.0" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="517.7" y="547.4" width="12.6" height="10.3" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="191.5" y="569.2" width="12.1" height="14.2" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="244.4" y="572.3" width="11.9" height="12.8" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="264.7" y="572.1" width="12.3" height="9.0" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="343.6" y="570.5" width="15.3" height="13.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="388.4" y="571.7" width="16.6" height="10.9" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="416.0" y="574.1" width="14.9" height="11.7" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="469.8" y="576.4" width="15.6" height="9.9" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="494.9" y="574.7" width="11.8" height="11.1" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="512.1" y="573.2" width="16.6" height="10.9" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="621.5" y="572.4" width="12.0" height="9.9" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="195.1" y="602.5" width="16.6" height="11.5" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="214.5" y="602.1" width="16.7" height="10.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="241.7" y="594.5" width="15.8" height="12.8" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="269.2" y="595.2" width="10.1" height="8.2" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="320.7" y="597.6" width="10.1" height="11.8" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="393.3" y="595.5" width="10.5" height="10.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="419.9" y="593.0" width="14.1" height="9.8" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="592.7" y="595.3" width="16.6" height="11.7" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="666.2" y="599.7" width="11.2" height="11.2" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="688.8" y="595.4" width="18.0" height="9.8" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="212.7" y="621.4" width="14.3" height="13.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="238.7" y="622.3" width="17.4" height="8.3" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="268.6" y="628.0" width="11.9" height="10.7" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="671.1" y="624.4" width="16.7" height="13.9" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="690.4" y="627.2" width="12.7" height="14.3" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="244.3" y="649.0" width="15.1" height="10.8" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="270.6" y="648.0" width="14.6" height="11.8" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="345.9" y="676.1" width="10.6" height="14.3" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="412.7" y="672.0" width="12.5" height="13.4" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="312.3" y="695.0" width="12.8" height="11.1" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="346.2" y="695.0" width="14.2" height="12.3" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="493.0" y="725.3" width="17.8" height="10.5" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="620.2" y="723.6" width="10.3" height="12.7" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="643.2" y="720.4" width="13.5" height="10.3" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="345.0" y="752.6" width="10.8" height="10.0" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="366.0" y="745.8" width="16.7" height="13.6" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="396.8" y="743.8" width="13.2" height="9.7" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="412.3" y="746.0" width="11.7" height="13.3" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="245.4" y="776.8" width="11.7" height="11.6" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="339.2" y="769.2" width="13.6" height="13.1" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="421.1" y="776.8" width="10.8" height="9.0" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="637.0" y="774.9" width="15.7" height="9.8" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="669.8" y="770.8" width="14.8" height="8.9" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="240.8" y="795.9" width="14.1" height="11.1" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="341.4" y="796.2" width="10.1" height="12.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="395.0" y="795.9" width="16.3" height="11.9" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="412.6" y="801.1" width="15.6" height="12.2" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="644.2" y="796.0" width="15.9" height="8.3" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="688.4" y="794.4" width="10.0" height="13.1" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="190.6" y="824.2" width="17.3" height="12.5" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="212.5" y="820.2" width="16.9" height="11.4" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="367.6" y="823.8" width="11.4" height="9.2" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="689.4" y="827.2" width="15.4" height="14.1" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="589.0" y="846.8" width="14.6" height="10.5" fill="#e8dfc9" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="643.7" y="848.1" width="13.2" height="8.9" fill="#ece2cb" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="663.7" y="846.7" width="17.5" height="10.7" fill="#e4dac2" stroke="#c6b99d" stroke-width=".7"/>
+        <rect x="190.9" y="870.1" width="9.8" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="216.2" y="868.8" width="12.7" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="238.4" y="869.6" width="10.4" height="8.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="253.0" y="871.3" width="12.8" height="6.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="322.2" y="863.5" width="8.9" height="8.7" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="343.6" y="872.5" width="9.0" height="7.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="404.8" y="869.8" width="9.7" height="7.6" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="612.1" y="864.8" width="10.7" height="7.9" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="631.8" y="863.2" width="8.9" height="9.9" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="651.1" y="871.2" width="12.9" height="9.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="677.2" y="864.0" width="11.1" height="6.5" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="691.6" y="866.3" width="9.2" height="8.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="255.7" y="890.3" width="9.4" height="8.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="317.8" y="885.9" width="8.6" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="341.3" y="893.3" width="9.6" height="6.4" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="358.6" y="889.3" width="12.8" height="8.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="378.3" y="892.8" width="11.4" height="8.1" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="616.2" y="893.6" width="9.3" height="7.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="649.2" y="890.7" width="11.3" height="9.8" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="674.0" y="890.9" width="8.5" height="7.4" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="693.7" y="892.8" width="9.7" height="10.0" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="190.6" y="905.5" width="12.9" height="9.4" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="215.6" y="905.1" width="12.4" height="8.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="251.7" y="905.5" width="8.8" height="7.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="342.9" y="905.6" width="10.7" height="9.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="362.3" y="909.2" width="9.1" height="8.1" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="384.8" y="911.2" width="10.8" height="8.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="406.5" y="911.8" width="11.8" height="9.9" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="631.2" y="914.4" width="11.8" height="9.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="653.2" y="912.2" width="11.6" height="9.2" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="675.4" y="907.7" width="10.6" height="8.1" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="195.7" y="933.1" width="12.8" height="7.7" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="210.9" y="930.5" width="9.2" height="10.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="256.6" y="926.5" width="9.6" height="7.5" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="673.7" y="934.9" width="12.6" height="8.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="208.0" y="951.5" width="10.4" height="9.9" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="255.2" y="950.3" width="10.6" height="7.9" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="615.0" y="947.4" width="12.1" height="9.2" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="636.0" y="954.9" width="9.9" height="9.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="654.5" y="955.9" width="10.0" height="9.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="670.1" y="951.5" width="9.2" height="9.2" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="692.4" y="955.2" width="8.7" height="9.0" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="257.8" y="973.4" width="13.0" height="6.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="278.5" y="970.5" width="10.1" height="8.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="300.4" y="970.6" width="8.9" height="8.9" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="320.3" y="977.4" width="11.1" height="7.9" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="342.0" y="973.2" width="12.0" height="7.7" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="362.0" y="970.7" width="11.9" height="6.8" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="380.7" y="974.6" width="10.1" height="7.8" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="401.9" y="974.9" width="10.1" height="6.4" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="488.7" y="970.7" width="10.5" height="6.5" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="504.0" y="970.6" width="10.7" height="8.8" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="531.4" y="973.6" width="10.7" height="10.4" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="546.9" y="970.1" width="8.0" height="9.9" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="569.4" y="972.0" width="8.0" height="8.4" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="593.1" y="971.2" width="11.5" height="6.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="698.6" y="975.1" width="8.4" height="8.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="194.1" y="990.8" width="10.1" height="8.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="213.4" y="994.7" width="8.7" height="8.1" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="256.0" y="992.4" width="10.7" height="9.2" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="275.6" y="998.6" width="12.7" height="7.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="294.4" y="997.4" width="12.2" height="8.8" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="364.1" y="991.3" width="12.7" height="8.3" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="378.7" y="993.4" width="10.7" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="425.1" y="991.8" width="11.0" height="7.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="588.6" y="989.9" width="11.5" height="8.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="630.5" y="996.2" width="12.9" height="9.7" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="657.4" y="989.5" width="10.7" height="7.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="679.3" y="998.9" width="11.6" height="8.9" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="695.5" y="993.2" width="10.0" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="212.4" y="1014.0" width="8.0" height="7.9" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="238.2" y="1010.1" width="8.9" height="10.2" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="260.0" y="1017.5" width="9.1" height="10.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="273.2" y="1016.6" width="10.1" height="7.6" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="357.4" y="1017.0" width="13.0" height="8.3" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="402.7" y="1018.0" width="12.2" height="7.8" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="481.4" y="1010.6" width="8.3" height="8.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="673.5" y="1016.8" width="12.6" height="9.1" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="695.4" y="1011.1" width="9.7" height="9.2" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="196.0" y="1035.3" width="8.7" height="6.7" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="211.2" y="1035.2" width="10.2" height="8.4" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="231.1" y="1034.2" width="10.3" height="8.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="257.3" y="1036.9" width="11.9" height="7.6" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="280.5" y="1033.4" width="9.9" height="9.1" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="300.3" y="1039.0" width="10.0" height="8.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="360.6" y="1035.9" width="9.3" height="8.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="382.0" y="1036.5" width="8.3" height="7.0" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="404.8" y="1034.8" width="12.7" height="7.4" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="418.8" y="1036.3" width="10.0" height="7.3" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="466.2" y="1035.1" width="12.6" height="9.1" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="595.2" y="1040.9" width="9.0" height="10.1" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="610.8" y="1033.5" width="12.1" height="6.9" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="632.3" y="1033.6" width="8.9" height="9.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="190.3" y="1053.1" width="10.2" height="9.1" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="214.1" y="1052.0" width="11.9" height="10.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="256.6" y="1052.9" width="11.1" height="8.7" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="293.9" y="1057.3" width="12.6" height="7.7" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="359.2" y="1056.3" width="9.0" height="9.4" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="380.4" y="1052.5" width="12.4" height="7.2" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="523.2" y="1057.7" width="8.2" height="7.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="544.5" y="1052.4" width="8.9" height="10.1" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="565.1" y="1061.3" width="11.0" height="9.7" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="593.5" y="1059.4" width="11.4" height="6.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="633.2" y="1052.1" width="9.3" height="9.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="652.5" y="1058.6" width="8.3" height="6.5" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="673.9" y="1054.5" width="9.5" height="10.1" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="233.2" y="1079.2" width="10.9" height="7.3" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="257.7" y="1074.2" width="12.0" height="8.0" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="276.5" y="1075.0" width="12.2" height="6.7" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="296.6" y="1074.0" width="12.2" height="6.6" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="318.1" y="1074.6" width="9.6" height="7.5" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="336.0" y="1079.7" width="11.1" height="10.0" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="361.5" y="1081.1" width="12.0" height="9.1" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="593.2" y="1075.3" width="10.9" height="6.6" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="652.0" y="1077.3" width="9.7" height="9.2" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="231.1" y="1097.8" width="8.3" height="7.4" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="253.6" y="1096.5" width="9.3" height="8.5" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="297.9" y="1094.6" width="12.9" height="9.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="313.7" y="1098.3" width="11.1" height="8.6" fill="#d6c8cc" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="337.6" y="1100.5" width="9.5" height="8.3" fill="#e0d4d6" stroke="#ab9aa0" stroke-width=".7"/>
+        <rect x="649.8" y="1096.3" width="12.9" height="6.4" fill="#dccfd2" stroke="#ab9aa0" stroke-width=".7"/>
+      </g>
+      <g>
+        <circle cx="286.6" cy="206.5" r="2.6" fill="#a8b98e" opacity=".55"/>
+        <circle cx="557.2" cy="189.0" r="2.6" fill="#a8b98e" opacity=".55"/>
+        <circle cx="502.1" cy="332.5" r="3.1" fill="#a8b98e" opacity=".55"/>
+        <circle cx="507.9" cy="196.5" r="4.3" fill="#a8b98e" opacity=".55"/>
+        <circle cx="335.2" cy="373.3" r="3.3" fill="#a8b98e" opacity=".55"/>
+        <circle cx="534.9" cy="408.5" r="2.6" fill="#a8b98e" opacity=".55"/>
+        <circle cx="558.9" cy="248.4" r="3.9" fill="#a8b98e" opacity=".55"/>
+        <circle cx="669.4" cy="328.9" r="4.3" fill="#a8b98e" opacity=".55"/>
+        <circle cx="545.4" cy="205.5" r="2.5" fill="#a8b98e" opacity=".55"/>
+      </g>
+    </g>
+    <!-- 大通り -->
+    <rect x="443" y="150" width="16" height="980" fill="#cbbfa6"/>
+    <rect x="443" y="150" width="16" height="980" fill="none" stroke="#b3a586" stroke-width=".8"/>
+    <text class="t-small" x="430" y="256" text-anchor="end">大通り（石畳）</text>
+
+    <!-- 門 -->
+    <g fill="#6d6047">
+      <rect x="433" y="140" width="36" height="14"/>
+      <rect x="433" y="1126" width="36" height="14"/>
+    </g>
+    <text class="t-city" x="451" y="126" text-anchor="middle">北門</text>
+    <text class="t-city" x="451" y="1164" text-anchor="middle">南門</text>
+
+    <!-- ② オルガ商会倉庫（北門外） -->
+    <rect x="506" y="85" width="36" height="22" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.5"/>
+    <circle cx="556" cy="96" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="556" y="100" text-anchor="middle">2</text>
+
+    <!-- ① 赤角亭 -->
+    <rect x="390" y="186" width="28" height="20" fill="#e8dcc4" stroke="#8a7f6b" stroke-width="1.5"/>
+    <path d="M398 186 l4 -6 4 6 M406 186 l4 -6 4 6" stroke="#a8503f" stroke-width="1.4" fill="none"/>
+    <circle cx="374" cy="196" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="374" y="200" text-anchor="middle">1</text>
+
+    <!-- 東通り -->
+    <rect x="459" y="464" width="240" height="13" fill="#d9cdb2"/>
+    <rect x="692" y="464" width="13" height="92" fill="#d9cdb2"/>
+    <text class="t-small" x="560" y="456" text-anchor="middle">東通り（土の道）</text>
+
+    <!-- ③ エリザのパン屋 -->
+    <rect x="463" y="480" width="18" height="15" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.4"/>
+    <circle cx="472" cy="512" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="472" y="516" text-anchor="middle">3</text>
+
+    <!-- ④ 雑貨屋 -->
+    <rect x="574" y="480" width="16" height="14" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.3"/>
+    <circle cx="582" cy="511" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="582" y="515" text-anchor="middle">4</text>
+
+    <!-- ⑤ グロムの鍛冶屋 -->
+    <rect x="644" y="444" width="20" height="17" fill="#e3d8c2" stroke="#6d6047" stroke-width="1.5"/>
+    <path d="M654 444 v-8 h5 v8" stroke="#6d6047" stroke-width="1.3" fill="none"/>
+    <circle cx="632" cy="438" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="632" y="442" text-anchor="middle">5</text>
+
+    <!-- ⑥ トマス家 ⑦ 借家 -->
+    <g transform="translate(676,514)">
+      <rect x="-9" y="-8" width="18" height="16" fill="#e7e3da" stroke="#4f4941" stroke-width="1.6"/>
+      <path d="M0 -8 v-10 M-5 -14 h10 M3 -18 l5 3 -5 3" stroke="#4f4941" stroke-width="1.2" fill="none"/>
+    </g>
+    <circle cx="652" cy="510" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="652" y="514" text-anchor="middle">6</text>
+    <rect x="667" y="536" width="18" height="15" fill="#faf6ec" stroke="#9a7b32" stroke-width="1.8"/>
+    <circle cx="652" cy="544" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="652" y="548" text-anchor="middle">7</text>
+
+    <!-- 市場 -->
+    <rect x="472" y="614" width="150" height="102" fill="#efe5cb" stroke="#a2907a" stroke-width="1.4" stroke-dasharray="5 3"/>
+    <g fill="#b9ab90">
+      <rect x="484" y="628" width="9" height="7"/><rect x="504" y="640" width="9" height="7"/>
+      <rect x="528" y="626" width="9" height="7"/><rect x="552" y="642" width="9" height="7"/>
+      <rect x="576" y="628" width="9" height="7"/><rect x="596" y="646" width="9" height="7"/>
+      <rect x="490" y="668" width="9" height="7"/><rect x="516" y="682" width="9" height="7"/>
+      <rect x="544" y="670" width="9" height="7"/><rect x="572" y="686" width="9" height="7"/>
+      <rect x="596" y="672" width="9" height="7"/>
+    </g>
+    <text class="t-city" x="547" y="604" text-anchor="middle">市場</text>
+
+    <!-- ⑪ ハンナの薬草店 -->
+    <rect x="630" y="692" width="17" height="15" fill="#e2ead8" stroke="#7f9a7a" stroke-width="1.5"/>
+    <circle cx="662" cy="700" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="662" y="704" text-anchor="middle">11</text>
+
+    <!-- ⑧ 宿 -->
+    <rect x="408" y="700" width="20" height="17" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.4"/>
+    <circle cx="394" cy="708" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="394" y="712" text-anchor="middle">8</text>
+
+    <!-- ⑨ 冒険者ギルド＋訓練場 -->
+    <rect x="462" y="762" width="92" height="66" fill="#e6e2d8" stroke="#57646f" stroke-width="2"/>
+    <circle cx="484" cy="779" r="7.5" fill="none" stroke="#57646f" stroke-width="1.2"/>
+    <path d="M480 774 l8 10 m0 -10 l-8 10" stroke="#57646f" stroke-width="1.6"/>
+    <text class="t-city" x="508" y="750" text-anchor="middle">冒険者ギルド</text>
+    <circle cx="448" cy="772" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="448" y="776" text-anchor="middle">9</text>
+    <rect x="564" y="766" width="58" height="58" fill="#f0e9d3" stroke="#a2907a" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <text class="t-note" x="593" y="798" text-anchor="middle" font-size="9">訓練場</text>
+
+    <!-- 広場 -->
+    <ellipse cx="505" cy="878" rx="72" ry="34" fill="#f1ead6" stroke="#c1b49a" stroke-width="1.2"/>
+    <text class="t-city" x="505" y="884" text-anchor="middle">広場</text>
+
+    <!-- ⑩ 湯屋 -->
+    <rect x="376" y="846" width="20" height="17" fill="#e8e2d4" stroke="#8a7f6b" stroke-width="1.4"/>
+    <path d="M380 846 c0 -5 4 -5 4 -9 m6 9 c0 -5 4 -5 4 -9" stroke="#9dbcd0" stroke-width="1.2" fill="none"/>
+    <circle cx="362" cy="854" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="362" y="858" text-anchor="middle">10</text>
+
+    <!-- 西通り ⑫ 長屋 -->
+    <rect x="292" y="480" width="11" height="460" fill="#d9cdb2" opacity=".9"/>
+    <text class="t-small" x="297" y="470" text-anchor="middle">西通り</text>
+    <rect x="266" y="682" width="22" height="30" fill="#efe6d2" stroke="#8a7f6b" stroke-width="1.4"/>
+    <circle cx="252" cy="694" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="252" y="698" text-anchor="middle">12</text>
+
+    <!-- 南通り ⑬ 樽亭 -->
+    <rect x="303" y="940" width="297" height="11" fill="#d9cdb2" opacity=".9"/>
+    <text class="t-small" x="318" y="934">南通り</text>
+    <rect x="556" y="920" width="18" height="16" fill="#e8dcc4" stroke="#8a7f6b" stroke-width="1.4"/>
+    <circle cx="588" cy="928" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="588" y="932" text-anchor="middle">13</text>
+
+    <!-- 南区画の路地 -->
+    <g stroke="#b8a8ac" stroke-width="2.2" fill="none" opacity=".8">
+      <path d="M459 986 h60 v30 h44 M459 1030 h36 v40 h52 M395 986 v44 h-52 M443 1064 h-60 v34
+               M519 1064 v40 h48 M355 1064 v40 h50 M567 986 v36 h44"/>
+    </g>
+
+    <!-- ⑭ ガドラ商会 -->
+    <rect x="520" y="1010" width="26" height="20" fill="#ded3c2" stroke="#4f4941" stroke-width="1.8"/>
+    <circle cx="560" cy="1020" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="560" y="1024" text-anchor="middle">14</text>
+
+    <!-- ⑮ 博打場・安宿 -->
+    <rect x="322" y="994" width="22" height="18" fill="#e4dbd2" stroke="#6d6047" stroke-width="1.4"/>
+    <rect x="322" y="1036" width="22" height="28" fill="#e4dbd2" stroke="#6d6047" stroke-width="1.4"/>
+    <circle cx="308" cy="1022" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="308" y="1026" text-anchor="middle">15</text>
+
+    <!-- ⑯ パメラ診療所 -->
+    <rect x="416" y="1088" width="18" height="15" fill="#e9e0d6" stroke="#8a7f6b" stroke-width="1.3"/>
+    <circle cx="402" cy="1096" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="402" y="1100" text-anchor="middle">16</text>
+
+    <!-- ⑰ 闇市場 -->
+    <g fill="#8f7e88" opacity=".7">
+      <rect x="560" y="1096" width="8" height="6"/><rect x="576" y="1102" width="8" height="6"/>
+      <rect x="594" y="1094" width="8" height="6"/>
+    </g>
+    <circle cx="546" cy="1100" r="10.5" fill="#fdfcf8" stroke="#9a7b32" stroke-width="1.5"/>
+    <text class="bnum" x="546" y="1104" text-anchor="middle">17</text>
+
+    <!-- タイトル -->
+    <g transform="translate(30,60)">
+      <rect x="0" y="0" width="240" height="72" fill="#fdfcf8" fill-opacity=".94" stroke="#c9bfa8" stroke-width="1"/>
+      <rect x="5" y="5" width="230" height="62" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <text class="t-region-s" x="120" y="30" text-anchor="middle" font-size="17" fill="#3d4a58">グラザ市街図</text>
+      <text class="t-note" x="120" y="54" text-anchor="middle">MAOU ZUKAN</text>
+    </g>
+
+    <!-- 方位 -->
+    <g transform="translate(830,84)">
+      <circle r="36" fill="#fdfcf8" fill-opacity=".92" stroke="#c9bfa8" stroke-width="1"/>
+      <circle r="28" fill="none" stroke="#e0d8c6" stroke-width="1"/>
+      <path d="M0 -30 L6 0 L0 30 L-6 0 Z" fill="#9a7b32"/>
+      <path d="M-30 0 L0 -5 L30 0 L0 5 Z" fill="#cdbb96"/>
+      <path d="M0 -30 L6 0 L0 0 Z" fill="#6d5622"/>
+      <text class="t-small" x="0" y="-42" text-anchor="middle" font-size="11">北</text>
+    </g>
+
+    <!-- 距離注記 -->
+    <text class="t-small" x="30" y="1200">借家 ⇄ ギルドは大通り経由で徒歩約半刻。借家 ⇄ 北門も約半刻（第32話）。入町税は一人銅貨二枚。</text>
+  </svg>
+  </div>
+
+  <div class="cap">
+    <h2>グラザ市街図</h2>
+    <p>北門と南門を南北の大通り（石畳）が貫く。北は商人・旅人・住宅、中央はギルドと商業・役所、
+       南はアルセイド王国の色が濃い「影の地区」で、道は狭く路地が迷路のように分岐する。
+       人口約三千（旅人込み四千超）・創設約百三十年・領主のいない中立地帯。
+       唯一の掟は「逃げてきた者を追い返さない」。門は北門・南門の二つのみ。</p>
+  </div>
+
+  <div class="gaz">
+    <div class="gh">北区画・北門周辺</div>
+    <div class="gi"><span class="no">1</span><span><b>赤角亭</b> ─ 北門手前の酒場宿。木造二階、赤い鹿角の看板（第33話）</span></div>
+    <div class="gi"><span class="no">2</span><span><b>オルガ商会の倉庫兼店舗</b> ─ 北門を出て少し（第31話）</span></div>
+    <div class="gh">東通り</div>
+    <div class="gi"><span class="no">3</span><span><b>エリザのパン屋</b> ─ 東通りの角。煙突の白い煙が目印（第32・34話）</span></div>
+    <div class="gi"><span class="no">4</span><span><b>雑貨屋</b> ─ 東通りの途中（第47話）</span></div>
+    <div class="gi"><span class="no">5</span><span><b>グロムの鍛冶屋</b> ─ この通りで三十年。武具も革も扱う（第32話）</span></div>
+    <div class="gi"><span class="no">6</span><span><b>トマス家</b> ─ 二階建て石造り、鉄の風見鶏が目印（第31話）</span></div>
+    <div class="gi"><span class="no">7</span><span><b>アクロスとリーネの借家</b> ─ トマス家の隣。東通り突き当たりを右折した先。裏庭に井戸（第31・32話）</span></div>
+    <div class="gh">中央区画</div>
+    <div class="gi"><span class="no">8</span><span><b>宿</b> ─ 最初に泊まった宿。一泊銀貨一枚・大通りから一本脇の路地（第25・26話）</span></div>
+    <div class="gi"><span class="no">9</span><span><b>冒険者ギルド</b> ─ 広場の手前の石造り二階建て。奥に酒場食堂、裏手に砂敷きの訓練場（第26・30話）</span></div>
+    <div class="gi"><span class="no">10</span><span><b>湯屋</b> ─ 路地の奥、石段を三つ降りる。一人銅貨三枚<span class="est">〔位置は推定〕</span>（第26・41話）</span></div>
+    <div class="gi"><span class="no">11</span><span><b>ハンナの薬草店</b> ─ 市場の外れ。開業五年（第28話）</span></div>
+    <div class="gh">西・南</div>
+    <div class="gi"><span class="no">12</span><span><b>長屋</b> ─ マルコの住まい。「安いけど広い」<span class="est">〔位置は推定〕</span>（第40話）</span></div>
+    <div class="gi"><span class="no">13</span><span><b>樽亭</b> ─ 南通りの酒場<span class="est">〔位置は推定〕</span>（第40話）</span></div>
+    <div class="gh">南区画</div>
+    <div class="gi"><span class="no">14</span><span><b>ガドラ商会</b> ─ 中央通りから一本奥の路地。表は薬草店、扉前に用心棒（断章一話）</span></div>
+    <div class="gi"><span class="no">15</span><span><b>安宿と博打場</b> ─ 南区画の西側。ドルクの部屋は安宿四階の端（断章一話）</span></div>
+    <div class="gi"><span class="no">16</span><span><b>パメラの診療所</b> ─ 路地を三度折れた先、看板のない木戸（断章四話）</span></div>
+    <div class="gi"><span class="no">17</span><span><b>闇市場</b> ─ 南区画の奥（第28話）</span></div>
+  </div>
+
+  <div class="todo">
+    <b>推定配置：</b>西通り・南通り・湯屋・宿・長屋・樽亭は「ある」ことのみ本文に明示で、正確な位置は推定。
+    区画の境界も本文では「自然発生的」とされ明示なし。南門周辺の施設描写はなし。
   </div>
 </section>
 
