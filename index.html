@@ -366,6 +366,7 @@ footer{
       <div class="tabs" id="tabs"></div>
       <a href="episodes.html" class="tab" style="text-decoration:none">各話まとめ</a>
       <a href="map.html" class="tab" style="text-decoration:none">世 界 地 図</a>
+      <a href="年表.html" class="tab" style="text-decoration:none">年 表</a>
       <div class="search">
         <span class="ico">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9a7b32" stroke-width="2.2">
@@ -413,6 +414,11 @@ const ZUKAN_DATA = [
 { id:"acros", category:"character", name:"アクロス", kana:"Acros",
   tagline:"人生ひと段落したので、異世界で魔王を始めます",
   tags:["主要","魔族","★4"], img:"char/アクロス_確定",
+  variants:[
+    {label:"魔族の姿", img:"char/アクロス_確定"},
+    {label:"私服１",   img:"char/アクロス人間私服"},
+    {label:"私服２",   img:"char/アクロス人間私服２"},
+    {label:"軽装",     img:"char/アクロス人間軽装"}],
   fields:[
     {label:"前世", value:"佐伯 航（さえき わたる）"},
     {label:"種族",   value:"魔族（転生者）"},
@@ -447,9 +453,11 @@ const ZUKAN_DATA = [
   tagline:"人間に故郷を焼かれた魔族の魔導士",
   tags:["主要","魔族","★3"], img:"char/リーネ初期",
   variants:[
-    {label:"初期の姿",   img:"char/リーネ初期"},
-    {label:"私服",       img:"char/リーネ私服"},
-    {label:"人間形態",   img:"char/リーネ人間"}],
+    {label:"初期の姿",       img:"char/リーネ初期"},
+    {label:"私服",           img:"char/リーネ私服"},
+    {label:"軽装",           img:"char/リーネ軽装"},
+    {label:"人間形態",       img:"char/リーネ人間"},
+    {label:"人間形態・軽装", img:"char/人間リーネ軽装"}],
   fields:[
     {label:"種族", value:"魔族／73歳（人間換算22〜23歳）"},
     {label:"外見", value:"褐色の肌／深紅の瞳／銀白の長髪／額に黒曜石光沢の角2本（先端は暗い紫）"},
@@ -489,7 +497,7 @@ const ZUKAN_DATA = [
   tagline:"揺り籠の縁を編む者", tags:["神格","根源"], img:"char/ファルティシア",
   fields:[
     {label:"正体", value:"枝界を司る根源の女神。七柱神の母"},
-    {label:"外見", value:"磁器のように滑らかな白い肌／夜空を束ねたような藍色の長髪／切れ長の金色の瞳（瞳孔の周囲だけ翠）"},
+    {label:"外見", value:"磁器のように滑らかな白い肌／夜空を束ねたような藍色の長髪／切れ長の金色の瞳（瞳孔の周囲だけ紫）"},
     {label:"装い", value:"銀紗のアシンメトリーの衣／藍色のロングスカート／裸足に細い銀のアンクレット"},
     {label:"役割", value:"世界の境界＝銀紗の天蓋を編み続け、この枝界の存立を守ること"},
     {label:"制約", value:"世界に直接干渉はしない。彼女が動けば全ての均衡が崩れる"}],
@@ -678,7 +686,7 @@ const ZUKAN_DATA = [
 
 /* 第57話 */
 { id:"magnatia", category:"character", name:"マグナティア", kana:"Magnatia",
-  tagline:"旧魔王軍・命の柱直属の女将官", tags:["魔族","魔王軍","将官"], img:"char/マグナティア",
+  tagline:"魔王軍・命の柱直属の女将官", tags:["魔族","魔王軍","将官"], img:"char/マグナティア",
   fields:[
     {label:"外見", value:"腰まで届く濡れ羽色の黒髪／青みがかった白磁の肌／深い紫の瞳（瞳孔の周りに金色の輪）"},
     {label:"角",   value:"額の左右から前方へ緩やかに湾曲した一対。先端は優美に丸く、黒曜石の光沢"},
@@ -689,7 +697,7 @@ const ZUKAN_DATA = [
 
 /* 第57話 */
 { id:"larna", category:"character", name:"ラーナ", kana:"Larna",
-  tagline:"旧魔王軍の偵察兵・魔道士見習い", tags:["魔族","魔王軍"], img:"char/ラーナ",
+  tagline:"魔王軍の偵察兵・魔道士見習い", tags:["魔族","魔王軍"], img:"char/ラーナ",
   fields:[
     {label:"外見年齢", value:"小柄で若い"},
     {label:"外見", value:"栗色の髪／琥珀色の瞳／淡い褐色の肌／額に短い角が二本"},
@@ -700,7 +708,7 @@ const ZUKAN_DATA = [
 
 /* 第57話 */
 { id:"gilliam", category:"character", name:"ギリアム", kana:"Gilliam",
-  tagline:"旧魔王軍の古参兵。槍と盾", tags:["魔族","魔王軍"], img:"char/ギリアム",
+  tagline:"魔王軍の古参兵。槍と盾", tags:["魔族","魔王軍"], img:"char/ギリアム",
   fields:[
     {label:"体格", value:"大柄"},
     {label:"外見", value:"浅黒い肌／灰色の短髪／深い緑の瞳／黒く大きく湾曲し天を衝く二本の角"},
@@ -1075,7 +1083,7 @@ const ZUKAN_DATA = [
     {label:"実例", value:"ギルドの登録料は二人分で銅貨二十枚"},
     {label:"実例", value:"防具一式（二人分）で銀貨二十枚"}],
   overview:"本文中で確認できる換算は銅貨と銀貨の関係まで。金貨より上の単位については、本文で明示されていない。",
-  quote:null, note:"※ 銀貨と金貨の換算比は本文未確認のため記載しない" },
+  quote:null, note:"金貨1枚＝銀貨20枚（第42・44話「金貨四枚と銀貨十枚。銀貨に換算すると九十枚」）" },
 
 { id:"t_star", category:"term", name:"★ランク", kana:"スターランク",
   tagline:"冒険者の実力の目安", tags:["ギルド","第30話"], img:null,

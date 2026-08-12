@@ -362,7 +362,7 @@ const EPISODES = [
  sum:"夜明けはまだ遠い。東の空の端が藍から薄い灰へ変わる頃、顔を洗い飯を食い、一同は森の奥にある魔狼の巣へ向かって進む。",
  keys:["出発","魔狼の巣"]},
 {kind:"main",no:"第57話", seq:68, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602246879744",title:"誰も知らない戦場",turn:true,
- sum:"戦場で旧魔王軍と遭遇。女将官マグナティア、偵察のラーナ、盾のギリアムが、大蟲・岩喰い・黒蜜蟻の群れと戦っていた。鱗鎧に黒の裾絞りの袴という和洋折衷の軍装。誰も、この先を予想できない。",
+ sum:"戦場で魔王軍と遭遇。女将官マグナティア、偵察のラーナ、盾のギリアムが、大蟲・岩喰い・黒蜜蟻の群れと戦っていた。鱗鎧に黒の裾絞りの袴という和洋折衷の軍装。誰も、この先を予想できない。",
  keys:["マグナティア","ラーナ","ギリアム","大蟲","岩喰い","魔王軍"]},
 {kind:"main",no:"第58話", seq:69, url:"https://kakuyomu.jp/works/2912051595460293642/episodes/2912051602432691798",title:"探り合う刃、認め合う刃",turn:true,
  sum:"黒紫の霧が渦を巻く窪地での共闘。「数を減らすぞ！ 味方を巻き込むな！」「礼は後でいい。立て。まだ来るぞ」── 刃を交えながら互いを測り合う。ここからだ、次は言葉を交わそう。",
@@ -483,7 +483,7 @@ function renderTabs(){
   $("#tabs").innerHTML = all.map(a => {
     const n = a.id === "all" ? EPISODES.length : EPISODES.filter(e => e.kind === a.id).length;
     return `<button class="tab${a.id===curArc?" active":""}" data-arc="${a.id}">${a.label}<span class="n">${n}</span></button>`;
-  }).join("") + `<a class="tab" href="index.html">図 鑑</a><a class="tab" href="map.html">世 界 地 図</a>`;
+  }).join("") + `<a class="tab" href="index.html">図 鑑</a><a class="tab" href="map.html">世 界 地 図</a><a class="tab" href="年表.html">年 表</a>`;
   document.querySelectorAll(".tab[data-arc]").forEach(b =>
     b.onclick = () => { curArc = b.dataset.arc; render(); });
 }
